@@ -1,0 +1,30 @@
+parser: babel-eslint
+
+extends:
+  - eslint:recommended
+
+env:
+  browser: true
+  node: true
+  es6: true
+
+rules:
+  semi:
+    - error
+    - never
+  curly:
+    - error
+  no-var:
+    - error
+  comma-dangle:
+    - error
+    - always-multiline
+  quotes:
+    - error
+    - single
+  no-console:
+    - off
+  no-debugger:
+    - off
+  no-unused-vars:
+    - error
