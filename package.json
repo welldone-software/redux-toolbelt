@@ -3,12 +3,14 @@
   "version": "1.0.2",
   "description": "",
   "main": "dist/redux-toolbelt.js",
+  "moudle": "src/index.js",
   "scripts": {
     "not-avail-start": "concurrently --kill-others --prefix \"[{name}]\" --names \"WEBPACK,SERVER\" \"npm run build -- --watch\" \"live-server --no-browser --mount=/dist:./dist src/examples\"",
-    "build": "cross-env NODE_ENV=build webpack --progress --env.build=prod",
+    "build": "cross-env NODE_ENV=build webpack --progress --env.build=production",
     "test:watch": "npm test -- --watch",
     "test": "cross-env NODE_ENV=test ava tests",
     "lint": "eslint src && eslint tests",
+    "lint:fix": "eslint --fix src && eslint --fix tests",
     "prepublish": "npm run build"
   },
   "repository": "git+https://github.com/welldone-software/redux-toolbelt.git",
@@ -32,7 +34,8 @@
     "eslint-loader": "^1.6.1",
     "eslint-plugin-ava": "^4.1.0",
     "live-server": "^1.2.0",
-    "webpack": "^2.2.1"
+    "webpack": "^2.2.1",
+    "webpack-merge": "^2.6.1"
   },
   "peerDependencies": {},
   "dependencies": {

@@ -3,5 +3,5 @@
 .babelrc
 .editorconfig
 .eslintrc.yml
-webpack.config.babel
+webpack.config.babel.js
 yarn.lock
