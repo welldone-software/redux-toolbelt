@@ -1,4 +1,5 @@
-!dist
+*.log
+.idea
 .babelrc
 .editorconfig
 .eslintrc.yml
