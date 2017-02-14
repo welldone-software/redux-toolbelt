@@ -1,0 +1,7 @@
+*.log
+.idea
+.babelrc
+.editorconfig
+.eslintrc.yml
+webpack.config.babel.js
+yarn.lock
