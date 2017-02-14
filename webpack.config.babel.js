@@ -51,7 +51,7 @@ export default (env) => {
         },
         mangle: {
           screw_ie8 : true,
-        }
+        },
       }),
     ],
   }
