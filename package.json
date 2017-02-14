@@ -8,7 +8,8 @@
     "build": "cross-env NODE_ENV=build webpack --progress --env.build=prod",
     "test:watch": "npm test -- --watch",
     "test": "cross-env NODE_ENV=test ava tests",
-    "lint": "eslint src && eslint tests"
+    "lint": "eslint src && eslint tests",
+    "prepublish": "npm run build"
   },
   "repository": "git+https://github.com/welldone-software/redux-toolbelt.git",
   "keywords": [],
