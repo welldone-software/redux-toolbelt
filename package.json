@@ -1,6 +1,6 @@
 {
   "name": "redux-toolbelt",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "",
   "main": "dist/redux-toolbelt.js",
   "moudle": "src/index.js",
