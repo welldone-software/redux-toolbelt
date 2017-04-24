@@ -2,6 +2,15 @@ import {makeActionCreator} from '../src'
 import test from 'ava'
 
 
+test('type is assigned', t => {
+
+  const a = makeActionCreator('A')
+
+  t.is(a.TYPE, 'A')
+
+})
+
+
 test('no mapping', t => {
 
   const a = makeActionCreator('A')

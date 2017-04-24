@@ -56,9 +56,9 @@ export function makeActionCreator(name, argsMapper = trivialArgsMapper, options)
 
 }
 
-makeActionCreator.withDefaults = ({prefix = ACTION_PREFIX, defaultMeta}) => (name, argsMapper, options) => {
+makeActionCreator.withDefaults = ({prefix = ACTION_PREFIX, defaultMeta}) => (baseName, argsMapper, options) => {
   options = Object.assign({}, {prefix, defaultMeta}, options)
-  return makeActionCreator(name, argsMapper, options)
+  return makeActionCreator(baseName, argsMapper, options)
 }
 
 
@@ -68,18 +68,18 @@ makeActionCreator.withDefaults = ({prefix = ACTION_PREFIX, defaultMeta}) => (nam
  * @param options
  * @returns {function(*, *): {type: string, payload: *, meta: *}}
  */
-export function makeAsyncActionCreator(baseName, options) {
+export function makeAsyncActionCreator(baseName, argsMapper = trivialArgsMapper, options) {
 
-  const actionCreator = makeActionCreator(`${baseName}${ACTION_ASYNC_REQUEST_SUFFIX}`, options)
-  actionCreator.success = makeActionCreator(`${baseName}${ACTION_ASYNC_SUCCESS_SUFFIX}`, options)
-  actionCreator.failure = makeActionCreator(`${baseName}${ACTION_ASYNC_FAILURE_SUFFIX}`, options)
+  const actionCreator = makeActionCreator(`${baseName}${ACTION_ASYNC_REQUEST_SUFFIX}`, argsMapper, options)
+  actionCreator.success = makeActionCreator(`${baseName}${ACTION_ASYNC_SUCCESS_SUFFIX}`, trivialArgsMapper, options)
+  actionCreator.failure = makeActionCreator(`${baseName}${ACTION_ASYNC_FAILURE_SUFFIX}`, trivialArgsMapper, options)
 
   return actionCreator
 }
 
-makeAsyncActionCreator.withDefaults = ({prefix = ACTION_PREFIX, defaultMeta}) => (name, argsMapper, options) => {
+makeAsyncActionCreator.withDefaults = ({prefix = ACTION_PREFIX, defaultMeta}) => (baseName, argsMapper, options) => {
   options = Object.assign({}, {prefix, defaultMeta}, options)
-  return makeAsyncActionCreator(name, argsMapper, options)
+  return makeAsyncActionCreator(baseName, argsMapper, options)
 }
 
 /**
