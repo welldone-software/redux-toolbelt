@@ -65,6 +65,7 @@ makeActionCreator.withDefaults = ({prefix = ACTION_PREFIX, defaultMeta}) => (bas
 /**
  *
  * @param baseName
+ * @param argsMapper
  * @param options
  * @returns {function(*, *): {type: string, payload: *, meta: *}}
  */
