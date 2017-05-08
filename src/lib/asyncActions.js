@@ -1,3 +1,4 @@
+import  {has,ownKeys} from './objectUtils'
 
 const ACTION_PREFIX = ''
 
@@ -8,7 +9,7 @@ export const ACTION_ASYNC_SUCCESS_METHOD = 'success'
 export const ACTION_ASYNC_FAILURE_METHOD = 'failure'
 
 
-const trivialArgsMapper = (payload, meta) => ({payload, meta})
+const trivialArgsMapper = (payload, meta) => ({ payload, meta })
 /**
  *
  * @param name
@@ -31,14 +32,14 @@ export function makeActionCreator(name, argsMapper = trivialArgsMapper, options)
     const mapped = argsMapper(...args)
     let payload = mapped
     let meta = undefined
-    if(mapped){
-      const hasPayload = Reflect.has(mapped, 'payload')
-      const hasMeta = Reflect.has(mapped, 'meta')
-      const hasMore = Reflect.ownKeys(mapped).length > 2
-      if(hasPayload !== hasMeta || hasPayload && hasMeta && hasMore){
+    if (mapped) {
+      const hasPayload = has(mapped, 'payload')
+      const hasMeta = has(mapped, 'meta')
+      const hasMore = ownKeys(mapped).length > 2
+      if (hasPayload !== hasMeta || hasPayload && hasMeta && hasMore) {
         throw new Error('Full mapper should return both meta and payload, and only these two.')
       }
-      if(hasPayload){
+      if (hasPayload) {
         payload = mapped.payload
         meta = mapped.meta
       }
@@ -46,7 +47,7 @@ export function makeActionCreator(name, argsMapper = trivialArgsMapper, options)
     return {
       type,
       payload,
-      meta: options.defaultMeta? Object.assign({}, options.defaultMeta, meta) : meta,
+      meta: options.defaultMeta ? Object.assign({}, options.defaultMeta, meta) : meta,
     }
   }
 
@@ -56,8 +57,8 @@ export function makeActionCreator(name, argsMapper = trivialArgsMapper, options)
 
 }
 
-makeActionCreator.withDefaults = ({prefix = ACTION_PREFIX, defaultMeta}) => (baseName, argsMapper, options) => {
-  options = Object.assign({}, {prefix, defaultMeta}, options)
+makeActionCreator.withDefaults = ({ prefix = ACTION_PREFIX, defaultMeta }) => (baseName, argsMapper, options) => {
+  options = Object.assign({}, { prefix, defaultMeta }, options)
   return makeActionCreator(baseName, argsMapper, options)
 }
 
@@ -78,8 +79,8 @@ export function makeAsyncActionCreator(baseName, argsMapper = trivialArgsMapper,
   return actionCreator
 }
 
-makeAsyncActionCreator.withDefaults = ({prefix = ACTION_PREFIX, defaultMeta}) => (baseName, argsMapper, options) => {
-  options = Object.assign({}, {prefix, defaultMeta}, options)
+makeAsyncActionCreator.withDefaults = ({ prefix = ACTION_PREFIX, defaultMeta }) => (baseName, argsMapper, options) => {
+  options = Object.assign({}, { prefix, defaultMeta }, options)
   return makeAsyncActionCreator(baseName, argsMapper, options)
 }
 
@@ -90,25 +91,25 @@ makeAsyncActionCreator.withDefaults = ({prefix = ACTION_PREFIX, defaultMeta}) =>
  * @returns {Function}
  */
 export function makeAsyncReducer(actionCreator, options) {
-  const defaults = {dataProp: 'data', shouldDestroyData: true, defaultData: undefined, shouldSpread: false}
+  const defaults = { dataProp: 'data', shouldDestroyData: true, defaultData: undefined, shouldSpread: false }
   options = Object.assign(defaults, options)
 
   const defaultState = options.shouldSpread ?
-    {error: undefined, loading: false, ...(options.defaultData || {})} :
-    {error: undefined, loading: false, [options.dataProp]: options.defaultData}
+    { error: undefined, loading: false, ...(options.defaultData || {}) } :
+    { error: undefined, loading: false, [options.dataProp]: options.defaultData }
 
-  return function (state = defaultState, {type, payload}) {
+  return function (state = defaultState, { type, payload }) {
     switch (type) {
       case actionCreator.TYPE:
         return options.shouldSpread ?
-          {loading: true, ...(options.defaultData || {})} :
-          {loading: true, [options.dataProp]: options.shouldDestroyData ? options.defaultData : state.data}
+          { loading: true, ...(options.defaultData || {}) } :
+          { loading: true, [options.dataProp]: options.shouldDestroyData ? options.defaultData : state.data }
       case actionCreator.success.TYPE:
         return options.shouldSpread ?
-          {loading: false, ...payload} :
-          {loading: false, [options.dataProp]: payload}
+          { loading: false, ...payload } :
+          { loading: false, [options.dataProp]: payload }
       case actionCreator.failure.TYPE:
-        return {loading: false, error: payload}
+        return { loading: false, error: payload }
       default:
         return state
     }
@@ -119,3 +120,5 @@ makeAsyncReducer.withDefaults = defaults => (actionCreator, options) => {
   options = Object.assign({}, defaults, options)
   return makeAsyncReducer(actionCreator, options)
 }
+
+
