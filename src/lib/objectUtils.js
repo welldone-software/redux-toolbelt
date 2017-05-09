@@ -32,7 +32,7 @@ export const ownKeys = (obj) => {
         throw new TypeError('param is not an object')
     }
     
-    tmpRes = Object.getOwnPropertyNames(obj).
-        concat(Object.getOwnPropertySymbols(obj))
+    tmpRes = Object.getOwnPropertyNames(obj)
+        //.concat(Object.getOwnPropertySymbols(obj))
     return tmpRes
 } 
