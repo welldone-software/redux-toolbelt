@@ -5,6 +5,9 @@ const ACTION_PREFIX = ''
 export const ACTION_ASYNC_REQUEST_SUFFIX = '@ASYNC_REQUEST'
 export const ACTION_ASYNC_SUCCESS_SUFFIX = '@ASYNC_SUCCESS'
 export const ACTION_ASYNC_FAILURE_SUFFIX = '@ASYNC_FAILURE'
+export const ACTION_ASYNC_PROGRESS_SUFFIX = '@ASYNC_PROGRESS'
+export const ACTION_ASYNC_CANCEL_SUFFIX = '@ASYNC_CANCEL'
+
 export const ACTION_ASYNC_SUCCESS_METHOD = 'success'
 export const ACTION_ASYNC_FAILURE_METHOD = 'failure'
 export const ACTION_ASYNC_PROGRESS_METHOD = 'progress'
@@ -74,10 +77,11 @@ makeActionCreator.withDefaults = ({ prefix = ACTION_PREFIX, defaultMeta }) => (b
 export function makeAsyncActionCreator(baseName, argsMapper = trivialArgsMapper, options) {
 
   const actionCreator = makeActionCreator(`${baseName}${ACTION_ASYNC_REQUEST_SUFFIX}`, argsMapper, options)
-  actionCreator.success = makeActionCreator(`${baseName}${ACTION_ASYNC_SUCCESS_SUFFIX}`, trivialArgsMapper, options)
-  actionCreator.failure = makeActionCreator(`${baseName}${ACTION_ASYNC_FAILURE_SUFFIX}`, trivialArgsMapper, options)
-  actionCreator.progress = makeActionCreator(`${baseName}${ACTION_ASYNC_PROGRESS_METHOD}`, trivialArgsMapper, options)
-  actionCreator.cancel = makeActionCreator(`${baseName}${ACTION_ASYNC_CANCEL_METHOD}`, trivialArgsMapper, options)
+
+  actionCreator[ACTION_ASYNC_SUCCESS_METHOD] = makeActionCreator(`${baseName}${ACTION_ASYNC_SUCCESS_SUFFIX}`, trivialArgsMapper, options)
+  actionCreator[ACTION_ASYNC_FAILURE_METHOD] = makeActionCreator(`${baseName}${ACTION_ASYNC_FAILURE_SUFFIX}`, trivialArgsMapper, options)
+  actionCreator[ACTION_ASYNC_PROGRESS_METHOD] = makeActionCreator(`${baseName}${ACTION_ASYNC_PROGRESS_SUFFIX}`, trivialArgsMapper, options)
+  actionCreator[ACTION_ASYNC_CANCEL_METHOD] = makeActionCreator(`${baseName}${ACTION_ASYNC_CANCEL_SUFFIX}`, trivialArgsMapper, options)
 
   return actionCreator
 }
