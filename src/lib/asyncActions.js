@@ -7,7 +7,8 @@ export const ACTION_ASYNC_SUCCESS_SUFFIX = '@ASYNC_SUCCESS'
 export const ACTION_ASYNC_FAILURE_SUFFIX = '@ASYNC_FAILURE'
 export const ACTION_ASYNC_SUCCESS_METHOD = 'success'
 export const ACTION_ASYNC_FAILURE_METHOD = 'failure'
-
+export const ACTION_ASYNC_PROGRESS_METHOD = 'progress'
+export const ACTION_ASYNC_CANCEL_METHOD = 'cancel'
 
 const trivialArgsMapper = (payload, meta) => ({ payload, meta })
 /**
@@ -75,6 +76,8 @@ export function makeAsyncActionCreator(baseName, argsMapper = trivialArgsMapper,
   const actionCreator = makeActionCreator(`${baseName}${ACTION_ASYNC_REQUEST_SUFFIX}`, argsMapper, options)
   actionCreator.success = makeActionCreator(`${baseName}${ACTION_ASYNC_SUCCESS_SUFFIX}`, trivialArgsMapper, options)
   actionCreator.failure = makeActionCreator(`${baseName}${ACTION_ASYNC_FAILURE_SUFFIX}`, trivialArgsMapper, options)
+  actionCreator.progress = makeActionCreator(`${baseName}${ACTION_ASYNC_PROGRESS_METHOD}`, trivialArgsMapper, options)
+  actionCreator.cancel = makeActionCreator(`${baseName}${ACTION_ASYNC_CANCEL_METHOD}`, trivialArgsMapper, options)
 
   return actionCreator
 }
@@ -91,7 +94,7 @@ makeAsyncActionCreator.withDefaults = ({ prefix = ACTION_PREFIX, defaultMeta }) 
  * @returns {Function}
  */
 export function makeAsyncReducer(actionCreator, options) {
-  const defaults = { dataProp: 'data', shouldDestroyData: true, defaultData: undefined, shouldSpread: false }
+  const defaults = { dataProp: 'data', shouldDestroyData: true, defaultData: undefined, shouldSpread: false, shouldSetData: true }
   options = Object.assign(defaults, options)
 
   const defaultState = options.shouldSpread ?
@@ -104,10 +107,17 @@ export function makeAsyncReducer(actionCreator, options) {
         return options.shouldSpread ?
           { loading: true, ...(options.defaultData || {}) } :
           { loading: true, [options.dataProp]: options.shouldDestroyData ? options.defaultData : state.data }
-      case actionCreator.success.TYPE:
+      case actionCreator.success.TYPE: {
+        if (!options.shouldSetData){
+          return {loading: false}
+        }
+        const progress = state && state.progress === undefined ? {} : {progress: 0}
         return options.shouldSpread ?
-          { loading: false, ...payload } :
-          { loading: false, [options.dataProp]: payload }
+          {loading: false, ...progress, ...payload} :
+          {loading: false, ...progress, [options.dataProp]: payload}
+      }
+      case actionCreator.progress.TYPE:
+        return {...state, progress: payload}
       case actionCreator.failure.TYPE:
         return { loading: false, error: payload }
       default:
