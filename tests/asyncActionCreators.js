@@ -1,4 +1,4 @@
-import {makeAsyncActionCreator} from '../src'
+import {makeAsyncActionCreator} from '../lib'
 import test from 'ava'
 
 test('type assignment with naming conventions', t => {

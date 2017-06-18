@@ -1,4 +1,4 @@
-import {makeActionCreator} from '../src'
+import {makeActionCreator} from '../lib'
 import test from 'ava'
 
 

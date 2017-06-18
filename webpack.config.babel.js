@@ -7,7 +7,7 @@ export default (env) => {
 
   const prod = {
     entry: [
-      './src',
+      './lib',
     ],
     output: {
       filename: 'redux-toolbelt.js',

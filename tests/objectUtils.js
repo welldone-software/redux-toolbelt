@@ -1,4 +1,4 @@
-import {has,ownKeys} from '../src/lib/objectUtils'
+import {has, ownKeys} from '../lib/_internal/objectUtils'
 import test from 'ava'
 
 test('non object param returns TypeError', t => {
@@ -25,7 +25,7 @@ test('ownKeys non object param returns TypeError', t => {
    },TypeError)
 
    t.is(res.message,'param is not an object')
-}) 
+})
 
 test('ownKeys returns array with key', t => {
     const obj = {name:'david' , age:55}
@@ -33,7 +33,7 @@ test('ownKeys returns array with key', t => {
    t.is(Array.isArray(res) , true)
    t.is (res.indexOf('name')>=0,true)
    t.is (res.indexOf('address')==-1,true)
-}) 
+})
 
 
 

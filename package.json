@@ -4,15 +4,15 @@
   "description": "",
   "browser": "dist/redux-toolbelt.js",
   "main": "commonjs/index.js",
-  "moudle": "src/index.js",
+  "moudle": "lib/index.js",
   "scripts": {
-    "not-avail-start": "concurrently --kill-others --prefix \"[{name}]\" --names \"WEBPACK,SERVER\" \"npm run build -- --watch\" \"live-server --no-browser --mount=/dist:./dist src/examples\"",
+    "not-avail-start": "concurrently --kill-others --prefix \"[{name}]\" --names \"WEBPACK,SERVER\" \"npm run build -- --watch\" \"live-server --no-browser --mount=/dist:./dist lib/examples\"",
     "build_orig": "cross-env NODE_ENV=build webpack --progress --env.build=production",
-    "build": "babel src --out-dir commonjs --plugins transform-es2015-modules-commonjs",
+    "build": "babel lib --out-dir commonjs --plugins transform-es2015-modules-commonjs",
     "test:watch": "npm test -- --watch",
     "test": "cross-env NODE_ENV=test ava tests",
-    "lint": "eslint src && eslint tests",
-    "lint:fix": "eslint --fix src && eslint --fix tests",
+    "lint": "eslint lib && eslint tests",
+    "lint:fix": "eslint --fix lib && eslint --fix tests",
     "prepublish": "npm run build"
   },
   "repository": "git+https://github.com/welldone-software/redux-toolbelt.git",
@@ -42,6 +42,7 @@
   },
   "peerDependencies": {},
   "dependencies": {
+    "lodash.isarray": "^4.0.0",
     "lodash.isfunction": "^3.0.8"
   },
   "ava": {
