@@ -43,8 +43,10 @@
   "peerDependencies": {},
   "dependencies": {
     "empty": "^0.10.1",
+    "lodash.inrange": "^3.3.6",
     "lodash.isarray": "^4.0.0",
     "lodash.isfunction": "^3.0.8",
+    "lodash.ismatch": "^4.4.0",
     "lodash.without": "^4.4.0"
   },
   "ava": {
