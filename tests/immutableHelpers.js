@@ -1,4 +1,4 @@
-import {pushItems, unshiftItems, addItemsInIndex, removeItem} from '../lib/immutableHelpers'
+import {pushItems, unshiftItems, addItemsInIndex, removeItem, removeItemsById} from '../lib/immutableHelpers'
 
 import test from 'ava'
 
@@ -33,6 +33,15 @@ test('removeItem', t => {
   const arr = [{a: 1}, {b: 2}, {c: 3}]
   const result = removeItem(arr, 1)
   const expected = [{a: 1}, {c: 3}]
+
+  t.false(arr === result)
+  t.deepEqual(result, expected)
+})
+
+test('removeItemsById', t => {
+  const arr = [{id: 1, val: 'a'}, {id: 2, val: 'b'}, {id: 3, val: 'c'}, {id: 4, val: 'd'}]
+  const result = removeItemsById(arr, [{id: 2, val: 'doesnt matter'}, {id: 4}])
+  const expected = [{id: 1, val: 'a'}, {id: 3, val: 'c'}]
 
   t.false(arr === result)
   t.deepEqual(result, expected)
