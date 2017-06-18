@@ -44,7 +44,8 @@
   "dependencies": {
     "empty": "^0.10.1",
     "lodash.isarray": "^4.0.0",
-    "lodash.isfunction": "^3.0.8"
+    "lodash.isfunction": "^3.0.8",
+    "lodash.without": "^4.4.0"
   },
   "ava": {
     "babel": "inherit",

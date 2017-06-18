@@ -1,4 +1,4 @@
-import {pushItems, unshiftItems, addItemsInIndex, removeItem, removeItemsById, replaceItem} from '../lib/immutableHelpers'
+import {pushItems, unshiftItems, addItemsInIndex, removeItem, removeItemsById, replaceItem, repositionItem, repositionItemById} from '../lib/immutableHelpers'
 
 import test from 'ava'
 
@@ -51,6 +51,42 @@ test('replaceItem', t => {
   const arr = [{a: 1}, {b: 2}, {c: 3}]
   const result = replaceItem(arr, 1, {d: 4})
   const expected = [{a: 1}, {d: 4}, {c: 3}]
+
+  t.false(arr === result)
+  t.deepEqual(result, expected)
+})
+
+test('repositionItem', t => {
+  const arr = [{a: 1}, {b: 2}, {c: 3}, {d: 4}, {e: 5}]
+  const result = repositionItem(arr, 1, 3)
+  const expected = [{a: 1}, {c: 3}, {d: 4}, {b: 2}, {e: 5}]
+
+  t.false(arr === result)
+  t.deepEqual(result, expected)
+})
+
+test('repositionItem (to start)', t => {
+  const arr = [{a: 1}, {b: 2}, {c: 3}, {d: 4}, {e: 5}]
+  const result = repositionItem(arr, 1, 'start')
+  const expected = [{b: 2}, {a: 1}, {c: 3}, {d: 4}, {e: 5}]
+
+  t.false(arr === result)
+  t.deepEqual(result, expected)
+})
+
+test('repositionItem (to end)', t => {
+  const arr = [{a: 1}, {b: 2}, {c: 3}, {d: 4}, {e: 5}]
+  const result = repositionItem(arr, 1, 'end')
+  const expected = [{a: 1}, {c: 3}, {d: 4}, {e: 5}, {b: 2}]
+
+  t.false(arr === result)
+  t.deepEqual(result, expected)
+})
+
+test('repositionItemById', t => {
+  const arr = [{id: 1}, {id: 2}, {id: 3}, {id: 4}, {id: 5}]
+  const result = repositionItemById(arr, 2, 3)
+  const expected = [{id: 1}, {id: 3}, {id: 4}, {id: 2}, {id: 5}]
 
   t.false(arr === result)
   t.deepEqual(result, expected)
