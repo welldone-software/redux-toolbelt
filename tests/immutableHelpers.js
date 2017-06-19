@@ -1,4 +1,4 @@
-import {pushItems, unshiftItems, addItemsInIndex, removeItem, removeItemsById, replaceItem, repositionItem, repositionItemById, updateItem, updateItemById, updateItemsByFilter, updateItemsById, upsertItemsById} from '../lib/immutableHelpers'
+import {pushItems, unshiftItems, addItemsInIndex, removeItem, removeItemsById, replaceItem, repositionItem, repositionItemById, updateItem, updateItemById, updateItemsByFilter, updateItemsById, upsertItemsById, filterByIds} from '../lib/immutableHelpers'
 
 import test from 'ava'
 
@@ -141,6 +141,15 @@ test('upsertItemsById', t => {
   const arr = [{id: 1, val: 2}, {id: 2, val: 5}, {id: 3, val: 8}, {id: 4, val: 1}]
   const result = upsertItemsById(arr, [{id: 2, val: 6}, {id: 3, val: 9}, {id: 5, val: 16}])
   const expected = [{id: 1, val: 2}, {id: 2, val: 6}, {id: 3, val: 9}, {id: 4, val: 1}, {id: 5, val: 16}]
+
+  t.false(arr === result)
+  t.deepEqual(result, expected)
+})
+
+test('filterByIds', t => {
+  const arr = [{id: 1, val: 2}, {id: 2, val: 5}, {id: 3, val: 8}, {id: 4, val: 1}]
+  const result = filterByIds(arr, [2, 4])
+  const expected = [{id: 2, val: 5}, {id: 4, val: 1}]
 
   t.false(arr === result)
   t.deepEqual(result, expected)
