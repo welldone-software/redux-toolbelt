@@ -1,4 +1,4 @@
-import {pushItems, unshiftItems, addItemsInIndex, removeItem, removeItemsById, replaceItem, repositionItem, repositionItemById, updateItem, updateItemById, updateItemsByFilter, updateItemsById, upsertItemsById, filterByIds, updateObjectProperty} from '../lib/immutableHelpers'
+import {pushItems, unshiftItems, addItemsInIndex, removeItem, removeItemsById, replaceItem, repositionItem, repositionItemById, updateItem, updateItemById, updateItemsByFilter, updateItemsById, upsertItemsById, filterByIds, updateObjectProperty, updateObjectProperties} from '../lib/immutableHelpers'
 
 import test from 'ava'
 
@@ -159,6 +159,15 @@ test('updateObjectProperty', t => {
   const obj = {id: 1, val: 5, otherVal: 8, anotherVal: 16}
   const result = updateObjectProperty(obj, 'otherVal', 70)
   const expected = {id: 1, val: 5, otherVal: 70, anotherVal: 16}
+
+  t.false(obj === result)
+  t.deepEqual(result, expected)
+})
+
+test('updateObjectProperties', t => {
+  const obj = {id: 1, val: 5, otherVal: 8, anotherVal: 16}
+  const result = updateObjectProperties(obj, {val: 10, otherVal: 70})
+  const expected = {id: 1, val: 10, otherVal: 70, anotherVal: 16}
 
   t.false(obj === result)
   t.deepEqual(result, expected)
