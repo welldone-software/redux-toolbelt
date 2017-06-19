@@ -43,6 +43,7 @@
   "peerDependencies": {},
   "dependencies": {
     "empty": "^0.10.1",
+    "lodash.concat": "^4.5.0",
     "lodash.constant": "^3.0.0",
     "lodash.inrange": "^3.3.6",
     "lodash.isarray": "^4.0.0",

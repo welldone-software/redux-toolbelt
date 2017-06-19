@@ -1,4 +1,4 @@
-import {pushItems, unshiftItems, addItemsInIndex, removeItem, removeItemsById, replaceItem, repositionItem, repositionItemById, updateItem, updateItemById, updateItemsByFilter, updateItemsById, upsertItemsById, filterByIds, updateObjectProperty, updateObjectProperties} from '../lib/immutableHelpers'
+import {pushItems, unshiftItems, addItemsInIndex, removeItem, removeItemsById, replaceItem, repositionItem, repositionItemById, updateItem, updateItemById, updateItemsByFilter, updateItemsById, upsertItemsById, filterByIds, updateObjectProperty, updateObjectProperties, makeArray} from '../lib/immutableHelpers'
 
 import test from 'ava'
 
@@ -171,4 +171,20 @@ test('updateObjectProperties', t => {
 
   t.false(obj === result)
   t.deepEqual(result, expected)
+})
+
+test('makeArray creates array from object', t => {
+  const obj = {id: 1, val: 5, otherVal: 8, anotherVal: 16}
+  const result = makeArray(obj)
+
+  t.true(result.length === 1)
+  t.true(result[0] === obj)
+})
+
+test('makeArray copies the provided array to a new one', t => {
+  const arr = [{id: 1, val: 5}, {id: 2, val: 6}]
+  const result = makeArray(arr)
+
+  t.false(arr === result)
+  t.deepEqual(result, arr)
 })
