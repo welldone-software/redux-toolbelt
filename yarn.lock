@@ -3072,6 +3072,10 @@ lodash.ismatch@^4.4.0:
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/lodash.ismatch/-/lodash.ismatch-4.4.0.tgz#756cb5150ca3ba6f11085a78849645f188f85f37"
 
+lodash.ismatchwith@^4.4.0:
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/lodash.ismatchwith/-/lodash.ismatchwith-4.4.0.tgz#3d1f55f0ca004473ee211b568e5fe220f081e1a9"
+
 lodash.pickby@^4.6.0:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/lodash.pickby/-/lodash.pickby-4.6.0.tgz#7dea21d8c18d7703a27c704c15d3b84a67e33aff"
