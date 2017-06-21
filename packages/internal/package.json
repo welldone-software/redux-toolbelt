@@ -1,7 +1,7 @@
 {
   "name": "redux-toolbelt.internal",
   "version": "1.0.0",
-  "description": "Toolbelt for redux",
+  "description": "",
   "main": "lib/index.js",
   "scripts": {
     "build": "babel src --out-dir lib --plugins transform-es2015-modules-commonjs",

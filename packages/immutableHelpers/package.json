@@ -1,7 +1,7 @@
 {
   "name": "redux-toolbelt.immutableHelpers",
   "version": "1.0.0",
-  "description": "Async Actions helpers for redux-toolbelt",
+  "description": "Immutable helpers for redux-toolbelt",
   "main": "lib/index.js",
   "scripts": {
     "build": "babel src --out-dir lib --plugins transform-es2015-modules-commonjs",
