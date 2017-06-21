@@ -1,5 +1,5 @@
-import trivialArgsMapper from './_internal/trivialArgsMapper'
-import {has, ownKeys} from './_internal/objectUtils'
+import trivialArgsMapper from 'redux-toolbelt.internal/lib/trivialArgsMapper'
+import {has, ownKeys} from './_objectUtils'
 
 /**
  *

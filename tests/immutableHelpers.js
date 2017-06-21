@@ -1,4 +1,4 @@
-import {pushItems, unshiftItems, addItemsInIndex, removeItem, removeItemsById, replaceItem, repositionItem, repositionItemById, updateItem, updateItemById, updateItemsByFilter, updateItemsById, upsertItemsById, filterByIds, updateObjectProperty, updateObjectProperties, makeArray} from '../lib/immutableHelpers'
+import {pushItems, unshiftItems, addItemsInIndex, removeItem, removeItemsById, replaceItem, repositionItem, repositionItemById, updateItem, updateItemById, updateItemsByFilter, updateItemsById, upsertItemsById, filterByIds, updateObjectProperty, updateObjectProperties, makeArray} from '../packages/immutableHelpers'
 
 import test from 'ava'
 

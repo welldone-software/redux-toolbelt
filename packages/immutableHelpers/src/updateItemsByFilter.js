@@ -1,10 +1,10 @@
 import isMatch from 'lodash.ismatch'
-import makeGetUpdatedPropsFunc from '../_internal/makeGetUpdatedPropsFunc'
+import _makeGetUpdatedPropsFunc from './_makeGetUpdatedPropsFunc'
 
 // updateItemsByFilter(arr, item => item.flag, {prop1: 'new value', prop2: 'new value'}) {
 // updateItemsByFilter(arr, item => item.flag, item => ({prop: item.prop+2, prop2: 'new value'}))
 export default function updateItemsByFilter(arr, filter, newProps) {
-  const getUpdatedProps = makeGetUpdatedPropsFunc(newProps)
+  const getUpdatedProps = _makeGetUpdatedPropsFunc(newProps)
 
   let hasChanges = false
   const result = arr.map(item => {

@@ -1,0 +1,21 @@
+{
+  "name": "redux-toolbelt.utils",
+  "version": "1.0.0",
+  "description": "Async Actions helpers for redux-toolbelt",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "babel src --out-dir lib --plugins transform-es2015-modules-commonjs",
+    "prepublish": "npm run build"
+  },
+  "repository": "git+https://github.com/welldone-software/redux-toolbelt.git",
+  "author": "Arik Maor <arikmaor@welldone-software.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/welldone-software/redux-toolbelt/issues"
+  },
+  "homepage": "https://github.com/welldone-software/redux-toolbelt#readme",
+  "dependencies": {
+    "lodash.isfunction": "^3.0.8",
+    "redux-toolbelt.internal": "1.0.0"
+  }
+}

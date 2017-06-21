@@ -3,4 +3,4 @@ dist
 commonjs
 *.log
 .idea
-
+lib

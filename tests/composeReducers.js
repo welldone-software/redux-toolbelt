@@ -1,4 +1,4 @@
-import {composeReducers} from '../lib'
+import {composeReducers} from '../packages/utils'
 
 import test from 'ava'
 

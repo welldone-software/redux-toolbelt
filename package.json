@@ -2,18 +2,16 @@
   "name": "redux-toolbelt",
   "version": "1.4.0",
   "description": "",
-  "browser": "dist/redux-toolbelt.js",
-  "main": "commonjs/index.js",
-  "moudle": "lib/index.js",
   "scripts": {
     "not-avail-start": "concurrently --kill-others --prefix \"[{name}]\" --names \"WEBPACK,SERVER\" \"npm run build -- --watch\" \"live-server --no-browser --mount=/dist:./dist lib/examples\"",
     "build_orig": "cross-env NODE_ENV=build webpack --progress --env.build=production",
-    "build": "babel lib --out-dir commonjs --plugins transform-es2015-modules-commonjs",
+    "build": "lerna build",
     "test:watch": "npm test -- --watch",
     "test": "cross-env NODE_ENV=test ava tests",
     "lint": "eslint lib && eslint tests",
     "lint:fix": "eslint --fix lib && eslint --fix tests",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "install": "lerna bootstrap"
   },
   "repository": "git+https://github.com/welldone-software/redux-toolbelt.git",
   "keywords": [],
@@ -36,20 +34,10 @@
     "eslint": "^3.15.0",
     "eslint-loader": "^1.6.1",
     "eslint-plugin-ava": "^4.1.0",
+    "lerna": "^2.0.0-rc.5",
     "live-server": "^1.2.0",
     "webpack": "^2.2.1",
     "webpack-merge": "^2.6.1"
-  },
-  "peerDependencies": {},
-  "dependencies": {
-    "empty": "^0.10.1",
-    "lodash.concat": "^4.5.0",
-    "lodash.constant": "^3.0.0",
-    "lodash.inrange": "^3.3.6",
-    "lodash.isarray": "^4.0.0",
-    "lodash.isfunction": "^3.0.8",
-    "lodash.ismatch": "^4.4.0",
-    "lodash.without": "^4.4.0"
   },
   "ava": {
     "babel": "inherit",

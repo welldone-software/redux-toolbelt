@@ -1,4 +1,4 @@
-import {makeActionCreator} from '../lib'
+import {makeActionCreator} from '../packages/utils'
 import test from 'ava'
 
 
