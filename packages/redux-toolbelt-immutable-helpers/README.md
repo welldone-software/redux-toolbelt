@@ -1,6 +1,6 @@
 # Redux-Toolbelt Immutable Helpers
 
-A set of helper functions to reducer verbosity inside redux reducers.  
+A set of helper functions to reduce verbosity inside redux reducers.  
 Written in ES6.
 
 ## TOC
@@ -26,13 +26,13 @@ Written in ES6.
   + [`upsertItemsById()`](#upsertitemsbyid)
 
 ## `Installation`
-The helpers are available in the `redux-toolbelt-immutableHelpers` npm package.
+The helpers are available in the `redux-toolbelt-immutable-helpers` npm package.
 ```sh
-npm install --save redux-toolbelt-immutableHelpers
+npm install --save redux-toolbelt-immutable-helpers
 
 # or
 
-yarn add redux-toolbelt-immutableHelpers
+yarn add redux-toolbelt-immutable-helpers
 ```
 
 ## `Usage`
@@ -55,7 +55,7 @@ import addItemsInIndex from 'redux-toolbelt-immutable-helpers/lib/addItemsInInde
 ```
 
 ### `Example`
-Use the provide functions to reduce the verbosity inside the redux reducers:
+Using the provided functions to reduce the verbosity inside the redux reducers:
 ```js
 // instead of:
 const todosReducer(state = [], action) {
