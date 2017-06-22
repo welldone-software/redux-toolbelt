@@ -1,12 +1,13 @@
-# Redux-Toolbelt API-Reference
+# Redux-Toolbelt Immutable Helpers
+
+A set of helper functions to reducer verbosity inside redux reducers.  
+Written in ES6.
 
 ## TOC
-* [Redux-Toolbelt](#redux-toolbelt)
-  + [`composeReducers()`](#composereducers)
-  + [`makeActionCreator()`](#makeactioncreator)
-  + [`makeAsyncActionCreator()`](#makeasyncactioncreator)
-  + [`makeAsyncReducer()`](#makeasyncreducer)
-* [Immutable Helpers](#immutable-helpers)
+* [Installation](#installation)
+* [Usage](#usage)
+  + [Example](#example)
+* [API Reference](#api-reference)
   + [`addItemsInIndex()`](#additemsinindex)
   + [`filterByIds()`](#filterbyids)
   + [`pushItems()`](#pushitems)
@@ -24,40 +25,81 @@
   + [`updateObjectProperty()`](#updateobjectproperty)
   + [`upsertItemsById()`](#upsertitemsbyid)
 
-## `Redux-Toolbelt`
+## `Installation`
+The helpers are available in the `redux-toolbelt-immutableHelpers` npm package.
+```sh
+npm install --save redux-toolbelt-immutableHelpers
 
-### `composeReducers()`
+# or
 
-### `makeActionCreator()`
-Creates an [FSA] complient action creator.
-
-```js
-const increment = makeActionCreator('INCREMENT')
-// ==> increment.TYPE == 'INCREMENT'
-
-const action = increment()
-// ==> action === {type: 'INCREMENT', payload: undefined, meta: undefined}
+yarn add redux-toolbelt-immutableHelpers
 ```
 
-### `makeAsyncActionCreator()`
+## `Usage`
 
-### `makeAsyncReducer()`
-
-## `Immutable Helpers`
-This utility functions are pure functions, they never change the provided arguments.
+This utility functions are pure functions, they never change the provided arguments.  
 If no changes are neccessery, the original reference is returned.
-Prefect for usage in redux reducers!
 
+Usually you can reduce complex code inside switch cases to just one or 2 functions calls.  
+They are also great for writing selectors.
+
+import the functions you like to use using one of the two methods:
 ```js
-import {pushItems, addItemsInIndex /* ... */} from 'redux-toolbelt-immutableHelpers'
+import {pushItems, addItemsInIndex /* ... */} from 'redux-toolbelt.immutableHelpers'
 
 // or
 
-import pushItems from 'redux-toolbelt-immutableHelpers/lib/pushItems'
-import addItemsInIndex from 'redux-toolbelt-immutableHelpers/lib/addItemsInIndex'
+import pushItems from 'redux-toolbelt-immutable-helpers/lib/pushItems'
+import addItemsInIndex from 'redux-toolbelt-immutable-helpers/lib/addItemsInIndex'
 
 ```
 
+### `Example`
+Use the provide functions to reduce the verbosity inside the redux reducers:
+```js
+// instead of:
+const todosReducer(state = [], action) {
+  switch(action.type) {
+    case 'ADD_TODO': {
+      const {todoItem} = action.payload
+      return todoItem
+        ? [...state, todoItem]
+        : state
+    }
+    case 'UPDATE_TODO': {
+      const {idx, todoItem} = action.payload
+      const todoItem
+        ? [
+          ...state.slice(0, idx),
+          todoItem,
+          ...state.slice(idx + 1)
+        ]
+        : state
+    }
+    default:
+      return state
+  }
+}
+
+// you can do
+import {pushItems} from 'redux-toolbelt-immutable-helpers'
+const todosReducer(state = [], action) {
+  switch(action.type) {
+    case 'ADD_TODO': {
+      const {todoItem} = action.payload
+      return pushItems(state, todoItem)
+    }
+    case 'UPDATE_TODO': {
+      const {idx, todoItem} = action.payload
+      return updateItem(state, idex, todoItem)
+    }
+    default:
+      return state
+  }
+}
+```
+
+## `API Reference`
 
 ### `addItemsInIndex()`
 Adds items to an array in the specified index.
