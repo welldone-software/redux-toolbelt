@@ -1,4 +1,4 @@
-import {has, ownKeys} from '../packages/utils/lib/_objectUtils'
+import {has, ownKeys} from '../packages/redux-toolbelt/lib/_objectUtils'
 import test from 'ava'
 
 test('non object param returns TypeError', t => {

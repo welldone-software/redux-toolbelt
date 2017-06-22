@@ -1,10 +1,9 @@
 # Redux-Toolbelt API-Reference
 
 ## TOC
-* [Utils](#utils)
+* [Redux-Toolbelt](#redux-toolbelt)
   + [`composeReducers()`](#composereducers)
   + [`makeActionCreator()`](#makeactioncreator)
-* [AsyncActions Helpers](#asyncactions-helpers)
   + [`makeAsyncActionCreator()`](#makeasyncactioncreator)
   + [`makeAsyncReducer()`](#makeasyncreducer)
 * [Immutable Helpers](#immutable-helpers)
@@ -25,7 +24,7 @@
   + [`updateObjectProperty()`](#updateobjectproperty)
   + [`upsertItemsById()`](#upsertitemsbyid)
 
-## `Utils`
+## `Redux-Toolbelt`
 
 ### `composeReducers()`
 
@@ -39,8 +38,6 @@ const increment = makeActionCreator('INCREMENT')
 const action = increment()
 // ==> action === {type: 'INCREMENT', payload: undefined, meta: undefined}
 ```
-
-## `AsyncActions Helpers`
 
 ### `makeAsyncActionCreator()`
 

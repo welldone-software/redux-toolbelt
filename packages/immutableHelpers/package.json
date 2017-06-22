@@ -1,5 +1,5 @@
 {
-  "name": "redux-toolbelt.immutableHelpers",
+  "name": "redux-toolbelt-immutableHelpers",
   "version": "1.0.0",
   "description": "Immutable helpers for redux-toolbelt",
   "main": "lib/index.js",

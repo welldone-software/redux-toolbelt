@@ -1,5 +1,5 @@
-import makeActionCreator from 'redux-toolbelt.utils/lib/makeActionCreator'
-import trivialArgsMapper from 'redux-toolbelt.internal/lib/trivialArgsMapper'
+import makeActionCreator from './makeActionCreator'
+import trivialArgsMapper from './_trivialArgsMapper'
 
 export const ACTION_ASYNC_REQUEST_SUFFIX = '@ASYNC_REQUEST'
 export const ACTION_ASYNC_SUCCESS_SUFFIX = '@ASYNC_SUCCESS'

@@ -1,7 +1,7 @@
 {
-  "name": "redux-toolbelt.internal",
+  "name": "redux-toolbelt",
   "version": "1.0.0",
-  "description": "",
+  "description": "Async Actions helpers for redux-toolbelt",
   "main": "lib/index.js",
   "scripts": {
     "build": "babel src --out-dir lib --plugins transform-es2015-modules-commonjs",
@@ -13,5 +13,8 @@
   "bugs": {
     "url": "https://github.com/welldone-software/redux-toolbelt/issues"
   },
-  "homepage": "https://github.com/welldone-software/redux-toolbelt#readme"
+  "homepage": "https://github.com/welldone-software/redux-toolbelt#readme",
+  "dependencies": {
+    "lodash.isfunction": "^3.0.8"
+  }
 }
