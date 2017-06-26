@@ -55,7 +55,7 @@ import addItemsInIndex from 'redux-toolbelt-immutable-helpers/lib/addItemsInInde
 ```
 
 ### `Example`
-Using the provided functions to reduce the verbosity inside the redux reducers:
+Using the provided functions to reduce the verbosity inside redux reducers:
 ```js
 // instead of:
 const todosReducer(state = [], action) {
@@ -82,7 +82,7 @@ const todosReducer(state = [], action) {
 }
 
 // you can do
-import {pushItems} from 'redux-toolbelt-immutable-helpers'
+import {pushItems, pushItems} from 'redux-toolbelt-immutable-helpers'
 const todosReducer(state = [], action) {
   switch(action.type) {
     case 'ADD_TODO': {
