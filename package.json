@@ -1,7 +1,6 @@
 {
   "name": "redux-toolbelt-packages",
-  "version": "1.4.0",
-  "description": "",
+  "private": true,
   "scripts": {
     "not-avail-start": "concurrently --kill-others --prefix \"[{name}]\" --names \"WEBPACK,SERVER\" \"npm run build -- --watch\" \"live-server --no-browser --mount=/dist:./dist lib/examples\"",
     "build_orig": "cross-env NODE_ENV=build webpack --progress --env.build=production",
@@ -15,9 +14,9 @@
     "clean": "lerna clean --yes && rimraf ./packages/*/lib node_modules"
   },
   "repository": "git+https://github.com/welldone-software/redux-toolbelt.git",
-  "keywords": [],
+  "keywords": ["react", "redux", "immutable", "toolbelt"],
   "author": "<danikenan@gmail.com>",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/welldone-software/redux-toolbelt/issues"
   },
