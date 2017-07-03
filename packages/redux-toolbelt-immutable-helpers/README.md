@@ -4,28 +4,33 @@ A set of helper functions to reduce verbosity inside redux reducers.
 Written in ES6.
 
 ## TOC
-* [Installation](#installation)
-* [Usage](#usage)
-  + [Example](#example)
-* [API Reference](#api-reference)
-  + [`addItemsInIndex()`](#additemsinindex)
-  + [`filterByIds()`](#filterbyids)
-  + [`pushItems()`](#pushitems)
-  + [`removeItem()`](#removeitem)
-  + [`removeItemsById()`](#removeitemsbyid)
-  + [`replaceItem()`](#replaceitem)
-  + [`repositionItem()`](#repositionitem)
-  + [`repositionItemById()`](#repositionitembyid)
-  + [`unshiftItems()`](#unshiftitems)
-  + [`updateItem()`](#updateitem)
-  + [`updateItemById()`](#updateitembyid)
-  + [`updateItemsByFilter()`](#updateitemsbyfilter)
-  + [`updateItemsById()`](#updateitemsbyid)
-  + [`updateObjectProperties()`](#updateobjectproperties)
-  + [`updateObjectProperty()`](#updateobjectproperty)
-  + [`upsertItemsById()`](#upsertitemsbyid)
 
-## `Installation`
+<!-- toc -->
+
+- [Installation](#installation)
+- [Usage](#usage)
+  * [Example](#example)
+- [API Reference](#api-reference)
+  * [`addItemsInIndex()`](#additemsinindex)
+  * [`filterByIds()`](#filterbyids)
+  * [`pushItems()`](#pushitems)
+  * [`removeItem()`](#removeitem)
+  * [`removeItemsById()`](#removeitemsbyid)
+  * [`replaceItem()`](#replaceitem)
+  * [`repositionItem()`](#repositionitem)
+  * [`repositionItemById()`](#repositionitembyid)
+  * [`unshiftItems()`](#unshiftitems)
+  * [`updateItem()`](#updateitem)
+  * [`updateItemById()`](#updateitembyid)
+  * [`updateItemsByFilter()`](#updateitemsbyfilter)
+  * [`updateItemsById()`](#updateitemsbyid)
+  * [`updateObjectProperties()`](#updateobjectproperties)
+  * [`updateObjectProperty()`](#updateobjectproperty)
+  * [`upsertItemsById()`](#upsertitemsbyid)
+
+<!-- tocstop -->
+
+## Installation
 The helpers are available in the `redux-toolbelt-immutable-helpers` npm package.
 ```sh
 npm install --save redux-toolbelt-immutable-helpers
@@ -35,7 +40,7 @@ npm install --save redux-toolbelt-immutable-helpers
 yarn add redux-toolbelt-immutable-helpers
 ```
 
-## `Usage`
+## Usage
 
 This utility functions are pure functions, they never change the provided arguments.  
 If no changes are neccessery, the original reference is returned.
@@ -54,7 +59,7 @@ import addItemsInIndex from 'redux-toolbelt-immutable-helpers/lib/addItemsInInde
 
 ```
 
-### `Example`
+### Example
 Using the provided functions to reduce the verbosity inside redux reducers:
 ```js
 // instead of:
@@ -99,7 +104,7 @@ const todosReducer(state = [], action) {
 }
 ```
 
-## `API Reference`
+## API Reference
 
 ### `addItemsInIndex()`
 Adds items to an array in the specified index.
@@ -396,13 +401,3 @@ const c = upsertItemsById(a, [{name: 'bob', height: 160, hairColor: 'blond'}], i
 //  ]
 ```
 
-## TODO
-1. Add examples for [`makeActionCreator`](#makeactioncreator) using other arguments
-2. Document composeReducers
-3. Document makeAsyncActionCreator
-4. Document makeAsyncReducer
-
-# References
-[Flux Standard Action][fsa]
-
-[fsa]: https://github.com/acdlite/flux-standard-action

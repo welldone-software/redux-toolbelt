@@ -4,15 +4,28 @@ A set of tools for quicker, easier, less verbose and safer redux development by 
 Written in ES6.
 
 ## TOC
-* [Installation](#installation)
-* [Usage](#usage)
-* [API Reference](#api-reference)
-  + [`composeReducers()`](#compose-reducers)
-  + [`makeActionCreator()`](#make-action-creator)
-  + [`makeAsyncActionCreator()`](#make-async-action-creator)
-  + [`makeAsyncReducer()`](#make-async-reducer)
 
-## `Installation`
+<!-- toc -->
+
+- [Installation](#installation)
+- [Usage](#usage)
+- [API Reference](#api-reference)
+  * [`composeReducers()`](#composereducers)
+  * [`makeActionCreator()`](#makeactioncreator)
+    + [Adding payload and metadata to actions](#adding-payload-and-metadata-to-actions)
+    + [Actions Prefixes](#actions-prefixes)
+  * [`makeAsyncActionCreator()`](#makeasyncactioncreator)
+  * [`makeAsyncReducer()`](#makeasyncreducer)
+    + [Reducer Behvaiour](#reducer-behvaiour)
+      - [Initialization](#initialization)
+      - [Request](#request)
+      - [Progress](#progress)
+      - [Success](#success)
+      - [Failure](#failure)
+
+<!-- tocstop -->
+
+## Installation
 The tools are available in the `redux-toolbelt` npm package.
 ```sh
 npm install --save redux-toolbelt
@@ -22,7 +35,7 @@ npm install --save redux-toolbelt
 yarn add redux-toolbelt
 ```
 
-## `Usage`
+## Usage
 import the functions you like to use using one of the two methods:
 ```js
 import {composeReducers, makeActionCreator} from 'redux-toolbelt'
@@ -34,7 +47,7 @@ import makeActionCreator from 'redux-toolbelt/lib/makeActionCreator'
 
 ```
 
-## `API Reference`
+## API Reference
 
 ### `composeReducers()`
 This function in a replacement for redux's `combineReducers`.  
@@ -260,7 +273,7 @@ asyncReducer(state, asyncAction())
 // }
 ```
 
-#### Progress
+##### Progress
 When the reducer gets the `progress` action is updates the `progress` field with the action's payload.
 
 ```js
@@ -273,7 +286,7 @@ asyncReducer(state, asyncAction.progress(5))
 // }
 ```
 
-#### Success
+##### Success
 When the reducer gets the `success` action is updates the `loading` to `true` and sets the `dataProp` field with the action's payload.
 
 ```js
@@ -299,7 +312,7 @@ asyncReducer(state, asyncAction.success([1, 2, 3]))
 // }
 ```
 
-#### Failure
+##### Failure
 When the reducer gets the `failure` action is updates the `loading` to `false` and the `error` field with the action's payload.
 
 ```js

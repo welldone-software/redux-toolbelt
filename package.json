@@ -11,10 +11,16 @@
     "lint:fix": "eslint --fix lib && eslint --fix tests",
     "prepublish": "npm run build",
     "install": "lerna bootstrap",
-    "clean": "lerna clean --yes && rimraf ./packages/*/lib node_modules"
+    "clean": "lerna clean --yes && rimraf ./packages/*/lib node_modules",
+    "generateToc": "node scripts/generateToc.js"
   },
   "repository": "git+https://github.com/welldone-software/redux-toolbelt.git",
-  "keywords": ["react", "redux", "immutable", "toolbelt"],
+  "keywords": [
+    "react",
+    "redux",
+    "immutable",
+    "toolbelt"
+  ],
   "author": "<danikenan@gmail.com>",
   "license": "MIT",
   "bugs": {
@@ -46,6 +52,7 @@
     ]
   },
   "dependencies": {
+    "markdown-toc": "^1.1.0",
     "rimraf": "^2.6.1"
   }
 }
