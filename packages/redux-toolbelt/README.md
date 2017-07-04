@@ -76,6 +76,27 @@ const reducer = composeReducers(
 )
 ```
 
+#### Default State
+As a result of the reducers run one after the other, only the first one will get an `undefined` state on the first run.  
+Nested reducers will get `undefined` if none was supplied in the root state:
+```js
+const DEFAULT_STATE = {val: 1}
+const IGNORED = {anotherVal: 2}
+const NESTED_DEFAULT_STATE = 5
+
+const mainReducer = (state = DEFAULT_STATE, action) => {...}
+const anotherReducer = (state = IGNORED_STATE, action) => {...}
+const nestedReducer = (state = NESTED_DEFAULT_STATE, action) => {...} // will get NESTED_DEFAULT_STATE on first run (or what mainReducer returns)
+
+const reducer = composeReducers(
+  mainReducer, // will get DEFAULT_STATE on first run
+  anotherReducer, // will get DEFAULT_STATE on first run (or what mainReducer returns)
+  {
+    nestedVal: nestedReducer // will get NESTED_DEFAULT_STATE on first run
+  }
+)
+```
+
 ### `makeActionCreator()`
 Create an FSA complient action creator that exposes its `TYPE` as static member.  
 This can help force type-safty without adding alot of verbose code and constants.  
