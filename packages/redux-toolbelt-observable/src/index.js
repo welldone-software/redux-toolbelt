@@ -1,0 +1,1 @@
+export makeAsyncEpic from './makeAsyncEpic'

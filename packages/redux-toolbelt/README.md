@@ -11,6 +11,7 @@ Written in ES6.
 - [Usage](#usage)
 - [API Reference](#api-reference)
   * [`composeReducers()`](#composereducers)
+    + [Default State](#default-state)
   * [`makeActionCreator()`](#makeactioncreator)
     + [Adding payload and metadata to actions](#adding-payload-and-metadata-to-actions)
     + [Actions Prefixes](#actions-prefixes)
