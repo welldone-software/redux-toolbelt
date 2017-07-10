@@ -1,4 +1,4 @@
-import {composeReducers} from '../lib'
+import {composeReducers} from '../packages/redux-toolbelt/src'
 
 import test from 'ava'
 

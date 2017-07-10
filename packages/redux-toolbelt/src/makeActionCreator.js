@@ -1,5 +1,5 @@
-import trivialArgsMapper from './_internal/trivialArgsMapper'
-import {has, ownKeys} from './_internal/objectUtils'
+import trivialArgsMapper from './_trivialArgsMapper'
+import {has, ownKeys} from './_objectUtils'
 
 /**
  *

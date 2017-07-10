@@ -34,7 +34,8 @@ function execReducerMapItem(key, reducer, state, ...args) {
   if (oldChildState === newChildState) {
     return state
   }
-  const updatedState = {...state}
-  updatedState[key] = newChildState
-  return updatedState
+  return {
+    ...state,
+    [key]: newChildState,
+  }
 }

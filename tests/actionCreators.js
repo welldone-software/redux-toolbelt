@@ -1,4 +1,4 @@
-import {makeActionCreator} from '../lib'
+import {makeActionCreator} from '../packages/redux-toolbelt/src'
 import test from 'ava'
 
 
