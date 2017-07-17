@@ -1,5 +1,4 @@
 import EMPTY_ARRAY from 'empty/array'
-import isArray from 'lodash.isarray'
 import isMatch from 'lodash.ismatch'
 import defaultIdSelector from './defaultIdSelector'
 
@@ -13,7 +12,7 @@ export default function upsertItemsById(arr, updatedItems, idSelector = defaultI
     return updatedItems || EMPTY_ARRAY
   }
 
-  updatedItems = isArray(updatedItems) ? updatedItems : [updatedItems]
+  updatedItems = Array.isArray(updatedItems) ? updatedItems : [updatedItems]
 
   const updatedItemsMap = new Map(updatedItems.map(item => [idSelector(item), item]))
 

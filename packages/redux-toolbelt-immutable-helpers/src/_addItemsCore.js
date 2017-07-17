@@ -1,8 +1,7 @@
-import isArray from 'lodash.isarray'
 import EMPTY_ARRAY from 'empty/array'
 
 export default function _addItemsCore(arr, newItems, index) {
-  if (newItems !== undefined && !isArray(newItems)) {
+  if (newItems !== undefined && !Array.isArray(newItems)) {
     newItems = [newItems]
   }
   if (newItems === undefined || newItems.length === 0) {
