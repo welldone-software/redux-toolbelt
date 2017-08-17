@@ -137,10 +137,10 @@ myAction({val: 5}, {debug: true})
 
 To customize the action creators the make them more clear you can use the second parameter `argMapper`.
 ```js
-const myAction = makeActionCreator('MY_ACTION', (val, debug=false) = {
+const myAction = makeActionCreator('MY_ACTION', (val, debug=false) => ({
   payload: {val},
   meta: {debug}
-})
+}))
 
 myAction(5, true)
 // ==> {
@@ -152,18 +152,23 @@ myAction(5, true)
 // }
 ```
 
-#### Actions Prefixes
-There are situations where you want to creates actions that has logical relations with each other with a prefix.  
+#### Actions Defaults
+There are situations where you want to creates actions that has logical relations with each other with a prefix, or a common default metadata.
 You can do it like so:
 ```js
-const makeAction = makeActionCreator.withDefaults({prefix: "COUNTER/"})
-const increase = makeAction('INCREASE')
-const decrease = makeAction('DECREASE')
+const makeCounterAction = makeActionCreator.withDefaults({
+  prefix: "COUNTER/",
+  defaultMeta: {log: true}
+})
+
+const increase = makeCounterAction('INCREASE')
+const decrease = makeCounterAction('DECREASE')
 
 increase()
-// ==> { type: 'COUNTER/INCREASE' }
+// ==> { type: 'COUNTER/INCREASE', meta: {log: true} }
+
 decrease()
-// ==> { type: 'COUNTER/DECREASE' }
+// ==> { type: 'COUNTER/DECREASE', meta: {log: true} }
 ```
 
 ### `makeAsyncActionCreator()`
@@ -173,15 +178,19 @@ const fetchTodos = makeAsyncActionCreator('FETCH_TODOS')
 
 // Dispatching
 fetchTodos()
-// ==> { type: 'FETCH@ASYNC_REQUEST' }
+// ==> { type: 'FETCH_TODOS@ASYNC_REQUEST' }
+
 fetchTodos.success()
-// ==> { type: 'FETCH@ASYNC_SUCCESS' }
+// ==> { type: 'FETCH_TODOS@ASYNC_SUCCESS' }
+
 fetchTodos.failure()
-// ==> { type: 'FETCH@ASYNC_FAILURE' }
+// ==> { type: 'FETCH_TODOS@ASYNC_FAILURE' }
+
 fetchTodos.progress()
-// ==> { type: 'FETCH@ASYNC_PROGRESS' }
+// ==> { type: 'FETCH_TODOS@ASYNC_PROGRESS' }
+
 fetchTodos.cancel()
-// ==> { type: 'FETCH@ASYNC_CANCEL' }
+// ==> { type: 'FETCH_TODOS@ASYNC_CANCEL' }
 
 // inside reducers
 // Usage in reducer
@@ -190,18 +199,23 @@ const myReducer = (state, action) => {
     case fetchTodos.TYPE:
       // ... responding to request start
       return newState
+      
     case fetchTodos.success.TYPE:
       // ... responding to a successful request
       return newState
+      
     case fetchTodos.failure.TYPE:
       // ... responding to a failed request
       return newState
+      
     case fetchTodos.progress.TYPE:
       // ... responding to progress indications
       return newState
+      
     case fetchTodos.cancel.TYPE:
       // ... responding to request cancellation
       return newState
+      
     default:
       return state
   }
@@ -214,6 +228,7 @@ Behavior can be defined in an options object passed as the 2nd arg:
 
 ```js
 const asyncAction = makeAsyncActionCreator('ASYNC_ACTION')
+
 // These are the default options
 const options = {
   dataProp: 'data',
@@ -222,6 +237,7 @@ const options = {
   shouldSpread: false,
   shouldSetData: true
 }
+
 const asyncReducer = makeAsyncReducer(asyncAction, options)
 ```
 
@@ -233,6 +249,7 @@ Reducers created with `makeAsyncReducer()` respond to the request, progree, succ
 On start, the reducer will return the following state by default:
 ```js
 const asyncReducer = makeAsyncReducer(asyncAction)
+
 const state = undefined
 asyncReducer(state, {type: '@@INIT'})
 // ==> {
@@ -247,6 +264,7 @@ const asyncReducer = makeAsyncReducer(asyncAction, {
   dataProp: 'results',
   defaultData: []
 })
+
 const state = undefined
 asyncReducer(state, {type: '@@INIT'})
 // ==> {
@@ -264,6 +282,7 @@ const asyncReducer = makeAsyncReducer(asyncAction, {
     status: 'offline'
   }
 })
+
 const state = undefined
 asyncReducer(state, {type: '@@INIT'})
 // ==> {
@@ -277,6 +296,7 @@ asyncReducer(state, {type: '@@INIT'})
 When the reducer gets the `request` action it updates the `loading` field.
 ```js
 const asyncReducer = makeAsyncReducer(asyncAction)
+
 const state = {loading: false, data: [1, 2, 3]}
 asyncReducer(state, asyncAction())
 // ==> {
@@ -291,6 +311,7 @@ const asyncReducer = makeAsyncReducer(asyncAction, {
   shouldDestroyData: true,
   defaultData: []
 })
+
 const state = {loading: false, data: [1, 2, 3]}
 asyncReducer(state, asyncAction())
 // ==> {
@@ -304,6 +325,7 @@ When the reducer gets the `progress` action is updates the `progress` field with
 
 ```js
 const asyncReducer = makeAsyncReducer(asyncAction)
+
 const state = {loading: true}
 asyncReducer(state, asyncAction.progress(5))
 // ==> {
@@ -331,6 +353,7 @@ In this way you only detect requests success and failure.
 const asyncReducer = makeAsyncReducer(asyncAction, {
   shouldSetData: false
 })
+
 const state = {loading: true}
 asyncReducer(state, asyncAction.success([1, 2, 3]))
 // ==> {
@@ -343,6 +366,7 @@ When the reducer gets the `failure` action is updates the `loading` to `false` a
 
 ```js
 const asyncReducer = makeAsyncReducer(asyncAction)
+
 const state = {loading: true}
 asyncReducer(state, asyncAction.failure(`Server unreachable`))
 // ==> {
