@@ -11,6 +11,10 @@
   <a href="https://www.npmjs.com/package/redux-toolbelt"><img src="https://img.shields.io/npm/dm/redux-toolbelt.svg?style=flat-square"></a>
 </p>
 
+<p align="center">
+  <img align="center" src="https://raw.githubusercontent.com/welldone-software/redux-toolbelt/master/redux-toolbelt-logo.png" alt="redux-toolbelt logo"/>
+</p>
+
 ## Packages
 
 This repository is a monorepo that we manage using [Lerna](https://github.com/lerna/lerna). That means that we actually publish several packages to npm from the same codebase, including:

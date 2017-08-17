@@ -3,6 +3,10 @@
 A set of helper functions to reduce verbosity inside redux reducers.  
 Written in ES6.
 
+<p align="center">
+  <img align="center" src="https://raw.githubusercontent.com/welldone-software/redux-toolbelt/master/redux-toolbelt-logo.png" alt="redux-toolbelt logo"/>
+</p>
+
 ## TOC
 
 <!-- toc -->
