@@ -17,7 +17,7 @@ export default function makeAsyncReducer(actionCreator, options) {
       case actionCreator.TYPE:
         return options.shouldSpread ?
           { loading: true, ...(options.defaultData || {}) } :
-          { loading: true, [options.dataProp]: options.shouldDestroyData ? options.defaultData : state.data }
+          { loading: true, [options.dataProp]: options.shouldDestroyData ? options.defaultData : state[options.dataProp] }
       case actionCreator.success.TYPE: {
         if (!options.shouldSetData){
           return {loading: false}
