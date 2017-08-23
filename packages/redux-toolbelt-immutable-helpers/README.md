@@ -361,10 +361,24 @@ const c = updateItemsById(a, [{name: 'bob', height: 160, hairColor: 'blond'}], i
 ### `updateObjectProperties()`
 Updates multiple properties of an object.
 ```js
-const a = {id: 1, val: 5, type: 'something'}
-const b = updateObjectProperties(a, {val: 10, otherval: 20})
-// a ==> {id: 1, val: 5, type: 'something'}
-// b ==> {id: 1, val: 10, type: 'something', otherVal: 20}
+const a = {id: 1, val1: 5, val2: 6, type: 'something'}
+const b = updateObjectProperties(a, {val1: 9, otherval: 20})
+// a ==> {id: 1, val1: 5, val2: 6, type: 'something'}
+// b ==> {id: 1, val1: 9, val2: 6, type: 'something', otherVal: 20}
+```
+or
+```js
+const a = {id: 1, val1: 5, val2: 6, type: 'something'}
+const b = updateObjectProperties(a, ['val1', 'val2'], 10)
+// a ==> {id: 1, val1: 5, val2: 6, type: 'something'}
+// b ==> {id: 1, val1: 10, val2: 10, type: 'something'}
+```
+or
+```js
+const a = {id: 1, val1: 5, val2: 6, type: 'something'}
+const b = updateObjectProperties(a, ['val1', 'val2'], (value, prop) => value + 1)
+// a ==> {id: 1, val1: 5, val2: 6, type: 'something'}
+// b ==> {id: 1, val1: 6, val2: 7, type: 'something'}
 ```
 
 ### `updateObjectProperty()`
