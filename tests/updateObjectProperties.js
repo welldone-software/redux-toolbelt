@@ -37,3 +37,14 @@ test('updateObjectProperties v3', t => {
 
   t.deepEqual(obj2, {a: 'a', b: 'test-b', c: 'test-c'})
 })
+
+test('updateObjectProperties v4', t => {
+  const obj = {a: 1, b: 2, c: 3}
+
+  const obj2 = updateObjectProperties(obj, (value, prop) => (prop + value))
+
+  t.deepEqual(obj, {a: 1, b: 2, c: 3})
+
+  t.deepEqual(obj2, {a: 'a1', b: 'b2', c: 'c3'})
+})
+

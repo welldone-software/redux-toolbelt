@@ -1,21 +1,26 @@
 import updateObjectProperty from './updateObjectProperty'
 
 import isFunction from 'lodash.isfunction'
-import isArray from 'lodash.isarray'
+import isPlainObject from 'lodash.isplainobject'
 
-// updateObjectProperties(obj, {prop1: newVal, prop2: updateFunc})
-// updateObjectProperties(obj, [prop1, prop2], 'newVal')
-// updateObjectProperties(obj, [prop1, prop2], (value, name) => 'newValue')
-export default function updateObjectProperties(obj, props, newValOrUpdateFunc) {
-  if(!isArray(props)){
-    return updateObjectPropertiesV1(obj, props)
+// V1: updateObjectProperties(obj, {prop1: newVal, prop2: updateFunc})
+// V2: updateObjectProperties(obj, [prop1, prop2], 'newVal')
+// V3: updateObjectProperties(obj, [prop1, prop2], (value, name) => 'newValue')
+// V4: updateObjectProperties(obj, (value, name) => 'newValue')
+export default function updateObjectProperties(obj, propsOrUpdateFunc, newValOrUpdateFunc) {
+  if(isPlainObject(propsOrUpdateFunc)){
+    return updateObjectPropertiesV1(obj, propsOrUpdateFunc)
   }
 
-  if(!isFunction(newValOrUpdateFunc)){
-    return updateObjectPropertiesV2(obj, props, newValOrUpdateFunc)
+  if(isFunction(propsOrUpdateFunc)){
+    return updateObjectPropertiesV3(obj, Object.keys(obj), propsOrUpdateFunc)
   }
 
-  return updateObjectPropertiesV3(obj, props, newValOrUpdateFunc)
+  if(isFunction(newValOrUpdateFunc)){
+    return updateObjectPropertiesV3(obj, propsOrUpdateFunc, newValOrUpdateFunc)
+  }
+
+  return updateObjectPropertiesV2(obj, propsOrUpdateFunc, newValOrUpdateFunc)
 }
 
 // updateObjectProperties(obj, {prop1: newVal, prop2: updateFunc})

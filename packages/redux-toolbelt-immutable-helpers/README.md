@@ -47,7 +47,7 @@ yarn add redux-toolbelt-immutable-helpers
 ## Usage
 
 This utility functions are pure functions, they never change the provided arguments.  
-If no changes are neccessery, the original reference is returned.
+If no changes are necessary, the original reference is returned.
 
 Usually you can reduce complex code inside switch cases to just one or 2 functions calls.  
 They are also great for writing selectors.
@@ -358,6 +358,15 @@ const c = updateItemsById(a, [{name: 'bob', height: 160, hairColor: 'blond'}], i
 //  ]
 ```
 
+### `updateObjectProperty()`
+Updates a single property of an object.
+```js
+const a = {id: 1, val: 5, type: 'something'}
+const b = updateObjectProperty(a, 'val', 10})
+// a ==> {id: 1, val: 5, type: 'something'}
+// b ==> {id: 1, val: 10, type: 'something'}
+```
+
 ### `updateObjectProperties()`
 Updates multiple properties of an object.
 ```js
@@ -366,28 +375,26 @@ const b = updateObjectProperties(a, {val1: 9, otherval: 20})
 // a ==> {id: 1, val1: 5, val2: 6, type: 'something'}
 // b ==> {id: 1, val1: 9, val2: 6, type: 'something', otherVal: 20}
 ```
-or
+You can also update multiple items with the same value.
 ```js
 const a = {id: 1, val1: 5, val2: 6, type: 'something'}
 const b = updateObjectProperties(a, ['val1', 'val2'], 10)
 // a ==> {id: 1, val1: 5, val2: 6, type: 'something'}
 // b ==> {id: 1, val1: 10, val2: 10, type: 'something'}
 ```
-or
+Or update the chosen properties using an updated function.
 ```js
 const a = {id: 1, val1: 5, val2: 6, type: 'something'}
 const b = updateObjectProperties(a, ['val1', 'val2'], (value, prop) => value + 1)
 // a ==> {id: 1, val1: 5, val2: 6, type: 'something'}
 // b ==> {id: 1, val1: 6, val2: 7, type: 'something'}
 ```
-
-### `updateObjectProperty()`
-Updates a single property of an object.
-```js
-const a = {id: 1, val: 5, type: 'something'}
-const b = updateObjectProperty(a, 'val', 10})
-// a ==> {id: 1, val: 5, type: 'something'}
-// b ==> {id: 1, val: 10, type: 'something'}
+Or you can update all properties using an update function.
+```
+const a = {id: 1, val1: 5, val2: 6, type: 'something'}
+const b = updateObjectProperties(a, (value, prop) => `${prop}-${value})
+// a ==> {id: 1, val1: 5, val2: 6, type: 'something'}
+// b ==> {id: 'id-1', val1: 'val1-5', val2: 'val2-6', type: 'type-something'}
 ```
 
 ### `upsertItemsById()`
