@@ -1,15 +1,14 @@
 import isFunction from 'lodash.isfunction'
 
 /**
- *
- * @param reducers type Reducer = (state: Object, action: {type: stirngx}, ...rest) => any | {[key: string]: Reducer};
+ * @param reducers type Reducer = (state: Object, action: {type: string}, ...rest) => any | {[key: string]: Reducer};
  * @returns {function(*=, ...[*]): *}
  */
 export default function composeReducers(...reducers) {
-    return (state, ...rest) =>
-        reducers.reduce(
-            (newState, reducer) => exec(reducer, newState, ...rest),
-            state)
+  return (state, ...rest) => reducers.reduce(
+    (newState, reducer) => exec(reducer, newState, ...rest),
+    state
+  )
 }
 
 function exec(reducerOrReducersMap, state, ...args) {

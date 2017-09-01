@@ -13,11 +13,16 @@ export const ACTION_ASYNC_PROGRESS_METHOD = 'progress'
 export const ACTION_ASYNC_CANCEL_METHOD = 'cancel'
 
 /**
+ * @typedef {ActionCreator} AsyncActionCreator
+ * @property {ActionCreator} success - an action that indicates the async method had succeed
+ * @property {ActionCreator} failure - an action that indicates the async method has failed
+ * @property {ActionCreator} progress - an action that indicates a progress in the async method has been made
+ * @property {ActionCreator} cancel - an action that indicates the async method has been canceled
  *
  * @param baseName
  * @param argsMapper
  * @param options
- * @returns {function(*, *): {type: string, payload: *, meta: *}}
+ * @returns {AsyncActionCreator}
  */
 export default function makeAsyncActionCreator(baseName, argsMapper = trivialArgsMapper, options) {
 
