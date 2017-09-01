@@ -2,11 +2,13 @@ import trivialArgsMapper from './_trivialArgsMapper'
 import {has, ownKeys} from './_objectUtils'
 
 /**
+ * @typedef {function(*, *): {type: string, payload: *, meta: *}} ActionCreator
+ * @property {string} TYPE - action type
  *
  * @param name
- * @param argsMapper
- * @param options: {prefix, defaultMeta}
- * @returns {function(*, *): {type: string, payload: *, meta: *}}
+ * @param [argsMapper]
+ * @param [options]: {prefix, defaultMeta}
+ * @returns {ActionCreator}
  */
 export default function makeActionCreator(name, argsMapper = trivialArgsMapper, options) {
 
