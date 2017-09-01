@@ -1,5 +1,7 @@
 import isFunction from 'lodash.isfunction'
 
+const initialState = {}
+
 /**
  * @param reducers type Reducer = (state: Object, action: {type: string}, ...rest) => any | {[key: string]: Reducer};
  * @returns {function(*=, ...[*]): *}
@@ -18,13 +20,10 @@ function exec(reducerOrReducersMap, state, ...args) {
 }
 
 function execReducerMap(reducersMap, state, ...args) {
-  if (state === null || state === undefined) {
-    return state
-  }
   return Object.keys(reducersMap).reduce(
-    (newState, key) =>
-      execReducerMapItem(key, reducersMap[key], newState, ...args),
-    state)
+    (newState, key) => execReducerMapItem(key, reducersMap[key], newState, ...args),
+    state || initialState
+  )
 }
 
 function execReducerMapItem(key, reducer, state, ...args) {
@@ -33,6 +32,7 @@ function execReducerMapItem(key, reducer, state, ...args) {
   if (oldChildState === newChildState) {
     return state
   }
+
   return {
     ...state,
     [key]: newChildState,
