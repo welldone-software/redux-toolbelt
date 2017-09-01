@@ -1,4 +1,4 @@
-import updateObjectProperties from '../packages/redux-toolbelt-immutable-helpers/lib/updateObjectProperties'
+import updateObjectProperties from '../../packages/redux-toolbelt-immutable-helpers/src/updateObjectProperties'
 import test from 'ava'
 
 test('updateObjectProperties v1', t => {

@@ -1,4 +1,4 @@
-import {makeAsyncActionCreator} from '../packages/redux-toolbelt/src'
+import {makeAsyncActionCreator} from '../../packages/redux-toolbelt/src'
 import test from 'ava'
 
 test('type assignment with naming conventions', t => {

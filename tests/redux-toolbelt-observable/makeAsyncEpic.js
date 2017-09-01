@@ -1,11 +1,11 @@
 import test from 'ava'
-import {makeAsyncActionCreator} from '../packages/redux-toolbelt/src'
-import {makeAsyncEpic} from '../packages/redux-toolbelt-observable/src'
+
+import {makeAsyncActionCreator} from '../../packages/redux-toolbelt/src'
+import {makeAsyncEpic} from '../../packages/redux-toolbelt-observable/src'
+
 import { Observable } from 'rxjs/Observable'
 import configureMockStore from 'redux-mock-store'
 import {createEpicMiddleware} from 'redux-observable'
-
-
 
 const actionCreator = makeAsyncActionCreator('FETCH')
 

@@ -1,4 +1,11 @@
-import {pushItems, unshiftItems, addItemsInIndex, removeItem, removeItemsById, replaceItem, repositionItem, repositionItemById, updateItem, updateItemById, updateItemsByFilter, updateItemsById, upsertItemsById, filterByIds, updateObjectProperty, updateObjectProperties, makeArray} from '../packages/redux-toolbelt-immutable-helpers/src'
+import {
+  pushItems, unshiftItems, addItemsInIndex,
+  removeItem, removeItemsById, replaceItem,
+  repositionItem, repositionItemById, updateItem,
+  updateItemById, updateItemsByFilter, updateItemsById,
+  upsertItemsById, filterByIds, updateObjectProperty,
+  updateObjectProperties, makeArray,
+} from '../../packages/redux-toolbelt-immutable-helpers/src'
 
 import test from 'ava'
 
