@@ -1,0 +1,20 @@
+{
+  "name": "redux-toolbelt-saga",
+  "version": "1.0.0",
+  "description": "Saga helpers for redux-toolbelt",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "babel src --out-dir lib --plugins transform-es2015-modules-commonjs",
+    "prepublish": "npm run build"
+  },
+  "repository": "git+https://github.com/welldone-software/redux-toolbelt.git",
+  "bugs": {
+    "url": "https://github.com/welldone-software/redux-toolbelt/issues"
+  },
+  "homepage": "https://github.com/welldone-software/redux-toolbelt#readme",
+  "author": "Vitalik Zaidman (vzaidman@welldone-software.com)",
+  "license": "MIT",
+  "peerDependencies": {
+    "redux-saga": "^0.15.6"
+  }
+}
