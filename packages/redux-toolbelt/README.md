@@ -52,6 +52,15 @@ import makeActionCreator from 'redux-toolbelt/lib/makeActionCreator'
 
 ```
 
+## Demo
+A demo project can be found here:
+
+https://github.com/welldone-software/redux-toolbelt-demo
+
+The demo can be run in a live sandbox environment here:
+
+https://codesandbox.io/s/github/welldone-software/redux-toolbelt-demo
+
 ## API Reference
 
 ### `composeReducers()`
@@ -169,6 +178,61 @@ increase()
 
 decrease()
 // ==> { type: 'COUNTER/DECREASE', meta: {log: true} }
+```
+
+### `makeReducer()`
+Creates a reducer that handles action created with `makeActionCreator()`.
+
+The second parameter is the handler of the specified action.
+
+If it is not supplied, the reducer will always return the payload of the action.
+
+The last parameter (second or third) is options.
+
+It can only have one option right now: `defaultState` that specifies the initial state. It is `null` by default.
+
+```
+const toggle = makeActionCreator('TOGGLE')
+
+const visibilityState = makeReducer(toggleActionCreatora, visible => !visible, {defaultState: true})
+
+const state1 = reducer(undefined, {TYPE: '@@redux/INIT'})
+// state1 === true
+
+const state2 = reducer(state1, toggle())
+// state2 === false
+
+const state2 = reducer(state1, toggle())
+// state2 === true
+```
+
+It is very useful with `composeReducers`:
+```
+const setUserName = makeActionCreator('SET_USER_NAME')
+const toggleShow = makeActionCreator('TOGGLE_SHOW')
+
+const reducer = composeReducers({
+  userName: makeReducer(setUserName),
+  show: makeReducer(toggleShow, state => !state, {defaultState: true}),
+})
+
+const initialState = reducer(undefined, {type: '@@redux/INIT'})
+// initialState ==> {
+//   userName: null,
+//   show: true,
+// }
+
+const state1 = reducer(initialState, setUserName('test-user-name'))
+// state1 ==> {
+//   userName: 'test-user-name',
+//   show: true,
+// }
+
+const state2 = reducer(state1, toggleShow())
+// state2 ==> {
+//   userName: 'test-user-name',
+//   show: false,
+// }
 ```
 
 ### `makeAsyncActionCreator()`
