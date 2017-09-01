@@ -1,7 +1,7 @@
-import test from 'ava'
-
 import {makeAsyncActionCreator} from '../../packages/redux-toolbelt/src'
 import {makeAsyncEpic} from '../../packages/redux-toolbelt-observable/src'
+
+import test from 'ava'
 
 import { Observable } from 'rxjs/Observable'
 import configureMockStore from 'redux-mock-store'
@@ -14,7 +14,6 @@ const createStoreForTest = (asyncFunc) => {
   const epicMiddleware = createEpicMiddleware(epic)
   const createMockStore = configureMockStore([epicMiddleware])
   return createMockStore()
-
 }
 
 test.cb('Dispatches success action for resolved promise', t => {
