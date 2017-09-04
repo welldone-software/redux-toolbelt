@@ -202,8 +202,8 @@ const state1 = reducer(undefined, {TYPE: '@@redux/INIT'})
 const state2 = reducer(state1, toggle())
 // state2 === false
 
-const state2 = reducer(state1, toggle())
-// state2 === true
+const state3 = reducer(state2, toggle())
+// state3 === true
 ```
 
 It is very useful with `composeReducers`:
@@ -228,8 +228,8 @@ const state1 = reducer(initialState, setUserName('test-user-name'))
 //   show: true,
 // }
 
-const state2 = reducer(state1, toggleShow())
-// state2 ==> {
+const state3 = reducer(state2, toggleShow())
+// state3 ==> {
 //   userName: 'test-user-name',
 //   show: false,
 // }
