@@ -13,6 +13,7 @@ export default function composeReducers(...reducers) {
   )
 }
 
+
 function exec(reducerOrReducersMap, state, ...args) {
   return isFunction(reducerOrReducersMap) ?
     reducerOrReducersMap(state, ...args) :
