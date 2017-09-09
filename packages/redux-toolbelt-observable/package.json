@@ -1,6 +1,6 @@
 {
   "name": "redux-toolbelt-observable",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "Epic helpers for redux-toolbelt",
   "main": "lib/index.js",
   "scripts": {
@@ -19,6 +19,6 @@
     "rxjs": "^5.4.1"
   },
   "dependencies": {
-    "redux-toolbelt": "^2.0.10"
+    "redux-toolbelt": "^2.0.11"
   }
 }
