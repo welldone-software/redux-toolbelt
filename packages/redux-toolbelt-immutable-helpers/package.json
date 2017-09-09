@@ -4,7 +4,7 @@
   "description": "Immutable helpers for redux-toolbelt",
   "main": "lib/index.js",
   "scripts": {
-    "build": "babel src --out-dir lib --plugins transform-es2015-modules-commonjs,transform-object-assigns",
+    "build": "babel src --out-dir lib",
     "prepublish": "npm run build"
   },
   "repository": "git+https://github.com/welldone-software/redux-toolbelt.git",
