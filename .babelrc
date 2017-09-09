@@ -9,7 +9,7 @@
     "stage-0"
   ],
   "plugins": [
-    "transform-object-assigns"
+    "transform-object-assign"
   ],
   "env": {
     "test": {
