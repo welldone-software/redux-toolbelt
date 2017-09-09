@@ -1,6 +1,6 @@
 {
   "name": "redux-toolbelt-immutable-helpers",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Immutable helpers for redux-toolbelt",
   "main": "lib/index.js",
   "scripts": {
