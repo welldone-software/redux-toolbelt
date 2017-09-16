@@ -21,7 +21,11 @@
     "immutable",
     "toolbelt"
   ],
-  "author": "<danikenan@gmail.com>",
+  "authors": [
+    "Dani Kenan (dani@welldone-software.com)",
+    "Arik Maor <arikm@welldone-software.com>",
+    "Vitalik Zaidman (vitalikz@welldone-software.com)"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/welldone-software/redux-toolbelt/issues"

@@ -12,7 +12,10 @@
     "url": "https://github.com/welldone-software/redux-toolbelt/issues"
   },
   "homepage": "https://github.com/welldone-software/redux-toolbelt#readme",
-  "author": "Vitalik Zaidman (vzaidman@welldone-software.com)",
+  "authors": [
+    "Dani Kenan (dani@welldone-software.com)",
+    "Vitalik Zaidman (vitalikz@welldone-software.com)"
+  ],
   "license": "MIT",
   "peerDependencies": {
     "redux-saga": "^0.15.6"
