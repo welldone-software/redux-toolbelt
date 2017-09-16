@@ -1,6 +1,6 @@
-# redux-toolbelt-saga
+# redux-toolbelt-thunk
 
-A set of helper functions that extends 'redux-toolbelt' for usage with `redux-thunk`.
+A set of helper functions that extends `redux-toolbelt` for usage with `redux-thunk`.
 
 <p align="center">
   <img align="center" src="https://raw.githubusercontent.com/welldone-software/redux-toolbelt/master/redux-toolbelt-logo.png" alt="redux-toolbelt logo"/>
