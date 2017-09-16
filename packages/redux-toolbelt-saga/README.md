@@ -13,7 +13,7 @@ A set of helper functions that extends 'redux-toolbelt' for usage with `redux-sa
 - [Installation](#installation)
 - [Usage](#usage)
 - [API Reference](#api-reference)
-  * [`makeAsyncSaga()`](#makeasyncepic)
+  * [`makeAsyncSaga()`](#makeasyncsaga)
 
 <!-- tocstop -->
 

@@ -28,8 +28,8 @@ Written in ES6.
   * [`updateItemById()`](#updateitembyid)
   * [`updateItemsByFilter()`](#updateitemsbyfilter)
   * [`updateItemsById()`](#updateitemsbyid)
-  * [`updateObjectProperties()`](#updateobjectproperties)
   * [`updateObjectProperty()`](#updateobjectproperty)
+  * [`updateObjectProperties()`](#updateobjectproperties)
   * [`upsertItemsById()`](#upsertitemsbyid)
 
 <!-- tocstop -->

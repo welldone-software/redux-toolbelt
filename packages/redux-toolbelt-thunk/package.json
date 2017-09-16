@@ -1,0 +1,25 @@
+{
+  "name": "redux-toolbelt-thunk",
+  "version": "1.0.0",
+  "description": "Redux thunk helpers for redux-toolbelt",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "cross-env BABEL_ENV=build babel src --out-dir lib",
+    "prepublish": "npm run build"
+  },
+  "repository": "git+https://github.com/welldone-software/redux-toolbelt.git",
+  "bugs": {
+    "url": "https://github.com/welldone-software/redux-toolbelt/issues"
+  },
+  "homepage": "https://github.com/welldone-software/redux-toolbelt#readme",
+  "authors": [
+    "Dani Kenan (dani@welldone-software.com)"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "redux-thunk": "^2.2.0"
+  },
+  "dependencies": {
+    "redux-toolbelt": "^2.0.14"
+  }
+}

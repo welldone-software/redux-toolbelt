@@ -1,0 +1,1 @@
+export makeThunkAsyncActionCreator from './makeThunkAsyncActionCreator'
