@@ -309,7 +309,7 @@ const asyncReducer = makeAsyncReducer(asyncAction, options)
 
 #### Reducer Behvaiour
 
-Reducers created with `makeAsyncReducer()` respond to the request, progree, success and failure actions.
+Reducers created with `makeAsyncReducer()` respond to the request, progress, success and failure actions.
 
 ##### Initialization
 On start, the reducer will return the following state by default:
@@ -339,6 +339,25 @@ asyncReducer(state, {type: '@@INIT'})
 // }
 ```
 
+You can customize the `data` field value that is assigned during the success reducer using the `dataGetter` option.
+
+```js
+const asyncReducer = makeAsyncReducer(asyncAction, {
+  dataGetter: ({data}, {payload}) =>  ([...data, payload]),
+})
+
+const state = {data: ['a']}
+asyncReducer(state, asyncAction.success('b'))
+// ==> {
+//   loading: false,
+//   data: ['a', 'b']
+// }
+```
+> Without the `dataGetter` the `payload` replaces the old data. If you provide a `dataGetter`, it is called and the data 
+it returns is the one that is used to replace the old data. This allows you to add items, remove and do what ever you 
+need to create the new `data` from the current `state` and `action`.
+
+
 You can remove the use of the `dataProp`.
 ```js
 const asyncReducer = makeAsyncReducer(asyncAction, {
@@ -357,6 +376,11 @@ asyncReducer(state, {type: '@@INIT'})
 //   status: 'offline'
 // }
 ```
+
+> Please note however that we do not recommend to use `shouldSpread`. We have gained a lot from using the `data` member. 
+The separation of the state to *maintainance* information and  *actual* `data`, as well as adhering to such naming convention proves invaluable in terms of readability and consistency and
+highly increases the number of opportunities for logic reuse especially by making it clearer and easier to apply logic 
+on state generically.  
 
 ##### Request
 When the reducer gets the `request` action it updates the `loading` field.
