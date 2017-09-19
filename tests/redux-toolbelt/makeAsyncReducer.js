@@ -1,7 +1,8 @@
 import test from 'ava'
+
 const { createStore, applyMiddleware } = require('redux')
 
-import {makeAsyncActionCreator, makeAsyncReducer} from '../../packages/redux-toolbelt/src'
+import { makeAsyncActionCreator, makeAsyncReducer } from '../../packages/redux-toolbelt/src'
 
 const createStoreForTest = reducer => {
   const createStoreWithMiddleware = applyMiddleware()(createStore)
@@ -50,6 +51,32 @@ test.cb('store with dataProp', t => {
   t.deepEqual(state, {
     loading: false,
     someDataProp: ['some-data'],
+  })
+
+  t.end()
+})
+
+
+test.cb('reducer with dataGetter', t => {
+  const asyncAction = makeAsyncActionCreator('ASYNC_ACTION')
+  const reducer = makeAsyncReducer(asyncAction, {
+    defaultData: ['a'],
+    dataGetter: ({data}, {payload}) =>  ([...data, payload]),
+  })
+  const store = createStoreForTest(reducer)
+
+  let state = store.getState()
+  t.deepEqual(state, {
+    error: undefined,
+    loading: false,
+    data: ['a'],
+  })
+
+  store.dispatch(asyncAction.success('b'))
+  state = store.getState()
+  t.deepEqual(state, {
+    loading: false,
+    data: ['a', 'b'],
   })
 
   t.end()
