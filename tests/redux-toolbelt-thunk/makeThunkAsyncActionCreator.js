@@ -1,27 +1,44 @@
-import {makeAsyncThunkActionCreator} from '../../packages/redux-toolbelt-thunk/src'
+import makeAsyncThunkActionCreator from '../../packages/redux-toolbelt-thunk/src/makeThunkAsyncActionCreator'
 
 import test from 'ava'
 
-test.cb('Creates actions with all expected metadata', t => {
+
+test('Creates actions with all expected type info and sub action', t => {
+  //t.fail('xxx')
+  const actionCreator = makeAsyncThunkActionCreator('test')
+})
+
+test('Creates actions that calls the async function and passes params', t => {
+  //t.fail('xxx')
+  let b = null
+
+  const actionCreator = makeAsyncThunkActionCreator('test',
+    v =>  b = v
+  )
+  const action = actionCreator('b')
+
+  return action((...rest) => console.log(rest), () => {})
+    .then(() => t.is(b, 'b'))
 
 })
 
-test.cb('Passes meta creation parameter to action and sub-actions', t => {
+test('Passes meta creation parameter to action and sub-actions', t => {
+  const actionCreator = makeAsyncThunkActionCreator('test', null, {meta: 'a'})
 
 })
 
-test.cb('Calls thunk function', t => {
+test('Calls thunk function', t => {
 
 })
 
-test.cb('Passes store api to thunk function', t => {
+test('Passes store api to thunk function', t => {
 
 })
 
-test.cb('Dispatches success action with result of thunk function', t => {
+test('Dispatches success action with result of thunk function', t => {
 
 })
 
-test.cb('Dispatches success action with result of thunk function', t => {
+test('Dispatches success action with result of thunk function', t => {
 
 })

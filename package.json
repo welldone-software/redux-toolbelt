@@ -12,7 +12,8 @@
     "prepublish": "npm run build",
     "install": "lerna bootstrap",
     "clean": "lerna clean --yes && rimraf ./packages/*/lib node_modules",
-    "generateToc": "node scripts/generateToc.js"
+    "generateToc": "node scripts/generateToc.js",
+    "t": "NODE_ENV=test ava --timeout=1s --verbose tests "
   },
   "repository": "git+https://github.com/welldone-software/redux-toolbelt.git",
   "keywords": [

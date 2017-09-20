@@ -8,7 +8,7 @@ import { makeAsyncActionCreator } from 'redux-toolbelt'
  * @returns {thunkActionCreator}
  */
 export default function makeThunkAsyncActionCreator(baseName, asyncFn, options = {}) {
-  const actionCreator = makeAsyncActionCreator(name)
+  const actionCreator = makeAsyncActionCreator(baseName)
 
   const thunkActionCreator = function (...rest) {
     const action = (dispatch, getState) => {
