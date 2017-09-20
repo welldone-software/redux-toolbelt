@@ -17,7 +17,9 @@ export default function makeThunkAsyncActionCreator(baseName, asyncFn, options =
       return Promise.resolve()
         .then(() => asyncFn(...rest, { getState, dispatch }))
         .then(data => {
-          dispatch(actionCreator.success(data, meta))
+          const succ = actionCreator.success(data, meta)
+          dispatch(succ)
+          return succ
         })
         .catch(err => {
           dispatch(actionCreator.failure(err, meta))
