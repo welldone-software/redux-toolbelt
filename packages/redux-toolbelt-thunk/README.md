@@ -20,11 +20,11 @@ A set of helper functions that extends `redux-toolbelt` for usage with `redux-th
 ## Installation
 The tools are available in the `redux-toolbelt` npm package.
 ```sh
-npm install --save redux-toolbelt redux-toolbelt-thunk redux-thunk
+npm i -S redux-toolbelt redux-toolbelt-thunk redux-thunk
 
 # or
 
-yarn add redux-toolbelt redux-toolbelt-saga redux-thunk
+yarn add redux-toolbelt redux-toolbelt-thunk redux-thunk
 ```
 
 ## Usage
