@@ -35,5 +35,5 @@ export default function makeThunkAsyncActionCreator(baseName, asyncFn, options =
 
 makeThunkAsyncActionCreator.withDefaults = ({ prefix = '', defaultMeta, metaGetter }) => (baseName, asyncFn, options) => {
   options = Object.assign({}, { prefix, defaultMeta, metaGetter }, options)
-  return makeAsyncActionCreator(baseName, asyncFn, options)
+  return makeThunkAsyncActionCreator(baseName, asyncFn, options)
 }
