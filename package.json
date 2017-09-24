@@ -47,6 +47,7 @@
     "eslint-plugin-ava": "^4.1.0",
     "lerna": "^2.0.0-rc.5",
     "live-server": "^1.2.0",
+    "lodash.clonedeep": "^4.5.0",
     "markdown-toc": "^1.1.0",
     "redux": "^3.7.1",
     "redux-mock-store": "^1.2.3",
