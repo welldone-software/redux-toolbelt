@@ -57,7 +57,7 @@ test.cb('store with dataProp', t => {
 })
 
 
-test.cb('reducer with dataGetter', t => {
+test('reducer with dataGetter', t => {
   const asyncAction = makeAsyncActionCreator('ASYNC_ACTION')
   const reducer = makeAsyncReducer(asyncAction, {
     defaultData: ['a'],
@@ -79,5 +79,4 @@ test.cb('reducer with dataGetter', t => {
     data: ['a', 'b'],
   })
 
-  t.end()
 })

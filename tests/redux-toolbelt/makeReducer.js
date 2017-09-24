@@ -13,6 +13,23 @@ test('trivial', t => {
   t.deepEqual(state, 'test')
 })
 
+
+test('multiple creators', t => {
+
+  const a = makeActionCreator('A')
+  const b = makeActionCreator('B')
+  const c = makeActionCreator('C')
+
+  const reducer = makeReducer([a, b, c])
+
+  let state = reducer({}, a('a test'))
+  t.deepEqual(state, 'a test')
+  state = reducer({}, b('b test'))
+  t.deepEqual(state, 'b test')
+  state = reducer({}, c('c test'))
+  t.deepEqual(state, 'c test')
+})
+
 test('default state', t => {
 
   const a = makeActionCreator('A')

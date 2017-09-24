@@ -6,7 +6,7 @@
     "build_orig": "cross-env NODE_ENV=build webpack --progress --env.build=production",
     "build": "lerna run build",
     "test:watch": "npm test -- --watch",
-    "test": "cross-env NODE_ENV=test ava tests",
+    "test": "cross-env NODE_ENV=test ava tests --verbose",
     "lint": "eslint lib && eslint tests",
     "lint:fix": "eslint --fix lib && eslint --fix tests",
     "prepublish": "npm run build",

@@ -10,12 +10,13 @@ const defaultFunc = (state, action) => action.payload
 /**
  * makeReducer - makes a trivial reducer that returns the payload as the state
  *
- * @param {ActionCreator} actionCreator - an action creator created with makeActionCreator (or part of a makeAsyncActionCreator)
+ * @param {ActionCreator|ActionCreator[]} actionCreators - aa action creator or an array of created with
+ *                                        makeActionCreator (or part of a makeAsyncActionCreator)
  * @param {function(state,payload)|Object} [funcOrOptions] - function to be called when reducer's action is dispatched
  * @param {Object} [options] - specify reducer's options
  * @param [options.defaultState] - specify the initial (default) state
  */
-export default function makeReducer(actionCreator, funcOrOptions, options) {
+export default function makeReducer(actionCreators, funcOrOptions, options) {
   const func = isFunction(funcOrOptions) ? funcOrOptions : defaultFunc
 
   options = isPlainObject(funcOrOptions) ? funcOrOptions : options
@@ -27,8 +28,10 @@ export default function makeReducer(actionCreator, funcOrOptions, options) {
 
   const {defaultState} = options
 
+  const types = (Array.isArray(actionCreators) ? actionCreators : [actionCreators]).map(({TYPE}) => TYPE)
+
   return function (state = defaultState, action) {
-    if (action.type === actionCreator.TYPE) {
+    if (types.indexOf(action.type) > -1) {
       return func(state, action)
     }
     return state
