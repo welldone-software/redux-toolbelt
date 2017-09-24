@@ -17,11 +17,11 @@ export default function makeThunkAsyncActionCreator(baseName, asyncFn, options =
       return Promise.resolve()
         .then(() => asyncFn(...rest, { getState, dispatch }))
         .then(data => {
-          dispatch(actionCreator.success(data, meta))
+          return dispatch(actionCreator.success(data, meta))
         })
         .catch(err => {
-          dispatch(actionCreator.failure(err, meta))
-          throw err
+          return dispatch(actionCreator.failure(err, meta))
+            .then(() => { throw err })
         })
     }
     return action
