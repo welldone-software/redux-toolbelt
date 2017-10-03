@@ -1,8 +1,6 @@
 import {makeReducer, makeActionCreator} from '../../packages/redux-toolbelt/src'
 
-import test from 'ava'
-
-test('trivial', t => {
+test('trivial', () => {
 
   const a = makeActionCreator('A')
 
@@ -10,11 +8,11 @@ test('trivial', t => {
 
   const state = reducer({}, a('test'))
 
-  t.deepEqual(state, 'test')
+  expect(state).toEqual('test')
 })
 
 
-test('multiple creators', t => {
+test('multiple creators', () => {
 
   const a = makeActionCreator('A')
   const b = makeActionCreator('B')
@@ -23,14 +21,14 @@ test('multiple creators', t => {
   const reducer = makeReducer([a, b, c])
 
   let state = reducer({}, a('a test'))
-  t.deepEqual(state, 'a test')
+  expect(state).toEqual('a test')
   state = reducer({}, b('b test'))
-  t.deepEqual(state, 'b test')
+  expect(state).toEqual('b test')
   state = reducer({}, c('c test'))
-  t.deepEqual(state, 'c test')
+  expect(state).toEqual('c test')
 })
 
-test('default state', t => {
+test('default state', () => {
 
   const a = makeActionCreator('A')
 
@@ -38,11 +36,11 @@ test('default state', t => {
 
   const state = reducer(undefined, {TYPE: 'something'})
 
-  t.deepEqual(state, false)
+  expect(state).toEqual(false)
 })
 
 
-test('function', t => {
+test('function', () => {
 
   const a = makeActionCreator('A')
 
@@ -50,10 +48,10 @@ test('function', t => {
 
   const state = reducer('initial', a('test'))
 
-  t.deepEqual(state, 'initial->test')
+  expect(state).toEqual('initial->test')
 })
 
-test('function and default state', t => {
+test('function and default state', () => {
   const a = makeActionCreator('A')
 
   const reducer = makeReducer(a, state => !state)
@@ -61,5 +59,5 @@ test('function and default state', t => {
   const state1 = reducer(undefined, {TYPE: '@@redux/INIT'})
   const state2 = reducer(state1, a())
 
-  t.deepEqual(state2, true)
+  expect(state2).toEqual(true)
 })

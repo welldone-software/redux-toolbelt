@@ -3,8 +3,6 @@ import 'babel-polyfill'
 import {makeAsyncActionCreator} from '../../packages/redux-toolbelt/src'
 import {makeAsyncSaga} from '../../packages/redux-toolbelt-saga/src'
 
-import test from 'ava'
-
 import createSagaMiddleware from 'redux-saga'
 import configureMockStore from 'redux-mock-store'
 
@@ -25,7 +23,7 @@ function mockRequest({shouldReject = false} = {}){
   })
 }
 
-test.cb('saga dispatches success actions for a successful request', t => {
+test('saga dispatches success actions for a successful request', done => {
 
   const requestActionCreator = makeAsyncActionCreator('REQUEST')
   const mySaga = makeAsyncSaga(requestActionCreator, mockRequest)
@@ -34,17 +32,17 @@ test.cb('saga dispatches success actions for a successful request', t => {
   store.dispatch(requestActionCreator())
 
   setTimeout(() => {
-    t.deepEqual(store.getActions(), [
+    expect(store.getActions()).toEqual([
       requestActionCreator(),
       requestActionCreator.success({ 'dummy': 'object' }),
     ])
 
-    t.end()
+    done()
   })
 
 })
 
-test.cb('saga dispatches failure actions for a successful request', t => {
+test('saga dispatches failure actions for a successful request', done => {
 
   const requestActionCreator = makeAsyncActionCreator('REQUEST')
   const mySaga = makeAsyncSaga(requestActionCreator, mockRequest, {shouldReject: true})
@@ -53,12 +51,12 @@ test.cb('saga dispatches failure actions for a successful request', t => {
   store.dispatch(requestActionCreator())
 
   setTimeout(() => {
-    t.deepEqual(store.getActions(), [
+    expect(store.getActions()).toEqual([
       requestActionCreator(),
       requestActionCreator.failure('some error'),
     ])
 
-    t.end()
+    done()
   })
 
 })

@@ -1,38 +1,37 @@
 import {has, ownKeys} from '../../packages/redux-toolbelt/src/_objectUtils'
-import test from 'ava'
 
-test('non object param returns TypeError', t => {
-   const res = t.throws( () =>{
+test('non object param returns TypeError', () => {
+   const res = expect(() =>{
        has(1,'key')
-   },TypeError)
+   }).toThrowError(TypeError)
 
-   t.is(res.message,'param is not an object')
+   expect(res.message).toBe('param is not an object')
 })
 
-test('object with prop returns true', t => {
+test('object with prop returns true', () => {
    const obj = {name:'david' , age:56}
-   t.is(has(obj, 'name'),true)
+   expect(has(obj, 'name')).toBe(true)
 })
 
-test('object without prop returns false', t => {
+test('object without prop returns false', () => {
    const obj = {name:'david' , age:56}
-   t.is(has(obj, 'address'),false)
+   expect(has(obj, 'address')).toBe(false)
 })
 
-test('ownKeys non object param returns TypeError', t => {
-   const res = t.throws( () =>{
+test('ownKeys non object param returns TypeError', () => {
+   const res = expect(() =>{
        ownKeys(1)
-   },TypeError)
+   }).toThrowError(TypeError)
 
-   t.is(res.message,'param is not an object')
+   expect(res.message).toBe('param is not an object')
 })
 
-test('ownKeys returns array with key', t => {
+test('ownKeys returns array with key', () => {
     const obj = {name:'david' , age:55}
     const res= ownKeys(obj)
-   t.is(Array.isArray(res) , true)
-   t.is (res.indexOf('name')>=0,true)
-   t.is (res.indexOf('address')==-1,true)
+   expect(Array.isArray(res)).toBe(true)
+   expect(res.indexOf('name')>=0).toBe(true)
+   expect(res.indexOf('address')==-1).toBe(true)
 })
 
 

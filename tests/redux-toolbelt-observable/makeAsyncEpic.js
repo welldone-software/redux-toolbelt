@@ -1,8 +1,6 @@
 import {makeAsyncActionCreator} from '../../packages/redux-toolbelt/src'
 import {makeAsyncEpic} from '../../packages/redux-toolbelt-observable/src'
 
-import test from 'ava'
-
 import { Observable } from 'rxjs/Observable'
 import configureMockStore from 'redux-mock-store'
 import {createEpicMiddleware} from 'redux-observable'
@@ -16,49 +14,49 @@ const createStoreForTest = (asyncFunc) => {
   return createMockStore()
 }
 
-test.cb('Dispatches success action for resolved promise', t => {
+test('Dispatches success action for resolved promise', done => {
   const store = createStoreForTest(() => Promise.resolve(5))
   store.dispatch(actionCreator())
 
   setImmediate(() => {
-    t.deepEqual(store.getActions(), [
+    expect(store.getActions()).toEqual([
       actionCreator(),
       actionCreator.success(5),
     ])
 
-    t.end()
+    done()
   })
 })
 
-test.cb('Dispatches failure action for rejected promise', t => {
+test('Dispatches failure action for rejected promise', done => {
   const store = createStoreForTest(() => Promise.reject(7))
   store.dispatch(actionCreator())
 
   setImmediate(() => {
-    t.deepEqual(store.getActions(), [
+    expect(store.getActions()).toEqual([
       actionCreator(),
       actionCreator.failure(7),
     ])
-    t.end()
+    done()
   })
 })
 
-test('Dispatches failure action for exceptions', t => {
+test('Dispatches failure action for exceptions', () => {
   const error = new Error('Error object for test')
   const store = createStoreForTest(() => { throw error })
   store.dispatch(actionCreator())
 
-  t.deepEqual(store.getActions(), [
+  expect(store.getActions()).toEqual([
     actionCreator(),
     actionCreator.failure(error),
   ])
 })
 
-test('Dispatches success actions for observables', t => {
+test('Dispatches success actions for observables', () => {
   const store = createStoreForTest(() => Observable.from([3, 5, 7]))
   store.dispatch(actionCreator())
 
-  t.deepEqual(store.getActions(), [
+  expect(store.getActions()).toEqual([
     actionCreator(),
     actionCreator.success(3),
     actionCreator.success(5),

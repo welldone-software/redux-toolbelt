@@ -1,5 +1,3 @@
-import test from 'ava'
-
 const { createStore, applyMiddleware } = require('redux')
 
 import { makeAsyncActionCreator, makeAsyncReducer } from '../../packages/redux-toolbelt/src'
@@ -9,22 +7,20 @@ const createStoreForTest = reducer => {
   return createStoreWithMiddleware(reducer)
 }
 
-test.cb('default store', t => {
+test('default store', () => {
   const asyncAction = makeAsyncActionCreator('ASYNC_ACTION')
   const reducer = makeAsyncReducer(asyncAction)
   const store = createStoreForTest(reducer)
 
   const state = store.getState()
-  t.deepEqual(state, {
+  expect(state).toEqual({
     error: undefined,
     loading: false,
     data: undefined,
   })
-
-  t.end()
 })
 
-test.cb('store with dataProp', t => {
+test('store with dataProp', () => {
   const asyncAction = makeAsyncActionCreator('ASYNC_ACTION')
   const reducer = makeAsyncReducer(asyncAction, {
     dataProp: 'someDataProp',
@@ -33,7 +29,7 @@ test.cb('store with dataProp', t => {
   const store = createStoreForTest(reducer)
 
   let state = store.getState()
-  t.deepEqual(state, {
+  expect(state).toEqual({
     error: undefined,
     loading: false,
     someDataProp: undefined,
@@ -41,23 +37,21 @@ test.cb('store with dataProp', t => {
 
   store.dispatch(asyncAction())
   state = store.getState()
-  t.deepEqual(state, {
+  expect(state).toEqual({
     loading: true,
     someDataProp: undefined,
   })
 
   store.dispatch(asyncAction.success(['some-data']))
   state = store.getState()
-  t.deepEqual(state, {
+  expect(state).toEqual({
     loading: false,
     someDataProp: ['some-data'],
   })
-
-  t.end()
 })
 
 
-test('reducer with dataGetter', t => {
+test('reducer with dataGetter', () => {
   const asyncAction = makeAsyncActionCreator('ASYNC_ACTION')
   const reducer = makeAsyncReducer(asyncAction, {
     defaultData: ['a'],
@@ -66,7 +60,7 @@ test('reducer with dataGetter', t => {
   const store = createStoreForTest(reducer)
 
   let state = store.getState()
-  t.deepEqual(state, {
+  expect(state).toEqual({
     error: undefined,
     loading: false,
     data: ['a'],
@@ -74,7 +68,7 @@ test('reducer with dataGetter', t => {
 
   store.dispatch(asyncAction.success('b'))
   state = store.getState()
-  t.deepEqual(state, {
+  expect(state).toEqual({
     loading: false,
     data: ['a', 'b'],
   })
