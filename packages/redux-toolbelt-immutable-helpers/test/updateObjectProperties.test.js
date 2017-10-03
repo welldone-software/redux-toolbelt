@@ -1,5 +1,14 @@
 import updateObjectProperties from '../src/updateObjectProperties'
 
+test('updateObjectProperties v0', () => {
+  const obj = {id: 1, val: 5, otherVal: 8, anotherVal: 16}
+  const result = updateObjectProperties(obj, {val: 10, otherVal: 70})
+  const expected = {id: 1, val: 10, otherVal: 70, anotherVal: 16}
+
+  expect(obj === result).toBe(false)
+  expect(result).toEqual(expected)
+})
+
 test('updateObjectProperties v1', () => {
   const obj = {a: 'a', b: 'b', c: 'c'}
 
