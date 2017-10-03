@@ -1,11 +1,13 @@
 import {has, ownKeys} from '../../packages/redux-toolbelt/src/_objectUtils'
 
 test('non object param returns TypeError', () => {
-   const res = expect(() =>{
-       has(1,'key')
-   }).toThrowError(TypeError)
-
-   expect(res.message).toBe('param is not an object')
+    expect(() =>{
+        has(1,'key')
+    }).toThrowError(TypeError)
+    
+    expect(() =>{
+        has(1,'key')
+    }).toThrowError('param is not an object')
 })
 
 test('object with prop returns true', () => {
@@ -19,11 +21,13 @@ test('object without prop returns false', () => {
 })
 
 test('ownKeys non object param returns TypeError', () => {
-   const res = expect(() =>{
-       ownKeys(1)
-   }).toThrowError(TypeError)
-
-   expect(res.message).toBe('param is not an object')
+    expect(() =>{
+        ownKeys(1)
+    }).toThrowError(TypeError)
+    
+    expect(() =>{
+        ownKeys(1)
+    }).toThrowError('param is not an object')
 })
 
 test('ownKeys returns array with key', () => {
