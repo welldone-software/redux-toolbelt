@@ -1,4 +1,4 @@
-import {makeActionCreator} from '../../packages/redux-toolbelt/src'
+import {makeActionCreator} from '../src'
 
 
 test('type is assigned', () => {

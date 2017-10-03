@@ -1,4 +1,4 @@
-import {has, ownKeys} from '../../packages/redux-toolbelt/src/_objectUtils'
+import {has, ownKeys} from '../src/_objectUtils'
 
 test('non object param returns TypeError', () => {
     expect(() =>{

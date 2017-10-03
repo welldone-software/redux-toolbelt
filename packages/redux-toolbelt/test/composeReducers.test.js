@@ -1,4 +1,4 @@
-import {composeReducers, makeReducer, makeActionCreator} from '../../packages/redux-toolbelt/src'
+import {composeReducers, makeReducer, makeActionCreator} from '../src'
 
 function r1(s = 1, {type} = {type: 'noop'}) {
   switch (type) {

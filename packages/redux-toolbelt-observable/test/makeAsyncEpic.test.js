@@ -1,5 +1,5 @@
-import {makeAsyncActionCreator} from '../../packages/redux-toolbelt/src'
-import {makeAsyncEpic} from '../../packages/redux-toolbelt-observable/src'
+import {makeAsyncActionCreator} from '../../redux-toolbelt/src'
+import {makeAsyncEpic} from '../src'
 
 import { Observable } from 'rxjs/Observable'
 import configureMockStore from 'redux-mock-store'

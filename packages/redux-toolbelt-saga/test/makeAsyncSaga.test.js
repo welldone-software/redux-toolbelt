@@ -1,7 +1,7 @@
 import 'babel-polyfill'
 
-import {makeAsyncActionCreator} from '../../packages/redux-toolbelt/src'
-import {makeAsyncSaga} from '../../packages/redux-toolbelt-saga/src'
+import {makeAsyncActionCreator} from '../../redux-toolbelt/src'
+import {makeAsyncSaga} from '../src'
 
 import createSagaMiddleware from 'redux-saga'
 import configureMockStore from 'redux-mock-store'

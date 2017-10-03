@@ -1,4 +1,4 @@
-import {makeReducer, makeActionCreator} from '../../packages/redux-toolbelt/src'
+import {makeReducer, makeActionCreator} from '../src'
 
 test('trivial', () => {
 

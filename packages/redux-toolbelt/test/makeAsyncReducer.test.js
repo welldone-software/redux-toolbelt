@@ -1,6 +1,6 @@
 const { createStore, applyMiddleware } = require('redux')
 
-import { makeAsyncActionCreator, makeAsyncReducer } from '../../packages/redux-toolbelt/src'
+import { makeAsyncActionCreator, makeAsyncReducer } from '../src'
 
 const createStoreForTest = reducer => {
   const createStoreWithMiddleware = applyMiddleware()(createStore)

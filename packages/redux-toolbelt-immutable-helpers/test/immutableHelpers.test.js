@@ -5,7 +5,7 @@ import {
   updateItemById, updateItemsByFilter, updateItemsById,
   upsertItemsById, filterByIds, updateObjectProperty,
   updateObjectProperties, makeArray,
-} from '../../packages/redux-toolbelt-immutable-helpers/src'
+} from '../src'
 
 test('pushItems', () => {
   const arr = [{a: 1}, {b: 2}]

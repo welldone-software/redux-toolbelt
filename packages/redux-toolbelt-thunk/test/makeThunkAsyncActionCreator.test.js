@@ -1,4 +1,4 @@
-import makeAsyncThunkActionCreator from '../../packages/redux-toolbelt-thunk/src/makeThunkAsyncActionCreator'
+import makeAsyncThunkActionCreator from '../src/makeThunkAsyncActionCreator'
 import configureMockStore from 'redux-mock-store'
 // import { applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'

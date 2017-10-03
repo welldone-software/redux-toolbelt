@@ -1,4 +1,4 @@
-import updateObjectProperties from '../../packages/redux-toolbelt-immutable-helpers/src/updateObjectProperties'
+import updateObjectProperties from '../src/updateObjectProperties'
 
 test('updateObjectProperties v1', () => {
   const obj = {a: 'a', b: 'b', c: 'c'}
