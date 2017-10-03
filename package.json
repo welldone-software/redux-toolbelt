@@ -61,6 +61,6 @@
   },
   "jest":{
     "verbose": true,
-    "testRegex": "./tests"
+    "testRegex": "/.*\\.test\\.js$"
   }
 }
