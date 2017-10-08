@@ -1,4 +1,4 @@
-## v1.1.0 (2017-10-08)
+## v2.0.0 (2017-10-08)
 
 ### Breaking Change
 Previously, when `makeAsyncSaga` was created it specified the arguments it will pass to the function it wraps:
