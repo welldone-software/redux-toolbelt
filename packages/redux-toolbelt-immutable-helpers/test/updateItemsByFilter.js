@@ -1,5 +1,13 @@
 import {updateItemsByFilter} from '../src'
 
+test('updateItemsByFilter: updating item with the same value should return the exact same array', () => {
+    const arr = [{id: 1, val: 2}, {id: 2, val: 5}, {id: 3, val: 8}, {id: 4, val: 1}]
+    const result = updateItemsByFilter(arr, () => true, item => ({val: item.val}))
+    const expected = arr
+  
+    expect(result).toEqual(expected)
+  })
+  
 
 test('updateItemsByFilter', () => {
   const arr = Object.freeze(

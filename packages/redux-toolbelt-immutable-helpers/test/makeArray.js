@@ -10,7 +10,7 @@ test('makeArray creates array from object', () => {
   expect(result).toEqual([obj])
 })
 
-test('makeArray copies the provided array to a new one', () => {
+test('makeArray: copy the provided array to a new one', () => {
   const arr = Object.freeze(
     [{id: 1, val: 5}, {id: 2, val: 6}]
   )
