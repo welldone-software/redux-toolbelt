@@ -1,7 +1,6 @@
 import { makeReducer, makeActionCreator } from '../src'
 
 test('trivial', () => {
-
   const a = makeActionCreator('A')
 
   const reducer = makeReducer(a)
@@ -11,25 +10,7 @@ test('trivial', () => {
   expect(state).toEqual('test')
 })
 
-
-test('multiple creators', () => {
-
-  const a = makeActionCreator('A')
-  const b = makeActionCreator('B')
-  const c = makeActionCreator('C')
-
-  const reducer = makeReducer([a, b, c])
-
-  let state = reducer({}, a('a test'))
-  expect(state).toEqual('a test')
-  state = reducer({}, b('b test'))
-  expect(state).toEqual('b test')
-  state = reducer({}, c('c test'))
-  expect(state).toEqual('c test')
-})
-
 test('default state', () => {
-
   const a = makeActionCreator('A')
 
   const reducer = makeReducer(a, { defaultState: false })
@@ -40,7 +21,6 @@ test('default state', () => {
 })
 
 test('function', () => {
-
   const a = makeActionCreator('A')
 
   const reducer = makeReducer(a, (state, { payload }) => `${state}->${payload}`)
@@ -66,8 +46,8 @@ test('multiple actions handling', () => {
   const decreaseBy = makeActionCreator('DECREASE_BY')
 
   const reducer = makeReducer({
-    [increaseBy]: (state, { payload }) => state + payload,
-    [decreaseBy]: (state, { payload }) => state - payload,
+    [increaseBy]: (state, {payload}) => state + payload,
+    [decreaseBy.TYPE]: (state, {payload}) => state - payload,
   }, { defaultState: 100 })
 
   let state = reducer(undefined, { type: '@@redux/INIT' })
