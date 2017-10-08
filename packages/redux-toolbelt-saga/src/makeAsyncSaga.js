@@ -3,10 +3,18 @@ import { call, put, takeLatest } from 'redux-saga/effects'
 /**
  * @param {AsyncActionCreator} asyncActionCreator
  * @param {function} fn
- * @param {...*} [args]
+ * @param options? = {mapArgs?, args?})
+ *
+ * @returns {Function}
  */
-export default function makeAsyncSaga(asyncActionCreator, fn, ...args){
-  function* exec(){
+export default function makeAsyncSaga(asyncActionCreator, fn, options = {}){
+  function* exec(action){
+
+    const args = yield getArgs(action, options)
+    if(!Array.isArray(args)){
+      throw new Error(`makeAsyncSaga expected an array of args, instead got: ${args}`)
+    }
+
     try {
       const result = yield call(fn, ...args)
       yield put(asyncActionCreator.success(result))
@@ -21,4 +29,21 @@ export default function makeAsyncSaga(asyncActionCreator, fn, ...args){
   }
 
   return waitFor
+}
+
+
+function* getArgs(action, options){
+  if (options.mapArgs){
+    return yield options.mapArgs(action)
+  }
+
+  if (options.args){
+    return options.args
+  }
+
+  if (action.payload){
+    return [action.payload]
+  }
+
+  return []
 }
