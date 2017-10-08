@@ -32,7 +32,7 @@ test('Creates actions that calls the async function and passes params', () => {
   const action = actionCreator('b')
 
   return action(noop, noop)
-    .then(() => expect(asyncResult).toBe('b'));
+    .then(() => expect(asyncResult).toBe('b'))
 })
 
 test('Handles correctly successful async', () => {
@@ -53,7 +53,7 @@ test('Handles correctly successful async', () => {
       expect(actions[1].payload).toBe('ping pong b')
 
       expect(actions.length).toBe(2)
-    });
+    })
 })
 
 test('Handles correctly failed async', () => {
@@ -75,6 +75,6 @@ test('Handles correctly failed async', () => {
       expect(actions[1].payload.message).toBe('b1')
 
       expect(actions.length).toBe(2)
-    });
+    })
 })
 
