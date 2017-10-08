@@ -47,13 +47,37 @@ Creates a saga that handles actions created using `makeAsyncActionCreator`.
 
 The first argument specifies saga when to dispatch the function in the second argument.
 
-Other arguments are passed to the function when it is run.
-
 ```js
 const fetchTodos = makeAsyncActionCreator('FETCH_TODOS')
 
 // Returns promise
-const fetchTodosFromServer = () => {/*...*/}
+const fetchTodosFromServer = ({id, url}, debug = false) => {/*...*/}
 
 const saga = makeAsyncSaga(fetchTodos, fetchTodosFromServer)
+
+//...
+dispatch(fetchTodos({id: 100, url: 'http://google.com'}))
+```
+
+By default, the payload of the action is what passed to the function as it's argument.
+
+You have two ways of changing it, using `options`:
+
+```js
+const options = {
+  // pass specific arguments
+  args: [{id, url}],
+  
+  // OR
+  
+  // map the action to arguments using a regular or a generator function
+  mapArgs: function* mapArgs(action){
+    const {todosId} = action.payload
+    const url = yield select(urlSelector)
+    
+    return [{id: todosId, url}, true]
+  }
+}
+
+const saga = makeAsyncSaga(fetchTodos, fetchTodosFromServer, options)
 ```
