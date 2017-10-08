@@ -1,6 +1,6 @@
 {
   "name": "redux-toolbelt-saga",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Saga helpers for redux-toolbelt",
   "main": "lib/index.js",
   "scripts": {
