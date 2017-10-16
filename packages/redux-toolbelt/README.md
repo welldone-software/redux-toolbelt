@@ -183,32 +183,106 @@ decrease()
 ```
 
 ### `makeReducer()`
-Creates a reducer that handles action created with `makeActionCreator()`.
+Creates a reducer that handles action creator[s] created with `makeActionCreator`.
 
-The second parameter is the handler of the specified action.
+- The first argument is `actionCreator[s]` and it can be one of the following:
+  - `actionCreator`
+    ```
+    makeActionCreator('TOGGLE')
+    ```
 
-If it is not supplied, the reducer will always return the payload of the action.
+  - An array of `actionCreator`'s:
+    ```
+    const countUpdatedReducer = makeReducer(
+      [increaseBy, decreaseBy],
+      (state, {payload}) => (state || (payload !== 0)),
+      { defaultState: false }
+    })
+    ```
+  - An object of `actionCreator`'s
+  
+    *note: You can pass action creators as the keys of the action creator's object
+    as well as action creator types, because they are converted to strings as part of
+    [JS specification](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Working_with_Objects#Objects_and_properties):*
+    ```
+    const reducer = makeReducer({
+      [increaseBy]: (state, {payload}) => state + payload,
+      [decreaseBy.TYPE]: (state, {payload}) => state - payload,
+    }, { defaultState: 100 })
+    ```
 
-The last parameter (second or third) is options.
-
-It can only have one option right now: `defaultState` that specifies the initial state. It is `null` by default.
-
+- The second argument is the `handler` for the specified action.
+  - If not specified, the reducer will update the state to
+  the payload of the action whenever it is fired.
+- The last argument is `options` and it is optional. It currently receives only parameter:
+  - `defaultState`: Specifies the initial state. It is `null` by default.
+ 
 ```
 const toggle = makeActionCreator('TOGGLE')
 
 const visibilityState = makeReducer(toggleActionCreatora, visible => !visible, {defaultState: true})
 
-const state1 = reducer(undefined, {TYPE: '@@redux/INIT'})
-// state1 === true
+let state = reducer(undefined, {TYPE: '@@redux/INIT'})
+// state === true
 
-const state2 = reducer(state1, toggle())
-// state2 === false
+state = reducer(state, toggle())
+// state === false
 
-const state3 = reducer(state2, toggle())
-// state3 === true
+state = reducer(state, toggle())
+// state === true
+```
+
+Passing multiple action creators as the first argument:
+
+```
+const increaseBy = makeActionCreator('INCREASE_BY')
+const decreaseBy = makeActionCreator('DECREASE_BY')
+
+const countUpdatedReducer = makeReducer(
+  [increaseBy, decreaseBy],
+  (state, {payload}) => (state || (payload !== 0)),
+  { defaultState: false }
+})
+
+let state = countUpdatedReducer(undefined, {type: '@@redux/INIT'})
+// state === false
+
+state = countUpdatedReducer(state, increaseBy(0))
+// state === false
+
+state = countUpdatedReducer(state, decreaseBy(20))
+// state === true
+
+state = countUpdatedReducer(state, increaseBy(20))
+// state === true
+```
+
+Using an actions object:
+
+```
+const increaseBy = makeActionCreator('INCREASE_BY')
+const decreaseBy = makeActionCreator('DECREASE_BY')
+
+// notice how passing an action creator is equivalent
+// to passing the action creator's type.
+
+const reducer = makeReducer({
+  [increaseBy]: (state, {payload}) => state + payload,
+  [decreaseBy.TYPE]: (state, {payload}) => state - payload,
+}, { defaultState: 100 })
+
+let state = reducer(undefined, {type: '@@redux/INIT'})
+// state === 100
+
+state = reducer(state, increaseBy(10))
+// state === 110
+
+state = reducer(state, decreaseBy(20))
+// state === 90
 ```
 
 It is very useful with `composeReducers`:
+
 ```
 const setUserName = makeActionCreator('SET_USER_NAME')
 const toggleShow = makeActionCreator('TOGGLE_SHOW')
@@ -463,4 +537,24 @@ asyncReducer(state, asyncAction.failure(`Server unreachable`))
 //   loading: false,
 //   error: 'Server unreachable'
 // }
+```
+
+### `isActionCreator()`
+A utility to determine if an object is an action creator:
+
+```
+const a = makeActionCreator('A')
+//isActionCreator(a) === true
+
+const b = makeAsyncActionCreator('B')
+// isActionCreator(b) === true
+// isActionCreator(b.success) === true
+// isActionCreator(b.failure) === true
+// isActionCreator(b.progress) === true
+// isActionCreator(b.cancel) === true
+
+// isActionCreator({}) === false
+// isActionCreator(true) === false
+// isActionCreator(() => {}) === false
+// isActionCreator([]) === false
 ```

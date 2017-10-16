@@ -1,5 +1,3 @@
-import 'babel-polyfill'
-
 import { makeAsyncActionCreator } from '../../redux-toolbelt/src'
 import { makeAsyncSaga } from '../src'
 
