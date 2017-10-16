@@ -188,7 +188,8 @@ Creates a reducer that handles action creator[s] created with `makeActionCreator
 - The first argument is `actionCreator[s]` and it can be one of the following:
   - `actionCreator`
     ```
-    makeActionCreator('TOGGLE')
+    const toggleAction = makeActionCreator('TOGGLE')
+    const toggleReducer = makeReducer(toggleAction, state => !state, { defaultState: false })
     ```
 
   - An array of `actionCreator`'s:
