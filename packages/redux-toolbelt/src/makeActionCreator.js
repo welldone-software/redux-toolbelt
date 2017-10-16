@@ -1,5 +1,5 @@
 import trivialArgsMapper from './_trivialArgsMapper'
-import {has, ownKeys} from './_objectUtils'
+import { has, ownKeys } from './_objectUtils'
 
 /**
  * @typedef {function(*, *): {type: string, payload: *, meta: *}} ActionCreator
@@ -45,9 +45,9 @@ export default function makeActionCreator(name, argsMapper = trivialArgsMapper, 
   }
 
   actionCreator.TYPE = type
+  actionCreator.toString = () => type
 
   return actionCreator
-
 }
 
 makeActionCreator.withDefaults = ({ prefix = '', defaultMeta }) => (baseName, argsMapper, options) => {

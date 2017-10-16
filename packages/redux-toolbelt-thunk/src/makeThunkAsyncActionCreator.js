@@ -1,4 +1,4 @@
-import { makeAsyncActionCreator } from 'redux-toolbelt'
+import makeAsyncActionCreator from '../../redux-toolbelt/src/makeAsyncActionCreator'
 
 /**
  * Create an async action creator that relies on redux-thunk
