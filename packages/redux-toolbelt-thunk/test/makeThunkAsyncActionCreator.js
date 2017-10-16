@@ -1,4 +1,6 @@
 import makeAsyncThunkActionCreator from '../src/makeThunkAsyncActionCreator'
+import isActionCreator from '../../redux-toolbelt/src/utils/isActionCreator'
+
 import configureMockStore from 'redux-mock-store'
 // import { applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
@@ -15,14 +17,23 @@ test('Creates actions with all expected type info and sub action', () => {
   expect(actionCreatorA.TYPE).toBe('A@ASYNC_REQUEST')
   expect(actionCreatorB.TYPE).toBe('B@ASYNC_REQUEST')
   expect(actionCreatorC.TYPE).toBe('C@ASYNC_REQUEST')
+  expect(isActionCreator(actionCreatorA)).toBe(true)
+  expect(isActionCreator(actionCreatorB)).toBe(true)
+  expect(isActionCreator(actionCreatorC)).toBe(true)
 
   expect(actionCreatorA.success.TYPE).toBe('A@ASYNC_SUCCESS')
   expect(actionCreatorB.success.TYPE).toBe('B@ASYNC_SUCCESS')
   expect(actionCreatorC.success.TYPE).toBe('C@ASYNC_SUCCESS')
+  expect(isActionCreator(actionCreatorA.success)).toBe(true)
+  expect(isActionCreator(actionCreatorB.success)).toBe(true)
+  expect(isActionCreator(actionCreatorC.success)).toBe(true)
 
   expect(actionCreatorA.failure.TYPE).toBe('A@ASYNC_FAILURE')
   expect(actionCreatorB.failure.TYPE).toBe('B@ASYNC_FAILURE')
   expect(actionCreatorC.failure.TYPE).toBe('C@ASYNC_FAILURE')
+  expect(isActionCreator(actionCreatorA.failure)).toBe(true)
+  expect(isActionCreator(actionCreatorB.failure)).toBe(true)
+  expect(isActionCreator(actionCreatorC.failure)).toBe(true)
 })
 
 test('Creates actions that calls the async function and passes params', () => {
