@@ -464,3 +464,23 @@ asyncReducer(state, asyncAction.failure(`Server unreachable`))
 //   error: 'Server unreachable'
 // }
 ```
+
+### `isActionCreator()`
+A utility to determine if an object is an action creator:
+
+```
+const a = makeActionCreator('A')
+//isActionCreator(a) === true
+
+const b = makeAsyncActionCreator('B')
+// isActionCreator(b) === true
+// isActionCreator(b.success) === true
+// isActionCreator(b.failure) === true
+// isActionCreator(b.progress) === true
+// isActionCreator(b.cancel) === true
+
+// isActionCreator({}) === false
+// isActionCreator(true) === false
+// isActionCreator(() => {}) === false
+// isActionCreator([]) === false
+```

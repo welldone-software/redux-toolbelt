@@ -1,0 +1,1 @@
+export isActionCreator from './isActionCreator'
