@@ -13,7 +13,7 @@ A set of helper functions that extends `redux-toolbelt` for usage with `redux-th
 - [Installation](#installation)
 - [Usage](#usage)
 - [API Reference](#api-reference)
-  * [`makeAsyncThunkActionCreator(baseName, asyncFn [, options])`](#makeasyncthunkactioncreatorbasename-asyncfn--options)
+  * [`makeThunkAsyncActionCreator(baseName, asyncFn [, options])`](#makeThunkAsyncActionCreatorbasename-asyncfn--options)
 
 <!-- tocstop -->
 
@@ -30,17 +30,17 @@ yarn add redux-toolbelt redux-toolbelt-thunk redux-thunk
 ## Usage
 import the functions you like to use using one of the two methods:
 ```js
-import {makeAsyncThunkActionCreator} from 'redux-toolbelt-thunk'
+import {makeThunkAsyncActionCreator} from 'redux-toolbelt-thunk'
 
 // or
 
-import makeAsyncThunkActionCreator from 'redux-toolbelt/lib/makeAsyncThunkActionCreator'
+import makeThunkAsyncActionCreator from 'redux-toolbelt/lib/makeThunkAsyncActionCreator'
 
 ```
 
 ## API Reference
 
-### `makeAsyncThunkActionCreator(baseName, asyncFn [, options])`
+### `makeThunkAsyncActionCreator(baseName, asyncFn [, options])`
 Creates a an action similar to `makeAsyncActionCreator`, with `TYPE` static member and both `success` 
 and `failure` sub actions. 
 
@@ -54,7 +54,7 @@ The optional third argument is an options object for advanced scenarios.
 // Returns promise
 const fetchTodosFromServer = (filter) => {/*...*/}
 
-export const fetchTodos = makeAsyncThunkActionCreator('FETCH_TODOS', filter => fetchTodosFromServer(filter))
+export const fetchTodos = makeThunkAsyncActionCreator('FETCH_TODOS', filter => fetchTodosFromServer(filter))
 
 // later in your code
 
@@ -82,7 +82,7 @@ With the following two lines of code:
 
 ```js
 // actions.js
-export const fetchTodos = makeAsyncThunkActionCreator('FETCH_TODOS', filter => fetchTodosFromServer(filter))
+export const fetchTodos = makeThunkAsyncActionCreator('FETCH_TODOS', filter => fetchTodosFromServer(filter))
 
 // reducers.js
 export const todos = makeAsyncReducer(fetchTodos) 
