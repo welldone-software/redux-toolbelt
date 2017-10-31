@@ -47,14 +47,14 @@ test('Creates actions that calls the async function and passes params', () => {
 })
 
 test('Handles correctly successful async', () => {
-  const actionCreator = makeAsyncThunkActionCreator('A', v => `ping pong ${v}`, { defaultMeta: 'a' })
+  const actionCreator = makeAsyncThunkActionCreator('A', v => `ping pong ${v}`, { defaultMeta: {a: 1} })
   const store = mockStore()
   return store.dispatch(actionCreator('b'))
     .then(() => {
       const actions = store.getActions()
 
       actions.forEach(action => {
-        expect(action.meta).toBe('a')
+        expect(action.meta).toBe({a: 1})
       })
 
       expect(actions[0].type).toBe(actionCreator.TYPE)

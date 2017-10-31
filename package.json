@@ -5,7 +5,7 @@
     "not-avail-start": "concurrently --kill-others --prefix \"[{name}]\" --names \"WEBPACK,SERVER\" \"npm run build -- --watch\" \"live-server --no-browser --mount=/dist:./dist lib/examples\"",
     "build_orig": "cross-env NODE_ENV=build webpack --progress --env.build=production",
     "build": "lerna run build",
-    "test:watch": "npm test --watch",
+    "test:watch": "npm test -- --watch",
     "test": "cross-env NODE_ENV=test jest --no-cache --runInBand",
     "lint": "eslint packages/*/src/**/*.js packages/*/test/**/*.js",
     "lint:fix": "yarn lint --fix",
