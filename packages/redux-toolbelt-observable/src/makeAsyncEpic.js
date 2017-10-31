@@ -21,7 +21,7 @@ export default function makeAsyncEpic(actionCreator, asyncFn) {
           obs = Observable.from(obs) //auto detect and convert to observable
         }
         return obs
-          .map(payload => actionCreator.success(payload, action.meta))
-          .catch(error => Observable.of(actionCreator.failure(error, action.meta)))
+          .map(payload => actionCreator.success(payload, {...action.meta, __originalPayload: action.payload}))
+          .catch(error => Observable.of(actionCreator.failure(error, {...action.meta, __originalPayload: action.payload})))
       })
 }
