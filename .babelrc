@@ -6,7 +6,11 @@
     "stage-0"
   ],
   "plugins": [
-    "transform-object-assign"
+    "transform-object-assign",
+    [
+      "transform-rename-import",
+      { "original": "^(.*?)redux-toolbelt(.*?)/src(.*?)$", "replacement": "$1redux-toolbelt$2/lib$3" }
+    ]
   ],
   "env": {
     "test": {
