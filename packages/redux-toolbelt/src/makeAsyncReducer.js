@@ -41,8 +41,11 @@ export default function makeAsyncReducer(actionCreator, options) {
       case actionCreator.progress.TYPE:
         return {...state, progress: payload}
       case actionCreator.failure.TYPE:  
-        return { ...(options.shouldDestroyDataOnError ? [] : state), loading: false, 
-          error: options.shouldSetError ? payload : undefined }
+        return { 
+          ...(options.shouldDestroyDataOnError ? {} : state), 
+          loading: false, 
+          error: options.shouldSetError ? payload : undefined 
+        }
       default:
         return state
     }
