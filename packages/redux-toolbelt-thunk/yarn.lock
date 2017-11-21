@@ -10,9 +10,18 @@ lodash.isplainobject@^4.0.6:
   version "4.0.6"
   resolved "https://registry.yarnpkg.com/lodash.isplainobject/-/lodash.isplainobject-4.0.6.tgz#7c526a52d89b45c45cc690b88163be0497f550cb"
 
-redux-toolbelt@^2.0.14:
-  version "2.0.14"
-  resolved "https://registry.yarnpkg.com/redux-toolbelt/-/redux-toolbelt-2.0.14.tgz#604bb2c893b55c55d891c6cc94a950af5424fa96"
+lodash.isundefined@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/lodash.isundefined/-/lodash.isundefined-3.0.1.tgz#23ef3d9535565203a66cefd5b830f848911afb48"
+
+lodash.transform@^4.6.0:
+  version "4.6.0"
+  resolved "https://registry.yarnpkg.com/lodash.transform/-/lodash.transform-4.6.0.tgz#12306422f63324aed8483d3f38332b5f670547a0"
+
+redux-toolbelt@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/redux-toolbelt/-/redux-toolbelt-2.1.1.tgz#1a0e721a4d8037536232350011937c54afba6c6f"
   dependencies:
     lodash.isfunction "^3.0.8"
     lodash.isplainobject "^4.0.6"
+    lodash.transform "^4.6.0"
