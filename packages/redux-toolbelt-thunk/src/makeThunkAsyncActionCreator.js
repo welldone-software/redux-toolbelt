@@ -13,6 +13,11 @@ const defaultOptions = {
 
   transformResolve: ({ data }) => Promise.resolve(data),
   transformReject: ({ error }) => Promise.reject(error),
+
+  argsMapper: (asyncFnArgs, initialMeta) => ({
+    payload: asyncFnArgs[0],
+    meta: asyncFnArgs.length > 1 ? asyncFnArgs[1] : initialMeta,
+  }),
 }
 
 /**
@@ -23,10 +28,10 @@ const defaultOptions = {
  * @returns {thunkActionCreator}
  */
 export default function makeThunkAsyncActionCreator(baseName, asyncFn, userOptions = {}) {
-  const actionCreator = makeAsyncActionCreator(baseName)
   const options = Object.assign({}, defaultOptions, userOptions)
 
-  const { transformResolve, transformReject, metaGetter, successMetaGetter, failureMetaGetter } = options
+  const { transformResolve, transformReject, metaGetter, successMetaGetter, failureMetaGetter, argsMapper } = options
+  const actionCreator = makeAsyncActionCreator(baseName, argsMapper)
 
   const thunkActionCreator = (...asyncFnArgs) => (dispatch, getState) => {
     const initialInformation = {
@@ -37,7 +42,7 @@ export default function makeThunkAsyncActionCreator(baseName, asyncFn, userOptio
     }
 
     const initialMeta = metaGetter(initialInformation)
-    dispatch(actionCreator(...asyncFnArgs, initialMeta))
+    dispatch(actionCreator(asyncFnArgs, initialMeta))
 
     const createAsyncFnPromise = isSuccess => dataOrError => {
       const responseInformation = {
