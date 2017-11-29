@@ -8,6 +8,8 @@ export default function makeAsyncReducer(actionCreator, options) {
   const defaults = {
     dataProp: 'data',
     shouldDestroyData: true,
+    shouldDestroyDataOnError: true,
+    shouldSetError: true,
     defaultData: undefined,
     shouldSpread: false,
     shouldSetData: true,
@@ -38,8 +40,12 @@ export default function makeAsyncReducer(actionCreator, options) {
       }
       case actionCreator.progress.TYPE:
         return {...state, progress: payload}
-      case actionCreator.failure.TYPE:
-        return { loading: false, error: payload }
+      case actionCreator.failure.TYPE:  
+        return { 
+          ...(options.shouldDestroyDataOnError ? {} : state), 
+          loading: false, 
+          error: options.shouldSetError ? payload : undefined 
+        }
       default:
         return state
     }
