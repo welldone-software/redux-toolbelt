@@ -15,8 +15,6 @@ Written in ES6.
 - [Usage](#usage)
 - [Demo](#demo)
 - [API Reference](#api-reference)
-  * [`composeReducers()`](#composereducers)
-    + [Default State](#default-state)
   * [`makeActionCreator()`](#makeactioncreator)
     + [Adding payload and metadata to actions](#adding-payload-and-metadata-to-actions)
     + [Actions Defaults](#actions-defaults)
@@ -29,7 +27,9 @@ Written in ES6.
       - [Progress](#progress)
       - [Success](#success)
       - [Failure](#failure)
-
+  * [`composeReducers()`](#composereducers)
+    + [Default State](#default-state)
+  * [`isActionCreator()`](#isactioncreator)
 <!-- tocstop -->
 
 ## Installation
@@ -65,53 +65,7 @@ https://codesandbox.io/s/github/welldone-software/redux-toolbelt-demo
 
 ## API Reference
 
-### `composeReducers()`
-This function in a replacement for redux's `combineReducers`.  
-The function excepts multiple reducers as arguments and executes them one after the other.  
-If in argument is a reducers map instead of a reducer (like in `composeReducers`) we create a reducer from that map in the same fashion.
-```js
-const mainReducer = (state, action) => {...} // returns { todos: [...] }
-const sideEffectReducer = (state, action) => {...} // return { count: 0 }
-const currentActionReducer = (state, action) => {...} // return 'dragging'
-const userNameReducer = (state, action) => {...} // return 'welldone'
 
-// reducer will return
-// {
-//   todos: [...],
-//   count: 3,
-//   currentAction: 'dragging',
-//   userName: 'welldone'  
-// }
-const reducer = composeReducers(
-  mainReducer,
-  sideEffectReducer,
-  {
-    currentAction: currentActionReducer,
-    userName: userNameReducer
-  }
-)
-```
-
-#### Default State
-As a result of the reducers run one after the other, only the first one will get an `undefined` state on the first run.  
-Nested reducers will get `undefined` if none was supplied in the root state:
-```js
-const DEFAULT_STATE = {val: 1}
-const IGNORED = {anotherVal: 2}
-const NESTED_DEFAULT_STATE = 5
-
-const mainReducer = (state = DEFAULT_STATE, action) => {...}
-const anotherReducer = (state = IGNORED_STATE, action) => {...}
-const nestedReducer = (state = NESTED_DEFAULT_STATE, action) => {...} // will get NESTED_DEFAULT_STATE on first run (or what mainReducer returns)
-
-const reducer = composeReducers(
-  mainReducer, // will get DEFAULT_STATE on first run
-  anotherReducer, // will get DEFAULT_STATE on first run (or what mainReducer returns)
-  {
-    nestedVal: nestedReducer // will get NESTED_DEFAULT_STATE on first run
-  }
-)
-```
 
 ### `makeActionCreator()`
 Create an FSA complient action creator that exposes its `TYPE` as static member.  
@@ -538,6 +492,54 @@ asyncReducer(state, asyncAction.failure(`Server unreachable`))
 //   loading: false,
 //   error: 'Server unreachable'
 // }
+```
+
+### `composeReducers()`
+This function in a replacement for redux's `combineReducers`.  
+The function excepts multiple reducers as arguments and executes them one after the other.  
+If in argument is a reducers map instead of a reducer (like in `composeReducers`) we create a reducer from that map in the same fashion.
+```js
+const mainReducer = (state, action) => {...} // returns { todos: [...] }
+const sideEffectReducer = (state, action) => {...} // return { count: 0 }
+const currentActionReducer = (state, action) => {...} // return 'dragging'
+const userNameReducer = (state, action) => {...} // return 'welldone'
+
+// reducer will return
+// {
+//   todos: [...],
+//   count: 3,
+//   currentAction: 'dragging',
+//   userName: 'welldone'  
+// }
+const reducer = composeReducers(
+  mainReducer,
+  sideEffectReducer,
+  {
+    currentAction: currentActionReducer,
+    userName: userNameReducer
+  }
+)
+```
+
+#### Default State
+As a result of the reducers run one after the other, only the first one will get an `undefined` state on the first run.  
+Nested reducers will get `undefined` if none was supplied in the root state:
+```js
+const DEFAULT_STATE = {val: 1}
+const IGNORED = {anotherVal: 2}
+const NESTED_DEFAULT_STATE = 5
+
+const mainReducer = (state = DEFAULT_STATE, action) => {...}
+const anotherReducer = (state = IGNORED_STATE, action) => {...}
+const nestedReducer = (state = NESTED_DEFAULT_STATE, action) => {...} // will get NESTED_DEFAULT_STATE on first run (or what mainReducer returns)
+
+const reducer = composeReducers(
+  mainReducer, // will get DEFAULT_STATE on first run
+  anotherReducer, // will get DEFAULT_STATE on first run (or what mainReducer returns)
+  {
+    nestedVal: nestedReducer // will get NESTED_DEFAULT_STATE on first run
+  }
+)
 ```
 
 ### `isActionCreator()`
