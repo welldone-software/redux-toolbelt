@@ -20,7 +20,6 @@
     "redux-thunk": "^2.2.0"
   },
   "dependencies": {
-    "lodash.isundefined": "^3.0.1",
     "redux-toolbelt": "^2.1.3"
   }
 }

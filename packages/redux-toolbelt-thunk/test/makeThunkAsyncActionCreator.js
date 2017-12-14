@@ -63,7 +63,7 @@ test('Handles correctly successful async', () => {
       expect(actions[1].type).toBe(actionCreator.success.TYPE)
       expect(actions[1].payload).toBe('ping pong b')
 
-      expect(actions.length).toBe(2)
+      expect(actions).toHaveLength(2)
     })
 })
 
@@ -85,7 +85,7 @@ test('Handles correctly failed async', () => {
       expect(actions[1].payload instanceof Error).toBe(true)
       expect(actions[1].payload.message).toBe('b1')
 
-      expect(actions.length).toBe(2)
+      expect(actions).toHaveLength(2)
     })
 })
 
