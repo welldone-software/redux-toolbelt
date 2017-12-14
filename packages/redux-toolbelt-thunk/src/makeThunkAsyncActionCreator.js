@@ -1,44 +1,36 @@
 import makeAsyncActionCreator from '../../redux-toolbelt/src/makeAsyncActionCreator'
-
-const defaultOptions = {
-  defaultMeta: undefined,
-
-  metaGetter: ({ options }) => options.defaultMeta,
-
-  argsMapper: (asyncFnArgs, initialMeta) => ({
-    payload: asyncFnArgs[0],
-    meta: asyncFnArgs.length > 1 ? asyncFnArgs[1] : initialMeta,
-  }),
-}
+import { getOptions } from '../../redux-toolbelt/src/utils'
 
 /**
  * Create an async action creator that relies on redux-thunk
+ *
+ * @typedef {function(*, *): {type: string, payload: *, meta: *}} thunkAsyncActionCreator
+ * @property {string} TYPE - action type
+ *
  * @param baseName base name of the Action
  * @param asyncFn the async function executed by the thunk
- * @param options {prefix?, defaultMeta?, metaGetter?}
- * @returns {thunkActionCreator}
+ * @param [argsMapper]
+ * @param [options]: {prefix?, defaultMeta?, metaGetter?}
+ *
+ * @returns {thunkAsyncActionCreator}
  */
-export default function makeThunkAsyncActionCreator(baseName, asyncFn, userOptions = {}) {
-  const options = Object.assign({}, defaultOptions, userOptions)
+export default function makeThunkAsyncActionCreator(baseName, asyncFn, argsMapper, options) {
+  options = getOptions({ argsMapper, options })
 
-  const { metaGetter, argsMapper } = options
-  const meta = metaGetter({ options })
-
-  const actionCreator = makeAsyncActionCreator(baseName, argsMapper)
+  const actionCreator = makeAsyncActionCreator(baseName, options)
 
   const thunkActionCreator = (...asyncFnArgs) => (dispatch, getState) => {
 
-    dispatch(actionCreator(asyncFnArgs, meta))
-
+    dispatch(actionCreator(...asyncFnArgs))
     return Promise.resolve()
       .then(() => asyncFn(...asyncFnArgs, {getState, dispatch}))
       .then(data => {
-        dispatch(actionCreator.success(data, meta))
-        return data
+        return Promise.resolve(dispatch(actionCreator.success(data)))
+          .then(() => data)
       })
       .catch(err => {
-        dispatch(actionCreator.failure(err, meta))
-        return Promise.reject(err)
+        return Promise.resolve(dispatch(actionCreator.failure(err)))
+          .then(() => Promise.reject(err))
       })
   }
 

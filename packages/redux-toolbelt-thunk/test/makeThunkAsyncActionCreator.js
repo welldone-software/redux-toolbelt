@@ -1,5 +1,5 @@
 import makeAsyncThunkActionCreator from '../src/makeThunkAsyncActionCreator'
-import isActionCreator from '../../redux-toolbelt/src/utils/isActionCreator'
+import { isActionCreator } from '../../redux-toolbelt/src/utils'
 
 import configureMockStore from 'redux-mock-store'
 // import { applyMiddleware } from 'redux'
@@ -10,9 +10,9 @@ const noop = () => {}
 const mockStore = configureMockStore([thunk])
 
 test('Creates actions with all expected type info and sub action', () => {
-  const actionCreatorA = makeAsyncThunkActionCreator('A')
-  const actionCreatorB = makeAsyncThunkActionCreator('B', null, x => ({ x }))
-  const actionCreatorC = makeAsyncThunkActionCreator('C', null, x => ({ payload: x, meta: x }))
+  const actionCreatorA = makeAsyncThunkActionCreator('A', noop)
+  const actionCreatorB = makeAsyncThunkActionCreator('B', noop, x => ({ x }))
+  const actionCreatorC = makeAsyncThunkActionCreator('C', noop, x => ({ payload: x, meta: x }))
 
   expect(actionCreatorA.TYPE).toBe('A@ASYNC_REQUEST')
   expect(actionCreatorB.TYPE).toBe('B@ASYNC_REQUEST')
@@ -37,24 +37,25 @@ test('Creates actions with all expected type info and sub action', () => {
 })
 
 test('Creates actions that calls the async function and passes params', () => {
-  let asyncResult = null
-
-  const actionCreator = makeAsyncThunkActionCreator('test', v => asyncResult = v)
+  const actionCreator = makeAsyncThunkActionCreator('test', v => v)
   const action = actionCreator('b')
 
   return action(noop, noop)
-    .then(() => expect(asyncResult).toBe('b'))
+    .then(result => expect(result).toBe('b'))
 })
 
 test('Handles correctly successful async', () => {
-  const actionCreator = makeAsyncThunkActionCreator('A', v => `ping pong ${v}`, { defaultMeta: 'a' })
+  const actionCreator = makeAsyncThunkActionCreator('A', v => `ping pong ${v}`, { defaultMeta: {a: true} })
   const store = mockStore()
+
   return store.dispatch(actionCreator('b'))
-    .then(() => {
+    .then(result => {
+      expect(result).toBe('ping pong b')
+
       const actions = store.getActions()
 
       actions.forEach(action => {
-        expect(action.meta).toBe('a')
+        expect(action.meta).toEqual({a: true})
       })
 
       expect(actions[0].type).toBe(actionCreator.TYPE)
@@ -68,14 +69,16 @@ test('Handles correctly successful async', () => {
 })
 
 test('Handles correctly failed async', () => {
-  const actionCreator = makeAsyncThunkActionCreator('A1', v => {throw new Error(v)}, { defaultMeta: 'a1' })
+  const actionCreator = makeAsyncThunkActionCreator('A1', v => {throw new Error(v)}, { defaultMeta: {a1: true} })
   const store = mockStore()
   return store.dispatch(actionCreator('b1'))
-    .catch(() => {
+    .catch(error => {
+      expect(error.message).toBe('b1')
+
       const actions = store.getActions()
 
       actions.forEach(action => {
-        expect(action.meta).toBe('a1')
+        expect(action.meta).toEqual({a1: true})
       })
 
       expect(actions[0].type).toBe(actionCreator.TYPE)
