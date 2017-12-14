@@ -6,18 +6,23 @@
     "stage-0"
   ],
   "plugins": [
-    "transform-object-assign",
-    [
-      "transform-rename-import",
-      { "original": "^(.*?)redux-toolbelt(.*?)/src(.*?)$", "replacement": "$1redux-toolbelt$2/lib$3" }
-    ]
+    "transform-object-assign"
   ],
   "env": {
     "test": {
-      "plugins": ["transform-es2015-modules-commonjs"]
+      "plugins": [
+        "transform-es2015-modules-commonjs",
+        "transform-rename-import"
+      ]
     },
     "build": {
-      "plugins": ["transform-es2015-modules-commonjs"]
+      "plugins": [
+        "transform-es2015-modules-commonjs",
+        [
+          "transform-rename-import",
+          { "original": "^(.*?)redux-toolbelt(.*?)/src(.*?)$", "replacement": "$1redux-toolbelt$2/lib$3" }
+        ]
+      ]
     }
   }
 }
