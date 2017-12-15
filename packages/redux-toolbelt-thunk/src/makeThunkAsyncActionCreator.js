@@ -13,8 +13,8 @@ import defaultOptions from '../../redux-toolbelt/src/_defaultActionCreatorOption
  * @param {function} asyncFn the async function executed by the thunk
  * @param {function(*): {payload: object, meta?: object}} [argsMapper]
  * @param {object} [options]
- * @param {string} [options.prefix]: prefix all action names
- * @param {object} [options.defaultMeta]: default metadata for all actions
+ * @param {string} [options.prefix] prefix all action names
+ * @param {object} [options.defaultMeta] default metadata for all actions
  *
  * @returns {thunkAsyncActionCreator}
  */
