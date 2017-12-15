@@ -55,7 +55,7 @@ test('Handles correctly successful async', () => {
       const actions = store.getActions()
 
       actions.forEach(action => {
-        expect(action.meta).toEqual({a: true})
+        expect(action.meta).toEqual({a: true, _toolbeltAsyncFnArgs: ['b']})
       })
 
       expect(actions[0].type).toBe(actionCreator.TYPE)
@@ -78,7 +78,7 @@ test('Handles correctly failed async', () => {
       const actions = store.getActions()
 
       actions.forEach(action => {
-        expect(action.meta).toEqual({a1: true})
+        expect(action.meta).toEqual({a1: true, _toolbeltAsyncFnArgs: ['b1']})
       })
 
       expect(actions[0].type).toBe(actionCreator.TYPE)
@@ -107,7 +107,10 @@ test('Expending the default meta', () => {
       const actions = store.getActions()
 
       actions.forEach(action => {
-        expect(action.meta).toEqual({ignore: true, log: true})
+        expect(action.meta).toEqual({
+          ignore: true, log: true,
+          _toolbeltAsyncFnArgs: ['01', { log: true }],
+        })
       })
 
     })
@@ -136,7 +139,10 @@ describe('Custom args mapper', () => {
         const actions = store.getActions()
 
         actions.forEach(action => {
-          expect(action.meta).toEqual({ignore: true})
+          expect(action.meta).toEqual({
+            ignore: true,
+            _toolbeltAsyncFnArgs: ['01', 'james', '2020'],
+          })
         })
 
       })
@@ -151,7 +157,11 @@ describe('Custom args mapper', () => {
         const actions = store.getActions()
 
         actions.forEach(action => {
-          expect(action.meta).toEqual({ignore: true, log: true})
+          expect(action.meta).toEqual({
+            ignore: true,
+            log: true,
+            _toolbeltAsyncFnArgs: ['01', 'james', '2020', {log: true}],
+          })
         })
 
       })
@@ -181,7 +191,10 @@ describe('Custom args mapper (argsMapper in options)', () => {
         const actions = store.getActions()
 
         actions.forEach(action => {
-          expect(action.meta).toEqual({ignore: true})
+          expect(action.meta).toEqual({
+            ignore: true,
+            _toolbeltAsyncFnArgs: ['01', 'james', '2020'],
+          })
         })
 
       })
@@ -196,7 +209,11 @@ describe('Custom args mapper (argsMapper in options)', () => {
         const actions = store.getActions()
 
         actions.forEach(action => {
-          expect(action.meta).toEqual({ignore: true, log: true})
+          expect(action.meta).toEqual({
+            ignore: true,
+            log: true,
+            _toolbeltAsyncFnArgs: ['01', 'james', '2020', {log: true}],
+          })
         })
 
       })

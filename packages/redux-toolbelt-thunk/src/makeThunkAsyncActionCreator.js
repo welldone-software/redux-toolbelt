@@ -25,7 +25,9 @@ export default function makeThunkAsyncActionCreator(baseName, asyncFn, argsMappe
   const actionCreator = makeAsyncActionCreator(baseName, _trivialArgsMapper, options)
 
   const thunkActionCreator = (...asyncFnArgs) => (dispatch, getState) => {
-    const { payload, meta } = argsMapper(...asyncFnArgs)
+    const { payload, meta: origMeta = {} } = argsMapper(...asyncFnArgs)
+
+    const meta = { ...origMeta, _toolbeltAsyncFnArgs: asyncFnArgs }
 
     dispatch(actionCreator(payload, meta))
     return Promise.resolve()
