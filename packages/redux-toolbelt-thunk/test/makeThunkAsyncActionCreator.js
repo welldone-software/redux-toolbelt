@@ -92,3 +92,115 @@ test('Handles correctly failed async', () => {
     })
 })
 
+test('Expending the default meta', () => {
+  const fetchUserAction = makeAsyncThunkActionCreator(
+    'FETCH_USER',
+    userId => ({id: userId}),
+    { defaultMeta: {ignore: true} }
+  )
+
+  const store = mockStore()
+  return store.dispatch(fetchUserAction('01', { log: true }))
+    .then(result => {
+      expect(result).toEqual({ id: '01' })
+
+      const actions = store.getActions()
+
+      actions.forEach(action => {
+        expect(action.meta).toEqual({ignore: true, log: true})
+      })
+
+    })
+})
+
+const wait = () => new Promise(resolve => setTimeout(resolve, 1))
+const mockUserFetchRequest = (userData) => wait().then(() => userData)
+
+describe('Custom args mapper', () => {
+  const fetchUserAction = makeAsyncThunkActionCreator(
+    'FETCH_USER',
+    (userId, name, year) => mockUserFetchRequest({id: userId, name, year}),
+    (userId, name, year, _meta) => ({
+      payload: {id: userId, name, year},
+      meta: _meta || {},
+    }),
+    { defaultMeta: {ignore: true} }
+  )
+
+  test('without meta in action call', () => {
+    const store = mockStore()
+    return store.dispatch(fetchUserAction('01', 'james', '2020'))
+      .then(result => {
+        expect(result).toEqual({ id: '01', name: 'james', year: '2020' })
+
+        const actions = store.getActions()
+
+        actions.forEach(action => {
+          expect(action.meta).toEqual({ignore: true})
+        })
+
+      })
+  })
+
+  test('with meta in action call', () => {
+    const store = mockStore()
+    return store.dispatch(fetchUserAction('01', 'james', '2020', {log: true}))
+      .then(result => {
+        expect(result).toEqual({ id: '01', name: 'james', year: '2020' })
+
+        const actions = store.getActions()
+
+        actions.forEach(action => {
+          expect(action.meta).toEqual({ignore: true, log: true})
+        })
+
+      })
+  })
+
+})
+
+describe('Custom args mapper (argsMapper in options)', () => {
+  const fetchUserAction = makeAsyncThunkActionCreator(
+    'FETCH_USER',
+    (userId, name, year) => mockUserFetchRequest({id: userId, name, year}),
+    {
+      defaultMeta: {ignore: true},
+      argsMapper: (userId, name, year, _meta) => ({
+        payload: {id: userId, name, year},
+        meta: _meta || {},
+      }),
+    }
+  )
+
+  test('without meta in action call', () => {
+    const store = mockStore()
+    return store.dispatch(fetchUserAction('01', 'james', '2020'))
+      .then(result => {
+        expect(result).toEqual({ id: '01', name: 'james', year: '2020' })
+
+        const actions = store.getActions()
+
+        actions.forEach(action => {
+          expect(action.meta).toEqual({ignore: true})
+        })
+
+      })
+  })
+
+  test('with meta in action call', () => {
+    const store = mockStore()
+    return store.dispatch(fetchUserAction('01', 'james', '2020', {log: true}))
+      .then(result => {
+        expect(result).toEqual({ id: '01', name: 'james', year: '2020' })
+
+        const actions = store.getActions()
+
+        actions.forEach(action => {
+          expect(action.meta).toEqual({ignore: true, log: true})
+        })
+
+      })
+  })
+
+})
+

@@ -1,12 +1,6 @@
 import { has, ownKeys } from './_objectUtils'
 import { getOptions } from './utils'
-import trivialArgsMapper from './_trivialArgsMapper'
-
-const defaultOptions = {
-  prefix: '',
-  defaultMeta: undefined,
-  argsMapper: trivialArgsMapper,
-}
+import defaultOptions from './_defaultActionCreatorOptions'
 
 /**
  * @typedef {function(*, *): {type: string, payload: *, meta: *}} ActionCreator
