@@ -9,11 +9,11 @@ export default function upsertItemsById(arr, updatedItems, idSelector = defaultI
     return arr || EMPTY_ARRAY
   }
 
+  updatedItems = Array.isArray(updatedItems) ? updatedItems : [updatedItems]
+
   if (!arr) {
     return updatedItems || EMPTY_ARRAY
   }
-
-  updatedItems = Array.isArray(updatedItems) ? updatedItems : [updatedItems]
 
   const updatedItemsMap = new Map(updatedItems.map(item => [idSelector(item), item]))
 

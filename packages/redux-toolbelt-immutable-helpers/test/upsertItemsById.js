@@ -13,6 +13,7 @@ test('upsertItemsById', () => {
     {id: 3, val: 9},
     {id: 5, val: 16},
   ])
+  
   const expected = [
     {id: 1, val: 2},
     {id: 2, val: 6},
@@ -35,6 +36,7 @@ test('upsertItemsById add items without updates', () => {
   const result = upsertItemsById(arr, [
     {id: 5, val: 16},
   ])
+
   const expected = [
     {id: 1, val: 2},
     {id: 2, val: 5},
