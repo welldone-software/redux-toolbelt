@@ -45,3 +45,26 @@ test('upsertItemsById add items without updates', () => {
 
   expect(result).toEqual(expected)
 })
+
+test('upsertItemsById add item to invalid array', () => {
+  const arr = Object.freeze(null)
+  const result = upsertItemsById(arr, {id: 5, val: 16})
+  const expected = [{id: 5, val: 16}]
+  expect(result).toEqual(expected)
+})
+
+test('upsertItemsById add array of items to an empty array', () => {
+  const arr = Object.freeze([])
+  
+  const result = upsertItemsById(arr, [
+    {id: 4, val: 1},
+    {id: 5, val: 16},
+  ])
+
+  const expected = [
+    {id: 4, val: 1},
+    {id: 5, val: 16},
+  ]
+
+  expect(result).toEqual(expected)
+})
