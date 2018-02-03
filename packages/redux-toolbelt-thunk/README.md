@@ -45,20 +45,23 @@ const fetchUser = makeAsyncActionCreator('FETCH_USER')
 
 dispatch(fetchUser('user_01'))
 fetchUserFromServer('user_01')
-  .then(result => dispatch(fetchTodos.success(result)))
-  .then(error => dispatch(fetchTodos.failure(error)))
+  .then(result => dispatch(fetchUser.success(result)))
+  .then(error => dispatch(fetchUser.failure(error)))
 ```  
 
 `makeThunkAsyncActionCreator` replaces these with one line:
 
 ```js
 const fetchUser = makeThunkAsyncActionCreator('FETCH_USER', fetchUserFromServer)
-dispatch(fetchUser('user_01')) // this dispatches the FETCH_USER action, calls fetchUserFromServer and calls the success or failure action after fetchUserFromServer is resolved or rejected.
+dispatch(fetchUser('user_01'))
+// this dispatches the action: `{ type: 'FETCH_USER', payload: 'user_01' }`
+// calls fetchUserFromServer
+// upon fetchUserFromServer's resolve, it calls `fetchUser.success` with the result.
+// upon fetchUserFromServer's failure, it calls `fetchUser.failure` with the error.
 ```
 
 ## Usage
-
-### `makeThunkAsyncActionCreator(baseName, asyncFn [,argsMapper, options])`
+####`makeThunkAsyncActionCreator(baseName, asyncFn [,argsMapper, options])`
 ### Arguments
 * `baseName` - The name of the action, and prefixes of sub-actions created.
 * `asyncFn` - The function to execute when the action is called. It should return a promise that when resolved will trigger the success sub-action and if rejects will trigger the failure action.
@@ -97,9 +100,21 @@ When the promise that is returned from `asyncFn` resolves or rejects:
 
 * Upon a resolve, the `success` sub-action is dispatched with the `result` of the promise.
 * Upon a reject, the `failure` sub-action is dispatched with the `error` of the promise.
-  
-### withDefaults
 
+### _toolbeltAsyncFnArgs
+This property is always added to the `meta` of every action and sub-action that are created with `thunkAsyncActionCreator` and reflects the arguments that it was called with. 
+
+```js
+const fetchUser = makeThunkAsyncActionCreator('FETCH_USER', fetchUserFromServer)
+console.log(fetchUser('00'))
+// {
+//   type: 'FETCH_USER',
+//   payload: ['00'],
+//   meta: { _toolbeltAsyncFnArgs: ['00'] }
+// }
+```
+
+### withDefaults
 Creates an instance of `makeThunkAsyncActionCreator` with the specified options:
 
 ```js
