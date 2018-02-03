@@ -1,76 +1,45 @@
-import isUndefined from 'lodash.isundefined'
-
 import makeAsyncActionCreator from '../../redux-toolbelt/src/makeAsyncActionCreator'
-
-const defaultOptions = {
-  defaultMeta: undefined,
-  defaultSuccessMeta: undefined,
-  defaultFailureMeta: undefined,
-
-  metaGetter: ({ options }) => options.defaultMeta,
-  successMetaGetter: ({ initialMeta, options }) => !isUndefined(options.defaultSuccessMeta) ? options.defaultSuccessMeta : initialMeta,
-  failureMetaGetter: ({ initialMeta, options }) => !isUndefined(options.defaultFailureMeta) ? options.defaultFailureMeta : initialMeta,
-
-  transformResolve: ({ data }) => Promise.resolve(data),
-  transformReject: ({ error }) => Promise.reject(error),
-
-  argsMapper: (asyncFnArgs, initialMeta) => ({
-    payload: asyncFnArgs[0],
-    meta: asyncFnArgs.length > 1 ? asyncFnArgs[1] : initialMeta,
-  }),
-}
+import { getOptions } from '../../redux-toolbelt/src/utils'
+import _trivialArgsMapper from '../../redux-toolbelt/src/_trivialArgsMapper'
+import defaultOptions from '../../redux-toolbelt/src/_defaultActionCreatorOptions'
 
 /**
  * Create an async action creator that relies on redux-thunk
- * @param baseName base name of the Action
- * @param asyncFn the async function executed by the thunk
- * @param options {prefix?, defaultMeta?, metaGetter?}
- * @returns {thunkActionCreator}
+ *
+ * @typedef {function(*, *): {type: string, payload: object, meta: object}} thunkAsyncActionCreator
+ * @property {string} TYPE - action type
+ *
+ * @param {string} baseName base name of the Action
+ * @param {function} asyncFn the async function executed by the thunk
+ * @param {function(*): {payload: object, meta?: object}} [argsMapper]
+ * @param {object} [options]
+ * @param {string} [options.prefix] prefix all action names
+ * @param {object} [options.defaultMeta] default metadata for all actions
+ *
+ * @returns {thunkAsyncActionCreator}
  */
-export default function makeThunkAsyncActionCreator(baseName, asyncFn, userOptions = {}) {
-  const options = Object.assign({}, defaultOptions, userOptions)
+export default function makeThunkAsyncActionCreator(baseName, asyncFn, argsMapper, options) {
+  options = getOptions({ argsMapper, options, defaultOptions })
+  argsMapper = options.argsMapper
 
-  const { transformResolve, transformReject, metaGetter, successMetaGetter, failureMetaGetter, argsMapper } = options
-  const actionCreator = makeAsyncActionCreator(baseName, argsMapper)
+  const actionCreator = makeAsyncActionCreator(baseName, _trivialArgsMapper, options)
 
   const thunkActionCreator = (...asyncFnArgs) => (dispatch, getState) => {
-    const initialInformation = {
-      options,
-      getState,
-      dispatch,
-      asyncFnArgs,
-    }
+    const { payload, meta: origMeta = {} } = argsMapper(...asyncFnArgs)
 
-    const initialMeta = metaGetter(initialInformation)
-    dispatch(actionCreator(asyncFnArgs, initialMeta))
+    const meta = { ...origMeta, _toolbeltAsyncFnArgs: asyncFnArgs }
 
-    const createAsyncFnPromise = isSuccess => dataOrError => {
-      const responseInformation = {
-        ...initialInformation,
-        initialMeta,
-        ...(isSuccess ? { data: dataOrError } : { error: dataOrError }),
-      }
-
-      return Promise.resolve()
-        .then(() => {
-          if(isSuccess){
-            const successMeta = successMetaGetter(responseInformation)
-            return dispatch(actionCreator.success(dataOrError, successMeta))
-          }
-          else{
-            const failureMeta = failureMetaGetter(responseInformation)
-            return dispatch(actionCreator.failure(dataOrError, failureMeta))
-          }
-        })
-        .then(
-          dispatchResult => transformResolve({ ...responseInformation, dispatchResult }),
-          dispatchError => transformReject({ ...responseInformation, dispatchError })
-        )
-    }
-
+    dispatch(actionCreator(payload, meta))
     return Promise.resolve()
-      .then(() => asyncFn(...asyncFnArgs, { ...initialInformation, initialMeta }))
-      .then(createAsyncFnPromise(true), createAsyncFnPromise(false))
+      .then(() => asyncFn(...asyncFnArgs, {getState, dispatch}))
+      .then(data => {
+        return Promise.resolve(dispatch(actionCreator.success(data, meta)))
+          .then(() => data)
+      })
+      .catch(err => {
+        return Promise.resolve(dispatch(actionCreator.failure(err, meta)))
+          .then(() => Promise.reject(err))
+      })
   }
 
   Object.keys(actionCreator).forEach(key => (thunkActionCreator[key] = actionCreator[key]))

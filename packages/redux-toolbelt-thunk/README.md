@@ -27,7 +27,7 @@ npm i -S redux-toolbelt redux-toolbelt-thunk redux-thunk
 yarn add redux-toolbelt redux-toolbelt-thunk redux-thunk
 ```
 
-## Usage
+## Import
 import the functions you like to use using one of the two methods:
 ```js
 import {makeThunkAsyncActionCreator} from 'redux-toolbelt-thunk'
@@ -38,56 +38,106 @@ import makeThunkAsyncActionCreator from 'redux-toolbelt/lib/makeThunkAsyncAction
 
 ```
 
-## API Reference
+## Motivation 
+`makeAsyncActionCreator` can be very useful to create an action creator that will be called around promises and report their progress to the redux state:
+```js
+const fetchUser = makeAsyncActionCreator('FETCH_USER')
 
-### `makeThunkAsyncActionCreator(baseName, asyncFn [, options])`
-Creates a an action similar to `makeAsyncActionCreator`, with `TYPE` static member and both `success` 
+dispatch(fetchUser('user_01'))
+fetchUserFromServer('user_01')
+  .then(result => dispatch(fetchTodos.success(result)))
+  .then(error => dispatch(fetchTodos.failure(error)))
+```  
+
+`makeThunkAsyncActionCreator` replaces these with one line:
+
+```js
+const fetchUser = makeThunkAsyncActionCreator('FETCH_USER', fetchUserFromServer)
+fetchUser('user_01') // this dispatches the FETCH_USER action, calls fetchUserFromServer and calls the success or failure action after fetchUserFromServer is resolved or rejected.
+```
+
+## Usage
+
+### `makeThunkAsyncActionCreator(baseName, asyncFn [,argsMapper, options])`
+Creates a an action creator similar to `makeAsyncActionCreator`, with `TYPE` static member and both `success`
 and `failure` sub actions. 
 
-The first argument specifies the base name of the action.
+When the action creator is called:
+ 
+* An action with the type of `baseName` and `payload` and `meta` that are based on the arguments of the call is dispatched.
+* The `asyncFn` is called and expected to return a promise.
 
-The second argument, `asyncFn` is the async function to run.
+When the promise that is returned from `asyncFn` resolves or rejects:
 
-The optional third argument is an options object for advanced scenarios.
+* Upon a resolve, the `success` sub-action is dispatched with the `result` of the promise.
+* Upon a reject, the `failure` sub-action is dispatched with the `error` of the promise.
 
-```js
-// Returns promise
-const fetchTodosFromServer = (filter) => {/*...*/}
-
-export const fetchTodos = makeThunkAsyncActionCreator('FETCH_TODOS', filter => fetchTodosFromServer(filter))
-
-// later in your code
-
-dispatch(fetchTodos('My todos'))
-  .then(...) // optional
-  .catch(...) // optional
-```
-
-Once the `fetchTodos` is called, it dispatches a `FETCH_TODOS@LOADING` action, then executes the  `asyncFn` function 
-given to it and dispatches a `FETCH_TODOS@SUCCESS` with the data retrieved from the server as its payload.
-In case of failure, `FETCH_TODOS@FAILURE` will be dispatched with the `Error` object as the payload.
-
-To take full advantage fo it, one can use `makeAsyncReducer` from `redux-toolbelt` to automaticaly create a reducer that 
-is fully aware of the conventions:
+### Arguments
+The full form of the function looks like this:
 
 ```js
-import {makeAsyncReducer} from 'redux-toolbelt'
-import {fetchTodos} from './actions'
-
-export const todos = makeAsyncReducer(fetchTodos) 
-
+const action = makeThunkAsyncActionCreator('ACTION_NAME', asyncFunction, argsMapper, options)
 ```
 
-With the following two lines of code:
+* `actionName` - The name of the action, and prefixes of sub-actions created.
+* `promiseFunction` - The function to execute when the action is called. It should return a promise that when resolved will trigger the success sub-action and if rejects will trigger the failure action.
+  
+  `promiseFunction` will be called with the arguments passed to the action with the addition of the following argument: `{getState, dispatch}`
+* `argsMapper` - Maps the arguments that are passed to the action to `payload` that will be used on the action dispatched when action is called and `meta` that will be used when the action and it's sub-actions are called.
+* `options`
+  * `prefix` - Defaults to `''`.
+    
+    Prefixes the action and sub-action name. Mostly useful with `makeThunkAsyncActionCreator.withDefaults` that will be described below.
+  * `defaultMeta` - Defaults to `undefined`.
+    
+    Adds metadata to the action and sub-actions:
 
+    ```js
+    const fetchUserAction = makeAsyncThunkActionCreator(
+      'FETCH_USER', //
+      userId => Promise.resolve({id: userId}),
+      { defaultMeta: {ignore: true} }
+    )
+    
+    fetchUserAction('01', { log: true })
+    // { type: 'FETCH_USER', payload: '01', meta: { debug: false, log: false, _toolbeltAsyncFnArgs: ['user_01', {log: true}] } }
+    
+    ``` 
+  * `argsMapper` - Defaults to `const trivialArgsMapper = (payload, meta) => ({ payload, meta })`
+    
+    Same as the `argsMapper` argument described above. The argument takes priority over the option.
+  
+### `makeThunkAsyncActionCreator.withDefaults` - Creates an instance of `makeThunkAsyncActionCreator` with the specified options:
 ```js
-// actions.js
-export const fetchTodos = makeThunkAsyncActionCreator('FETCH_TODOS', filter => fetchTodosFromServer(filter))
+const userMakeThunkAsyncActionCreator = makeThunkAsyncActionCreator.withDefaults({
+  prefix: 'USER@',
+  defaultMeta: { log: true },
+  argsMapper: (...args) => ({ payload: args })
+})
 
-// reducers.js
-export const todos = makeAsyncReducer(fetchTodos) 
+const fetchUser = userMakeThunkAsyncActionCreator('FETCH_USER', fetchUserFromServer)
+console.log(fetchUser.TYPE)
+// 'USER@FETCH_USER'
+
+console.log(fetchUser('00'))
+// {
+//   type: 'USER@FETCH_USER',
+//   payload: ['00'],
+//   meta: {
+//     log: true,
+//     _toolbeltAsyncFnArgs: ['00']
+//   }
+// }
+
+console.log(fetchUser.success({ id: 'user00' }))
+// {
+//   type: 'USER@FETCH_USER@ASYNC_SUCCESS',
+//   payload: {
+//     id: 'user00'
+//   },
+//   meta: {
+//     log: true,
+//     _toolbeltAsyncFnArgs: ['00']
+//   }
+// }
 ```
-
-We have created all that is needed to publish and handle all actions and state management for the retrival of todos from 
-the server. In Vanila Redux, this would have taken you at least *15 lines of code*  (3 constants, 3 actions with a long 
-thunk and a reducer with 3 case sections and a default).

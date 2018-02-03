@@ -1,5 +1,6 @@
 import makeActionCreator from './makeActionCreator'
 import trivialArgsMapper from './_trivialArgsMapper'
+import { getOptions } from './utils'
 
 export const ACTION_ASYNC_REQUEST_SUFFIX = '@ASYNC_REQUEST'
 export const ACTION_ASYNC_SUCCESS_SUFFIX = '@ASYNC_SUCCESS'
@@ -25,9 +26,10 @@ export const ACTION_ASYNC_CANCEL_METHOD = 'cancel'
  * @param [options]
  * @returns {AsyncActionCreator}
  */
-export default function makeAsyncActionCreator(baseName, argsMapper = trivialArgsMapper, options) {
+export default function makeAsyncActionCreator(baseName, argsMapper, options) {
+  options = getOptions({ argsMapper, options })
 
-  const actionCreator = makeActionCreator(`${baseName}${ACTION_ASYNC_REQUEST_SUFFIX}`, argsMapper, options)
+  const actionCreator = makeActionCreator(`${baseName}${ACTION_ASYNC_REQUEST_SUFFIX}`, options)
 
   actionCreator[ACTION_ASYNC_SUCCESS_METHOD] = makeActionCreator(`${baseName}${ACTION_ASYNC_SUCCESS_SUFFIX}`, trivialArgsMapper, options)
   actionCreator[ACTION_ASYNC_FAILURE_METHOD] = makeActionCreator(`${baseName}${ACTION_ASYNC_FAILURE_SUFFIX}`, trivialArgsMapper, options)

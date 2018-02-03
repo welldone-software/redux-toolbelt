@@ -1,5 +1,5 @@
 import makeAsyncThunkActionCreator from '../src/makeThunkAsyncActionCreator'
-import isActionCreator from '../../redux-toolbelt/src/utils/isActionCreator'
+import { isActionCreator } from '../../redux-toolbelt/src/utils'
 
 import configureMockStore from 'redux-mock-store'
 // import { applyMiddleware } from 'redux'
@@ -10,9 +10,9 @@ const noop = () => {}
 const mockStore = configureMockStore([thunk])
 
 test('Creates actions with all expected type info and sub action', () => {
-  const actionCreatorA = makeAsyncThunkActionCreator('A')
-  const actionCreatorB = makeAsyncThunkActionCreator('B', null, x => ({ x }))
-  const actionCreatorC = makeAsyncThunkActionCreator('C', null, x => ({ payload: x, meta: x }))
+  const actionCreatorA = makeAsyncThunkActionCreator('A', noop)
+  const actionCreatorB = makeAsyncThunkActionCreator('B', noop, x => ({ x }))
+  const actionCreatorC = makeAsyncThunkActionCreator('C', noop, x => ({ payload: x, meta: x }))
 
   expect(actionCreatorA.TYPE).toBe('A@ASYNC_REQUEST')
   expect(actionCreatorB.TYPE).toBe('B@ASYNC_REQUEST')
@@ -37,24 +37,25 @@ test('Creates actions with all expected type info and sub action', () => {
 })
 
 test('Creates actions that calls the async function and passes params', () => {
-  let asyncResult = null
-
-  const actionCreator = makeAsyncThunkActionCreator('test', v => asyncResult = v)
+  const actionCreator = makeAsyncThunkActionCreator('test', v => v)
   const action = actionCreator('b')
 
   return action(noop, noop)
-    .then(() => expect(asyncResult).toBe('b'))
+    .then(result => expect(result).toBe('b'))
 })
 
 test('Handles correctly successful async', () => {
-  const actionCreator = makeAsyncThunkActionCreator('A', v => `ping pong ${v}`, { defaultMeta: 'a' })
+  const actionCreator = makeAsyncThunkActionCreator('A', v => `ping pong ${v}`, { defaultMeta: {a: true} })
   const store = mockStore()
+
   return store.dispatch(actionCreator('b'))
-    .then(() => {
+    .then(result => {
+      expect(result).toBe('ping pong b')
+
       const actions = store.getActions()
 
       actions.forEach(action => {
-        expect(action.meta).toBe('a')
+        expect(action.meta).toEqual({a: true, _toolbeltAsyncFnArgs: ['b']})
       })
 
       expect(actions[0].type).toBe(actionCreator.TYPE)
@@ -63,19 +64,21 @@ test('Handles correctly successful async', () => {
       expect(actions[1].type).toBe(actionCreator.success.TYPE)
       expect(actions[1].payload).toBe('ping pong b')
 
-      expect(actions.length).toBe(2)
+      expect(actions).toHaveLength(2)
     })
 })
 
 test('Handles correctly failed async', () => {
-  const actionCreator = makeAsyncThunkActionCreator('A1', v => {throw new Error(v)}, { defaultMeta: 'a1' })
+  const actionCreator = makeAsyncThunkActionCreator('A1', v => {throw new Error(v)}, { defaultMeta: {a1: true} })
   const store = mockStore()
   return store.dispatch(actionCreator('b1'))
-    .catch(() => {
+    .catch(error => {
+      expect(error.message).toBe('b1')
+
       const actions = store.getActions()
 
       actions.forEach(action => {
-        expect(action.meta).toBe('a1')
+        expect(action.meta).toEqual({a1: true, _toolbeltAsyncFnArgs: ['b1']})
       })
 
       expect(actions[0].type).toBe(actionCreator.TYPE)
@@ -85,7 +88,137 @@ test('Handles correctly failed async', () => {
       expect(actions[1].payload instanceof Error).toBe(true)
       expect(actions[1].payload.message).toBe('b1')
 
-      expect(actions.length).toBe(2)
+      expect(actions).toHaveLength(2)
     })
+})
+
+test('Expending the default meta', () => {
+  const fetchUserAction = makeAsyncThunkActionCreator(
+    'FETCH_USER',
+    userId => Promise.resolve({ id: userId }),
+    { defaultMeta: {ignore: true} }
+  )
+
+  const store = mockStore()
+  return store.dispatch(fetchUserAction('01', { log: true }))
+    .then(result => {
+      expect(result).toEqual({ id: '01' })
+
+      const actions = store.getActions()
+
+      expect(actions[0].payload).toEqual('01')
+      actions.forEach(action => {
+        expect(action.meta).toEqual({
+          ignore: true, log: true,
+          _toolbeltAsyncFnArgs: ['01', { log: true }],
+        })
+      })
+
+    })
+})
+
+const wait = () => new Promise(resolve => setTimeout(resolve, 1))
+const mockUserFetchRequest = (userData) => wait().then(() => userData)
+
+describe('Custom args mapper', () => {
+  const fetchUserAction = makeAsyncThunkActionCreator(
+    'FETCH_USER',
+    (userId, name, year) => mockUserFetchRequest({id: userId, name, year}),
+    (userId, name, year, _meta) => ({
+      payload: {id: userId, name, year},
+      meta: _meta || {},
+    }),
+    { defaultMeta: {ignore: true} }
+  )
+
+  test('without meta in action call', () => {
+    const store = mockStore()
+    return store.dispatch(fetchUserAction('01', 'james', '2020'))
+      .then(result => {
+        expect(result).toEqual({ id: '01', name: 'james', year: '2020' })
+
+        const actions = store.getActions()
+
+        actions.forEach(action => {
+          expect(action.meta).toEqual({
+            ignore: true,
+            _toolbeltAsyncFnArgs: ['01', 'james', '2020'],
+          })
+        })
+
+      })
+  })
+
+  test('with meta in action call', () => {
+    const store = mockStore()
+    return store.dispatch(fetchUserAction('01', 'james', '2020', {log: true}))
+      .then(result => {
+        expect(result).toEqual({ id: '01', name: 'james', year: '2020' })
+
+        const actions = store.getActions()
+
+        actions.forEach(action => {
+          expect(action.meta).toEqual({
+            ignore: true,
+            log: true,
+            _toolbeltAsyncFnArgs: ['01', 'james', '2020', {log: true}],
+          })
+        })
+
+      })
+  })
+
+})
+
+describe('Custom args mapper (argsMapper in options)', () => {
+  const fetchUserAction = makeAsyncThunkActionCreator(
+    'FETCH_USER',
+    (userId, name, year) => mockUserFetchRequest({id: userId, name, year}),
+    {
+      defaultMeta: {ignore: true},
+      argsMapper: (userId, name, year, _meta) => ({
+        payload: {id: userId, name, year},
+        meta: _meta || {},
+      }),
+    }
+  )
+
+  test('without meta in action call', () => {
+    const store = mockStore()
+    return store.dispatch(fetchUserAction('01', 'james', '2020'))
+      .then(result => {
+        expect(result).toEqual({ id: '01', name: 'james', year: '2020' })
+
+        const actions = store.getActions()
+
+        actions.forEach(action => {
+          expect(action.meta).toEqual({
+            ignore: true,
+            _toolbeltAsyncFnArgs: ['01', 'james', '2020'],
+          })
+        })
+
+      })
+  })
+
+  test('with meta in action call', () => {
+    const store = mockStore()
+    return store.dispatch(fetchUserAction('01', 'james', '2020', {log: true}))
+      .then(result => {
+        expect(result).toEqual({ id: '01', name: 'james', year: '2020' })
+
+        const actions = store.getActions()
+
+        actions.forEach(action => {
+          expect(action.meta).toEqual({
+            ignore: true,
+            log: true,
+            _toolbeltAsyncFnArgs: ['01', 'james', '2020', {log: true}],
+          })
+        })
+
+      })
+  })
+
 })
 

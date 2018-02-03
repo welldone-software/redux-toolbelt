@@ -1,5 +1,6 @@
-import trivialArgsMapper from './_trivialArgsMapper'
 import { has, ownKeys } from './_objectUtils'
+import { getOptions } from './utils'
+import defaultOptions from './_defaultActionCreatorOptions'
 
 /**
  * @typedef {function(*, *): {type: string, payload: *, meta: *}} ActionCreator
@@ -8,16 +9,12 @@ import { has, ownKeys } from './_objectUtils'
  * @param name
  * @param [argsMapper]
  * @param [options]: {prefix, defaultMeta}
+ *
  * @returns {ActionCreator}
  */
-export default function makeActionCreator(name, argsMapper = trivialArgsMapper, options) {
-
-  const defaults = {
-    prefix: '',
-    defaultMeta: undefined,
-  }
-
-  options = Object.assign(defaults, options)
+export default function makeActionCreator(name, argsMapper, options) {
+  options = getOptions({ argsMapper, options, defaultOptions })
+  argsMapper = options.argsMapper
 
   const type = `${options.prefix}${name}`
 
