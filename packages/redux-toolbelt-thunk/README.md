@@ -61,7 +61,7 @@ dispatch(fetchUser('user_01'))
 ```
 
 ## Usage
-####`makeThunkAsyncActionCreator(baseName, asyncFn [,argsMapper, options])`
+#### `makeThunkAsyncActionCreator(baseName, asyncFn [,argsMapper, options])`
 ### Arguments
 * `baseName` - The name of the action, and prefixes of sub-actions created.
 * `asyncFn` - The function to execute when the action is called. It should return a promise that when resolved will trigger the success sub-action and if rejects will trigger the failure action.
