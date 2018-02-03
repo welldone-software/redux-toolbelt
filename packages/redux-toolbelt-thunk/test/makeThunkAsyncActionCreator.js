@@ -95,7 +95,7 @@ test('Handles correctly failed async', () => {
 test('Expending the default meta', () => {
   const fetchUserAction = makeAsyncThunkActionCreator(
     'FETCH_USER',
-    userId => ({id: userId}),
+    userId => Promise.resolve({ id: userId }),
     { defaultMeta: {ignore: true} }
   )
 
@@ -106,6 +106,7 @@ test('Expending the default meta', () => {
 
       const actions = store.getActions()
 
+      expect(actions[0].payload).toEqual('01')
       actions.forEach(action => {
         expect(action.meta).toEqual({
           ignore: true, log: true,
