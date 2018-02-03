@@ -53,36 +53,17 @@ fetchUserFromServer('user_01')
 
 ```js
 const fetchUser = makeThunkAsyncActionCreator('FETCH_USER', fetchUserFromServer)
-fetchUser('user_01') // this dispatches the FETCH_USER action, calls fetchUserFromServer and calls the success or failure action after fetchUserFromServer is resolved or rejected.
+dispatch(fetchUser('user_01')) // this dispatches the FETCH_USER action, calls fetchUserFromServer and calls the success or failure action after fetchUserFromServer is resolved or rejected.
 ```
 
 ## Usage
 
 ### `makeThunkAsyncActionCreator(baseName, asyncFn [,argsMapper, options])`
-Creates a an action creator similar to `makeAsyncActionCreator`, with `TYPE` static member and both `success`
-and `failure` sub actions. 
-
-When the action creator is called:
- 
-* An action with the type of `baseName` and `payload` and `meta` that are based on the arguments of the call is dispatched.
-* The `asyncFn` is called and expected to return a promise.
-
-When the promise that is returned from `asyncFn` resolves or rejects:
-
-* Upon a resolve, the `success` sub-action is dispatched with the `result` of the promise.
-* Upon a reject, the `failure` sub-action is dispatched with the `error` of the promise.
-
 ### Arguments
-The full form of the function looks like this:
-
-```js
-const action = makeThunkAsyncActionCreator('ACTION_NAME', asyncFunction, argsMapper, options)
-```
-
-* `actionName` - The name of the action, and prefixes of sub-actions created.
-* `promiseFunction` - The function to execute when the action is called. It should return a promise that when resolved will trigger the success sub-action and if rejects will trigger the failure action.
+* `baseName` - The name of the action, and prefixes of sub-actions created.
+* `asyncFn` - The function to execute when the action is called. It should return a promise that when resolved will trigger the success sub-action and if rejects will trigger the failure action.
   
-  `promiseFunction` will be called with the arguments passed to the action with the addition of the following argument: `{getState, dispatch}`
+  `asyncFn` will be called with the arguments passed to the action with the addition of the following argument: `{getState, dispatch}`
 * `argsMapper` - Maps the arguments that are passed to the action to `payload` that will be used on the action dispatched when action is called and `meta` that will be used when the action and it's sub-actions are called.
 * `options`
   * `prefix` - Defaults to `''`.
@@ -106,8 +87,21 @@ const action = makeThunkAsyncActionCreator('ACTION_NAME', asyncFunction, argsMap
   * `argsMapper` - Defaults to `const trivialArgsMapper = (payload, meta) => ({ payload, meta })`
     
     Same as the `argsMapper` argument described above. The argument takes priority over the option.
+### Returns
+An action creator that when called and dispatched:
+ 
+* An action with the type of `baseName` and `payload` and `meta` that are based on the arguments of the call is dispatched.
+* The `asyncFn` is called and expected to return a promise.
+
+When the promise that is returned from `asyncFn` resolves or rejects:
+
+* Upon a resolve, the `success` sub-action is dispatched with the `result` of the promise.
+* Upon a reject, the `failure` sub-action is dispatched with the `error` of the promise.
   
-### `makeThunkAsyncActionCreator.withDefaults` - Creates an instance of `makeThunkAsyncActionCreator` with the specified options:
+### withDefaults
+
+Creates an instance of `makeThunkAsyncActionCreator` with the specified options:
+
 ```js
 const userMakeThunkAsyncActionCreator = makeThunkAsyncActionCreator.withDefaults({
   prefix: 'USER@',
