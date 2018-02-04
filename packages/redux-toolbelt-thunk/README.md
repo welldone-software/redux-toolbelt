@@ -77,9 +77,11 @@ dispatch(fetchUser('user_01'))
     Adds metadata to the action and sub-actions:
 
     ```js
+    const getUserFromServer = userId => Promise.resolve({id: userId})
+    
     const fetchUserAction = makeAsyncThunkActionCreator(
       'FETCH_USER', //
-      userId => Promise.resolve({id: userId}),
+      getUserFromServer,
       { defaultMeta: {ignore: true} }
     )
     
