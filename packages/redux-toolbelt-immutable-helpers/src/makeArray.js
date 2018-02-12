@@ -1,6 +1,6 @@
 import concat from 'lodash.concat'
+import isArray from 'lodash.isarray'
 
 export default function makeArray(arrayOrObject) {
-  // Converts the object into array (if it's not an array already)
-  return concat(arrayOrObject)
+  return isArray(arrayOrObject) ? arrayOrObject : concat(arrayOrObject)
 }
