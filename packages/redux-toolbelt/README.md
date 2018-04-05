@@ -11,26 +11,27 @@ Written in ES6.
 
 <!-- toc -->
 
-* [Installation](#installation)
-* [Usage](#usage)
-* [Demo](#demo)
-* [API Reference](#api-reference)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Demo](#demo)
+- [API Reference](#api-reference)
   * [`makeActionCreator()`](#makeactioncreator)
-    * [Adding payload and metadata toredux actions](#adding-payload-and-metadata-to-actions)
-    * [Actions Defaults](#actions-defaults)
+    + [Adding payload and metadata to actions](#adding-payload-and-metadata-to-actions)
+    + [Actions Defaults](#actions-defaults)
   * [`makeReducer()`](#makereducer)
   * [`makeAsyncActionCreator()`](#makeasyncactioncreator)
   * [`makeAsyncReducer()`](#makeasyncreducer)
-    * [Reducer Behvaiour](#reducer-behvaiour)
-      * [Initialization](#initialization)
-      * [Request](#request)
-      * [Progress](#progress)
-      * [Success](#success)
-      * [Failure](#failure)
+    + [Reducer Behavior](#reducer-behavior)
+      - [Initialization](#initialization)
+      - [Request](#request)
+      - [Progress](#progress)
+      - [Success](#success)
+      - [Failure](#failure)
   * [`composeReducers()`](#composereducers)
-    * [Default State](#default-state)
+    + [Default State](#default-state)
   * [`isActionCreator()`](#isactioncreator)
-    <!-- tocstop -->
+
+<!-- tocstop -->
 
 ## Installation
 

@@ -11,9 +11,14 @@ A set of helper functions that extends `redux-toolbelt` for usage with `redux-th
 <!-- toc -->
 
 - [Installation](#installation)
+- [Import](#import)
+- [Motivation](#motivation)
 - [Usage](#usage)
-- [API Reference](#api-reference)
-  * [`makeThunkAsyncActionCreator(baseName, asyncFn [, options])`](#makeThunkAsyncActionCreatorbasename-asyncfn--options)
+    + [`makeThunkAsyncActionCreator(baseName, asyncFn [,argsMapper, options])`](#makethunkasyncactioncreatorbasename-asyncfn-argsmapper-options)
+  * [Arguments](#arguments)
+  * [Returns](#returns)
+  * [_toolbeltAsyncFnArgs](#_toolbeltasyncfnargs)
+  * [withDefaults](#withdefaults)
 
 <!-- tocstop -->
 
