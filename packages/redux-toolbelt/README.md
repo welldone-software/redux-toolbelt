@@ -50,12 +50,12 @@ yarn add redux-toolbelt
 Import the functions you need using one of these two methods:
 
 ```js
-import { composeReducers, makeActionCreator } from 'redux-toolbelt';
+import {composeReducers, makeActionCreator} from 'redux-toolbelt'
 
 // or
 
-import composeReducers from 'redux-toolbelt/lib/composeReducers';
-import makeActionCreator from 'redux-toolbelt/lib/makeActionCreator';
+import composeReducers from 'redux-toolbelt/lib/composeReducers'
+import makeActionCreator from 'redux-toolbelt/lib/makeActionCreator'
 ```
 
 ## Demo
@@ -78,18 +78,18 @@ This can help force type-safety without adding a lot of verbose code and constan
 All produced actions will have a `type`, `payload` and `meta` properties.
 
 ```js
-const myAction = makeActionCreator('MY_ACTION');
+const myAction = makeActionCreator('MY_ACTION')
 
 // Usage in reducer
 const myReducer = (state, action) => {
   switch (action.type) {
     case myAction.TYPE:
       // ... responding to action
-      return newState;
+      return newState
     default:
-      return state;
+      return state
   }
-};
+}
 ```
 
 #### Adding payload and metadata to actions
@@ -97,7 +97,7 @@ const myReducer = (state, action) => {
 The action creators accept `payload` and `meta` arguments by default.
 
 ```js
-myAction({ val: 5 }, { debug: true });
+myAction({val: 5}, {debug: true})
 // ==> {
 //   {
 //     type: 'MY_ACTION',
@@ -111,11 +111,11 @@ To customize the action creators and better tailor them to your needs you can us
 
 ```js
 const myAction = makeActionCreator('MY_ACTION', (val, debug = false) => ({
-  payload: { val },
-  meta: { debug },
-}));
+  payload: {val},
+  meta: {debug},
+}))
 
-myAction(5, true);
+myAction(5, true)
 // ==> {
 //   {
 //     type: 'MY_ACTION',
@@ -135,17 +135,17 @@ You can do it like so:
 ```js
 const makeCounterAction = makeActionCreator.withDefaults({
   prefix: 'COUNTER/',
-  defaultMeta: { log: true },
-});
+  defaultMeta: {log: true},
+})
 
-const increase = makeCounterAction('INCREASE');
-const decrease = makeCounterAction('DECREASE');
+const increase = makeCounterAction('INCREASE')
+const decrease = makeCounterAction('DECREASE')
 
-increase();
-// ==> { type: 'COUNTER/INCREASE', meta: {log: true} }
+increase()
+// ==> {type: 'COUNTER/INCREASE', meta: {log: true}}
 
-decrease();
-// ==> { type: 'COUNTER/DECREASE', meta: {log: true} }
+decrease()
+// ==> {type: 'COUNTER/DECREASE', meta: {log: true}}
 ```
 
 ### `makeReducer()`
@@ -160,7 +160,7 @@ Creates a reducer that handles action creator[s] created with `makeActionCreator
     const toggleAction = makeActionCreator('TOGGLE')
     const toggleReducer = makeReducer(
       toggleAction,
-      state => !state, { defaultState: false }
+      state => !state, {defaultState: false}
     )
     ```
 
@@ -168,8 +168,8 @@ Creates a reducer that handles action creator[s] created with `makeActionCreator
     ```
     const countUpdatedReducer = makeReducer(
       [increaseBy, decreaseBy],
-      (state, { payload }) => (state || (payload !== 0)),
-      { defaultState: false }
+      (state, {payload}) => (state || (payload !== 0)),
+      {defaultState: false}
     )
     ```
   * An object of `actionCreator`'s
@@ -178,9 +178,9 @@ Creates a reducer that handles action creator[s] created with `makeActionCreator
 
     ```
     const reducer = makeReducer({
-      [increaseBy]: (state, { payload }) => state + payload,
-      [decreaseBy.TYPE]: (state, { payload }) => state - payload,
-    }, { defaultState: 100 })
+      [increaseBy]: (state, {payload}) => state + payload,
+      [decreaseBy.TYPE]: (state, {payload}) => state - payload,
+    }, {defaultState: 100})
     ```
 
 * The second argument is the `handler` for the specified action.
@@ -195,10 +195,10 @@ const toggle = makeActionCreator('TOGGLE')
 const visibilityState = makeReducer(
   toggle,
   visible => !visible,
-  { defaultState: true }
+  {defaultState: true}
 )
 
-let state = reducer(undefined, { TYPE: '@@redux/INIT' })
+let state = reducer(undefined, {TYPE: '@@redux/INIT'})
 // state === true
 // The '@@redux/INIT' action type is dispatched by Redux itself
 // upon initialization
@@ -218,11 +218,11 @@ const decreaseBy = makeActionCreator('DECREASE_BY')
 
 const countUpdatedReducer = makeReducer(
   [increaseBy, decreaseBy],
-  (state, { payload }) => (state || (payload !== 0)),
-  { defaultState: false }
+  (state, {payload}) => (state || (payload !== 0)),
+  {defaultState: false}
 })
 
-let state = countUpdatedReducer(undefined, { type: '@@redux/INIT'})
+let state = countUpdatedReducer(undefined, {type: '@@redux/INIT'})
 // state === false
 
 state = countUpdatedReducer(state, increaseBy(0))
@@ -246,13 +246,13 @@ const decreaseBy = makeActionCreator('DECREASE_BY')
 
 const reducer = makeReducer(
   {
-    [increaseBy]: (state, { payload}) => state + payload,
-    [decreaseBy.TYPE]: (state, {payload }) => state - payload,
+    [increaseBy]: (state, {payload}) => state + payload,
+    [decreaseBy.TYPE]: (state, {payload}) => state - payload,
   },
-  { defaultState: 100 }
+  {defaultState: 100}
 )
 
-let state = reducer(undefined, { type: '@@redux/INIT' })
+let state = reducer(undefined, {type: '@@redux/INIT'})
 // state === 100
 
 state = reducer(state, increaseBy(10))
@@ -270,10 +270,10 @@ const toggleShow = makeActionCreator('TOGGLE_SHOW')
 
 const reducer = composeReducers({
   userName: makeReducer(setUserName),
-  show: makeReducer(toggleShow, state => !state, { defaultState: true }),
+  show: makeReducer(toggleShow, state => !state, {defaultState: true}),
 })
 
-const initialState = reducer(undefined, { type: '@@redux/INIT' })
+const initialState = reducer(undefined, {type: '@@redux/INIT'})
 // initialState ==> {
 //   userName: null,
 //   show: true,
@@ -301,51 +301,51 @@ Wrapper around `makeActionCreator()`, to help create actions creators for usage 
 * [makeAsyncEpic](../redux-toolbelt-observable) for `redux-observable`
 
 ```js
-const fetchTodos = makeAsyncActionCreator('FETCH_TODOS');
+const fetchTodos = makeAsyncActionCreator('FETCH_TODOS')
 
 // Dispatching
-fetchTodos();
-// ==> { type: 'FETCH_TODOS@ASYNC_REQUEST' }
+fetchTodos()
+// ==> {type: 'FETCH_TODOS@ASYNC_REQUEST'}
 
-fetchTodos.success();
-// ==> { type: 'FETCH_TODOS@ASYNC_SUCCESS' }
+fetchTodos.success()
+// ==> {type: 'FETCH_TODOS@ASYNC_SUCCESS'}
 
-fetchTodos.failure();
-// ==> { type: 'FETCH_TODOS@ASYNC_FAILURE' }
+fetchTodos.failure()
+// ==> {type: 'FETCH_TODOS@ASYNC_FAILURE'}
 
-fetchTodos.progress();
-// ==> { type: 'FETCH_TODOS@ASYNC_PROGRESS' }
+fetchTodos.progress()
+// ==> {type: 'FETCH_TODOS@ASYNC_PROGRESS'}
 
-fetchTodos.cancel();
-// ==> { type: 'FETCH_TODOS@ASYNC_CANCEL' }
+fetchTodos.cancel()
+// ==> {type: 'FETCH_TODOS@ASYNC_CANCEL'}
 
 // Usage in reducer
 const myReducer = (state, action) => {
   switch (action.type) {
     case fetchTodos.TYPE:
       // ... responding to request start
-      return newState;
+      return newState
 
     case fetchTodos.success.TYPE:
       // ... responding to a successful request
-      return newState;
+      return newState
 
     case fetchTodos.failure.TYPE:
       // ... responding to a failed request
-      return newState;
+      return newState
 
     case fetchTodos.progress.TYPE:
       // ... responding to progress indications
-      return newState;
+      return newState
 
     case fetchTodos.cancel.TYPE:
       // ... responding to request cancellation
-      return newState;
+      return newState
 
     default:
-      return state;
+      return state
   }
-};
+}
 ```
 
 ### `makeAsyncReducer()`
@@ -354,7 +354,7 @@ Creates a reducer that handles actions created with `makeAsyncActionCreator()` o
 Its behavior can be defined in an options object passed as the 2nd argument:
 
 ```js
-const asyncAction = makeAsyncActionCreator('ASYNC_ACTION');
+const asyncAction = makeAsyncActionCreator('ASYNC_ACTION')
 
 // These are the default options
 const options = {
@@ -366,9 +366,9 @@ const options = {
   shouldSpread: false,
   shouldSetData: true,
   dataGetter: undefined,
-};
+}
 
-const asyncReducer = makeAsyncReducer(asyncAction, options);
+const asyncReducer = makeAsyncReducer(asyncAction, options)
 ```
 
 #### Reducer Behavior
@@ -380,10 +380,10 @@ Reducers created with `makeAsyncReducer()` respond to the request, progress, suc
 On start, the reducer will return the following state by default:
 
 ```js
-const asyncReducer = makeAsyncReducer(asyncAction);
+const asyncReducer = makeAsyncReducer(asyncAction)
 
-const state = undefined;
-asyncReducer(state, { type: '@@INIT' });
+const state = undefined
+asyncReducer(state, {type: '@@INIT'})
 // ==> {
 //   loading: false,
 //   data: undefined
@@ -396,10 +396,10 @@ You can customize the `data` field name or default value.
 const asyncReducer = makeAsyncReducer(asyncAction, {
   dataProp: 'results',
   defaultData: [],
-});
+})
 
-const state = undefined;
-asyncReducer(state, { type: '@@INIT' });
+const state = undefined
+asyncReducer(state, {type: '@@INIT'})
 // ==> {
 //   loading: false,
 //   results: []
@@ -414,11 +414,11 @@ need. As per Redux own rules, the data should be immutable and `redux-toolbelt` 
 
 ```js
 const asyncReducer = makeAsyncReducer(asyncAction, {
-  dataGetter: ({ data }, { payload }) => [...data, payload],
-});
+  dataGetter: ({data}, {payload}) => [...data, payload],
+})
 
-const state = { data: ['a'] };
-asyncReducer(state, asyncAction.success('b'));
+const state = {data: ['a']}
+asyncReducer(state, asyncAction.success('b'))
 // ==> {
 //   loading: false,
 //   data: ['a', 'b']
@@ -434,10 +434,10 @@ const asyncReducer = makeAsyncReducer(asyncAction, {
     counter: 0,
     status: 'offline',
   },
-});
+})
 
-const state = undefined;
-asyncReducer(state, { type: '@@INIT' });
+const state = undefined
+asyncReducer(state, {type: '@@INIT'})
 // ==> {
 //   loading: false,
 //   counter: 0,
@@ -453,10 +453,10 @@ asyncReducer(state, { type: '@@INIT' });
 When the reducer gets the `request` action it updates the `loading` field.
 
 ```js
-const asyncReducer = makeAsyncReducer(asyncAction);
+const asyncReducer = makeAsyncReducer(asyncAction)
 
-const state = { loading: false, data: [1, 2, 3] };
-asyncReducer(state, asyncAction());
+const state = {loading: false, data: [1, 2, 3]}
+asyncReducer(state, asyncAction())
 // ==> {
 //   loading: true,
 //   data: [1, 2, 3]
@@ -469,10 +469,10 @@ You can also configure the reducer to ignore the action payload and return the d
 const asyncReducer = makeAsyncReducer(asyncAction, {
   shouldDestroyData: true,
   defaultData: [],
-});
+})
 
-const state = { loading: false, data: [1, 2, 3] };
-asyncReducer(state, asyncAction());
+const state = {loading: false, data: [1, 2, 3]}
+asyncReducer(state, asyncAction())
 // ==> {
 //   loading: true,
 //   data: []
@@ -484,10 +484,10 @@ asyncReducer(state, asyncAction());
 When the reducer gets the `progress` action it updates the `progress` field with the action's payload.
 
 ```js
-const asyncReducer = makeAsyncReducer(asyncAction);
+const asyncReducer = makeAsyncReducer(asyncAction)
 
-const state = { loading: true };
-asyncReducer(state, asyncAction.progress(5));
+const state = {loading: true}
+asyncReducer(state, asyncAction.progress(5))
 // ==> {
 //   loading: true,
 //   progress: 5
@@ -499,9 +499,9 @@ asyncReducer(state, asyncAction.progress(5));
 When the reducer gets the `success` action it updates `loading` to `false` and, by default, sets the `dataProp` field to the action's payload. If the `dataGetter` option is set, it will call it and set it to whatever it returns.
 
 ```js
-const asyncReducer = makeAsyncReducer(asyncAction);
-const state = { loading: true };
-asyncReducer(state, asyncAction.success([1, 2, 3]));
+const asyncReducer = makeAsyncReducer(asyncAction)
+const state = {loading: true}
+asyncReducer(state, asyncAction.success([1, 2, 3]))
 // ==> {
 //   loading: false,
 //   'data': [1, 2, 3]
@@ -514,10 +514,10 @@ In this way you only detect the loading status and the success or failure of the
 ```js
 const asyncReducer = makeAsyncReducer(asyncAction, {
   shouldSetData: false,
-});
+})
 
-const state = { loading: true };
-asyncReducer(state, asyncAction.success([1, 2, 3]));
+const state = {loading: true}
+asyncReducer(state, asyncAction.success([1, 2, 3]))
 // ==> {
 //   loading: false
 // }
@@ -528,10 +528,10 @@ asyncReducer(state, asyncAction.success([1, 2, 3]));
 When the reducer gets the `failure` action it updates `loading` to `false` and the `error` field with the action's payload.
 
 ```js
-const asyncReducer = makeAsyncReducer(asyncAction);
+const asyncReducer = makeAsyncReducer(asyncAction)
 
-const state = { loading: true };
-asyncReducer(state, asyncAction.failure(`Server unreachable`));
+const state = {loading: true}
+asyncReducer(state, asyncAction.failure(`Server unreachable`))
 // ==> {
 //   loading: false,
 //   error: 'Server unreachable'
@@ -550,8 +550,8 @@ The function accepts multiple reducers as arguments and executes them sequential
 If in argument is a reducers map instead of a reducer (like in `composeReducers`) it will create a reducer from that map in the same fashion.
 
 ```js
-const mainReducer = (state, action) => {...} // returns { todos: [...] }
-const sideEffectReducer = (state, action) => {...} // return { count: 0 }
+const mainReducer = (state, action) => {...} // returns {todos: [...]}
+const sideEffectReducer = (state, action) => {...} // return {count: 0}
 const currentActionReducer = (state, action) => {...} // return 'dragging'
 const userNameReducer = (state, action) => {...} // return 'welldone'
 
