@@ -18,7 +18,7 @@ A set of helper functions that extends 'redux-toolbelt' for usage with `redux-sa
 <!-- tocstop -->
 
 ## Installation
-The tools are available in the `redux-toolbelt` npm package.
+The tools are available in the [`redux-toolbelt-saga`](https://www.npmjs.com/package/redux-toolbelt-saga) npm package.
 ```sh
 npm install --save redux-toolbelt redux-toolbelt-saga redux-saga
 
@@ -28,7 +28,7 @@ yarn add redux-toolbelt redux-toolbelt-saga redux-saga
 ```
 
 ## Usage
-import the functions you like to use using one of the two methods:
+You may import the functions you'd like to use using one of the two methods:
 ```js
 import {makeAsyncActionCreator} from 'redux-toolbelt'
 import {makeAsyncSaga} from 'redux-toolbelt-saga'
@@ -45,7 +45,7 @@ import makeAsyncSaga from 'redux-toolbelt-saga/lib/makeAsyncSaga'
 ### `makeAsyncSaga()`
 Creates a saga that handles actions created using `makeAsyncActionCreator`.  
 
-The first argument specifies saga when to dispatch the function in the second argument.
+The first argument specifies the saga to dispatch when the function in the second argument is dispatched.
 
 ```js
 const fetchTodos = makeAsyncActionCreator('FETCH_TODOS')
@@ -59,7 +59,7 @@ const saga = makeAsyncSaga(fetchTodos, fetchTodosFromServer)
 dispatch(fetchTodos({id: 100, url: 'http://google.com'}))
 ```
 
-By default, the payload of the action is what passed to the function as it's argument.
+By default, the payload of the action is what was passed to the function as it's argument.
 
 You have two ways of changing it, using `options`:
 
@@ -67,14 +67,14 @@ You have two ways of changing it, using `options`:
 const options = {
   // pass specific arguments
   args: [{id, url}],
-  
+
   // OR
-  
+
   // map the action to arguments using a regular or a generator function
   mapArgs: function* mapArgs(action){
     const {todosId} = action.payload
     const url = yield select(urlSelector)
-    
+
     return [{id: todosId, url}, true]
   }
 }
