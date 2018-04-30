@@ -4,12 +4,12 @@ import 'rxjs/add/observable/of'
 import 'rxjs/add/observable/throw'
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/catch'
-import 'rxjs/add/operator/switchMap'
+import 'rxjs/add/operator/mergeMap'
 
 export default function makeAsyncEpic(actionCreator, asyncFn) {
   return (action$, {getState, dispatch}) =>
     action$.ofType(actionCreator.TYPE)
-      .switchMap(action => {
+      .mergeMap(action => {
         let obs = undefined
         try{
           obs = asyncFn(action.payload, action.type, action.meta, getState, dispatch)
