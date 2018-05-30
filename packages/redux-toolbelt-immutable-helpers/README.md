@@ -1,6 +1,6 @@
 # Redux-Toolbelt Immutable Helpers
 
-A set of helper functions to reduce verbosity inside redux reducers.  
+A set of helper functions to reduce verbosity inside Redux reducers.  
 Written in ES6.
 
 <p align="center">
@@ -35,7 +35,7 @@ Written in ES6.
 <!-- tocstop -->
 
 ## Installation
-The helpers are available in the `redux-toolbelt-immutable-helpers` npm package.
+The helpers are available in the [`redux-toolbelt-immutable-helpers`](https://www.npmjs.com/package/redux-toolbelt-immutable-helpers) npm package.
 ```sh
 npm install --save redux-toolbelt-immutable-helpers
 
@@ -46,15 +46,13 @@ yarn add redux-toolbelt-immutable-helpers
 
 ## Usage
 
-This utility functions are pure functions, they never change the provided arguments.  
-If no changes are necessary, the original reference is returned.
+These utility functions are pure functions, they never change the provided arguments. If no changes are necessary, the original reference is returned.
 
-Usually you can reduce complex code inside switch cases to just one or 2 functions calls.  
-They are also great for writing selectors.
+Usually you can reduce complex code inside switch cases to just one or 2 functions calls. They are also great for writing selectors.
 
-import the functions you like to use using one of the two methods:
+You may import the functions you'd like to use using one of these two methods:
 ```js
-import {pushItems, addItemsInIndex /* ... */} from 'redux-toolbelt.immutableHelpers'
+import {pushItems, addItemsInIndex /* ... */} from 'redux-toolbelt-immutable-helpers'
 
 // or
 
@@ -64,7 +62,7 @@ import addItemsInIndex from 'redux-toolbelt-immutable-helpers/lib/addItemsInInde
 ```
 
 ### Example
-Using the provided functions to reduce the verbosity inside redux reducers:
+Using the provided functions to reduce the verbosity inside Redux reducers:
 ```js
 // instead of:
 const todosReducer(state = [], action) {
@@ -100,7 +98,7 @@ const todosReducer(state = [], action) {
     }
     case 'UPDATE_TODO': {
       const {idx, todoItem} = action.payload
-      return updateItem(state, idex, todoItem)
+      return updateItem(state, idx, todoItem)
     }
     default:
       return state
@@ -111,9 +109,10 @@ const todosReducer(state = [], action) {
 ## API Reference
 
 ### `addItemsInIndex()`
-Adds items to an array in the specified index.
+Adds items to an array at the specified index.
 ```js
 const a = [1, 2, 3]
+
 const b = addItemsInIndex(a, 2, [4, 5])
 // a ==> [1, 2, 3]
 // b ==> [1, 2, 4, 5, 3]
@@ -128,6 +127,7 @@ const a = [
   {id: 3, name: 'Charlie'},
   {id: 4, name: 'Donna'}
 ]
+
 const b = filterByIds(a, [2, 3])
 // b ==> [
 //    {id: 2, name: 'Bob'},
@@ -145,6 +145,7 @@ const c = filterByIds(a, ['Alex', 'Donna'], item => item.name)
 Adds items to the end of an array.
 ```js
 const a = [1]
+
 const b = pushItems(a, [2, 3])
 // a ==> [1]
 // b ==> [1, 2, 3]
@@ -154,13 +155,14 @@ const b = pushItems(a, [2, 3])
 Removes an item from the specified index of an array.
 ```js
 const a = [1, 2, 3, 4, 5]
+
 const b = removeItem(a, 3)
 // a ==> [1, 2, 3, 4, 5]
 // b ==> [1, 2, 3, 5]
 ```
 
 ### `removeItemsById()`
-Removes array items by `id` field or other calculated primitive value.
+Removes array items by the `id` field value or other calculated primitive value.
 ```js
 const a = [
   {id: 1, name: 'Alex'},
@@ -168,6 +170,7 @@ const a = [
   {id: 3, name: 'Charlie'},
   {id: 4, name: 'Donna'}
 ]
+
 const b = removeItemsById(a, [2, 3])
 // b ==> [
 //    {id: 1, name: 'Alex'},
@@ -182,29 +185,32 @@ const c = removeItemsById(a, ['Alex', 'Donna'], item => item.name)
 ```
 
 ### `replaceItem()`
-Replaces an item in the specified index of an array.
+Replaces an item at the specified index of an array.
 ```js
 const a = [1, 2, 3, 4, 5]
+
 const b = replaceItem(a, 2, 7)
 // a ==> [1, 2, 3, 4, 5]
 // b ==> [1, 2, 7, 4, 5]
 ```
 
 ### `repositionItem()`
-Moves an item in an array from on index to another.
+Moves an item in an array from one index to another.
 ```js
 const a = [1, 2, 3, 4, 5]
+
 const b = repositionItem(a, 1, 3)
 // a ==> [1, 2, 3, 4, 5]
 // b ==> [1, 3, 4, 2, 5]
 const c = repositionItem(a, 3, 'start')
 // c ==> [4, 1, 2, 3, 5]
+
 const c = repositionItem(a, 2, 'end')
 // c ==> [1, 2, 4, 5, 3]
 ```
 
 ### `repositionItemById()`
-Moves an array item to new index by `id` field or other calculated primitive value.
+Moves an array item to a new position by the `id` field value or other calculated primitive value.
 ```js
 const a = [
   {id: 1, name: 'Alex'},
@@ -212,6 +218,7 @@ const a = [
   {id: 3, name: 'Charlie'},
   {id: 4, name: 'Donna'}
 ]
+
 const b = repositionItemById(a, 2, 'start')
 // b ==> [
 //    {id: 2, name: 'Bob'},
@@ -246,16 +253,17 @@ const c = repositionItemById(a, 'Donna', 'start', item => item.name)
 ```
 
 ### `unshiftItems()`
-Adds items to the begining of an array.
+Adds items to the beginning of an array.
 ```js
 const a = [1]
+
 const b = pushItems(a, [2, 3])
 // a ==> [1]
 // b ==> [2, 3, 1]
 ```
 
 ### `updateItem()`
-Updates the properties of an item in a specified index of an array.
+Updates the properties of an item at a specified index of an array.
 ```js
 const a = [
   {id: 1, name: 'Alex', height: 170},
@@ -263,6 +271,7 @@ const a = [
   {id: 3, name: 'Charlie', height: 180},
   {id: 4, name: 'Donna', height: 150}
 ]
+
 const b = updateItem(a, 3, {height: 160, hairColor: 'blond'})
 // b ==> [
 //    {id: 1, name: 'Alex', height: 170},
@@ -281,6 +290,7 @@ const a = [
   {id: 3, name: 'Charlie', height: 180},
   {id: 4, name: 'Donna', height: 150}
 ]
+
 const b = updateItemById(a, 2, {height: 160, hairColor: 'blond'})
 // b ==> [
 //    {id: 1, name: 'Alex', height: 170},
@@ -288,6 +298,7 @@ const b = updateItemById(a, 2, {height: 160, hairColor: 'blond'})
 //    {id: 3, name: 'Charlie', height: 180},
 //    {id: 4, name: 'Donna', height: 140}
 //  ]
+
 const c = updateItemById(a, 'bob', {height: 160, hairColor: 'blond'}, item => item.name)
 // c ==> [
 //    {id: 1, name: 'Alex', height: 170},
@@ -297,15 +308,13 @@ const c = updateItemById(a, 'bob', {height: 160, hairColor: 'blond'}, item => it
 //  ]
 
 // you can also use an update function
-const b = updateItemById(a, 2, item => ({height: item.height+20, hairColor: 'blond'}))
+const b = updateItemById(a, 2, item => ({height: item.height + 20, hairColor: 'blond'}))
 // b ==> [
 //    {id: 1, name: 'Alex', height: 170},
 //    {id: 2, name: 'Bob', height: 180, hairColor: 'blond'},
 //    {id: 3, name: 'Charlie', height: 180},
 //    {id: 4, name: 'Donna', height: 140}
 //  ]
-
-
 ```
 
 ### `updateItemsByFilter()`
@@ -317,6 +326,7 @@ const a = [
   {id: 3, val: 30},
   {id: 4, val: 40}
 ]
+
 const b = updateItemsByFilter(a, val => val > 30, {val: 0, flag: true})
 // b ==> [
 //    {id: 1, val: 10},
@@ -324,7 +334,8 @@ const b = updateItemsByFilter(a, val => val > 30, {val: 0, flag: true})
 //    {id: 3, val: 30},
 //    {id: 4, val: 0, flag: true}
 //  ]
-const b = updateItemsByFilter(a, item => item.val > 30, item => ({val: item.val-20}))
+
+const b = updateItemsByFilter(a, item => item.val > 30, item => ({val: item.val - 20}))
 // b ==> [
 //    {id: 1, val: 10},
 //    {id: 2, val: 30},
@@ -334,7 +345,7 @@ const b = updateItemsByFilter(a, item => item.val > 30, item => ({val: item.val-
 ```
 
 ### `updateItemsById()`
-Updates items in an array by `id` field or other calculated primitive value.
+Updates items in an array by the `id` field value or other calculated primitive value.
 ```js
 const a = [
   {id: 1, name: 'Alex', height: 170},
@@ -342,6 +353,7 @@ const a = [
   {id: 3, name: 'Charlie', height: 180},
   {id: 4, name: 'Donna', height: 150}
 ]
+
 const b = updateItemsById(a, [{id: 2, height: 160, hairColor: 'blond'}, {id: 3, height: 150}])
 // b ==> [
 //    {id: 1, name: 'Alex', height: 170},
@@ -349,6 +361,7 @@ const b = updateItemsById(a, [{id: 2, height: 160, hairColor: 'blond'}, {id: 3, 
 //    {id: 3, name: 'Charlie', height: 150},
 //    {id: 4, name: 'Donna', height: 140}
 //  ]
+
 const c = updateItemsById(a, [{name: 'bob', height: 160, hairColor: 'blond'}], item => item.name)
 // c ==> [
 //    {id: 1, name: 'Alex', height: 170},
@@ -362,6 +375,7 @@ const c = updateItemsById(a, [{name: 'bob', height: 160, hairColor: 'blond'}], i
 Updates a single property of an object.
 ```js
 const a = {id: 1, val: 5, type: 'something'}
+
 const b = updateObjectProperty(a, 'val', 10})
 // a ==> {id: 1, val: 5, type: 'something'}
 // b ==> {id: 1, val: 10, type: 'something'}
@@ -371,6 +385,7 @@ const b = updateObjectProperty(a, 'val', 10})
 Updates multiple properties of an object.
 ```js
 const a = {id: 1, val1: 5, val2: 6, type: 'something'}
+
 const b = updateObjectProperties(a, {val1: 9, otherval: 20})
 // a ==> {id: 1, val1: 5, val2: 6, type: 'something'}
 // b ==> {id: 1, val1: 9, val2: 6, type: 'something', otherVal: 20}
@@ -378,27 +393,30 @@ const b = updateObjectProperties(a, {val1: 9, otherval: 20})
 You can also update multiple items with the same value.
 ```js
 const a = {id: 1, val1: 5, val2: 6, type: 'something'}
+
 const b = updateObjectProperties(a, ['val1', 'val2'], 10)
 // a ==> {id: 1, val1: 5, val2: 6, type: 'something'}
 // b ==> {id: 1, val1: 10, val2: 10, type: 'something'}
 ```
-Or update the chosen properties using an updated function.
+Or update the chosen properties using an updater function.
 ```js
 const a = {id: 1, val1: 5, val2: 6, type: 'something'}
+
 const b = updateObjectProperties(a, ['val1', 'val2'], (value, prop) => value + 1)
 // a ==> {id: 1, val1: 5, val2: 6, type: 'something'}
 // b ==> {id: 1, val1: 6, val2: 7, type: 'something'}
 ```
-Or you can update all properties using an update function.
-```
+Or you can update all properties using an updater function.
+```js
 const a = {id: 1, val1: 5, val2: 6, type: 'something'}
-const b = updateObjectProperties(a, (value, prop) => `${prop}-${value})
+
+const b = updateObjectProperties(a, (value, prop) => `${prop}-${value}`)
 // a ==> {id: 1, val1: 5, val2: 6, type: 'something'}
 // b ==> {id: 'id-1', val1: 'val1-5', val2: 'val2-6', type: 'type-something'}
 ```
 
 ### `upsertItemsById()`
-Updates or adds items to an array by `id` field or other calculated primitive value.
+Updates or adds items to an array by the `id` field value or other calculated primitive value.
 ```js
 const a = [
   {id: 1, name: 'Alex', height: 170},
@@ -406,6 +424,7 @@ const a = [
   {id: 3, name: 'Charlie', height: 180},
   {id: 4, name: 'Donna', height: 150}
 ]
+
 const b = updateItemsById(a, [
   {id: 2, height: 150, hairColor: 'blond'},
   {id: 5, name: 'Ebby', height: 150}
@@ -417,6 +436,7 @@ const b = updateItemsById(a, [
 //    {id: 4, name: 'Donna', height: 140},
 //    {id: 5, name: 'Ebby', height: 150}
 //  ]
+
 const c = upsertItemsById(a, [{name: 'bob', height: 160, hairColor: 'blond'}], item => item.name)
 // c ==> [
 //    {id: 1, name: 'Alex', height: 170},
@@ -425,4 +445,3 @@ const c = upsertItemsById(a, [{name: 'bob', height: 160, hairColor: 'blond'}], i
 //    {id: 4, name: 'Donna', height: 140}
 //  ]
 ```
-
