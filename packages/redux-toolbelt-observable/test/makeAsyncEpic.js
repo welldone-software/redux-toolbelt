@@ -1,7 +1,7 @@
 import {makeAsyncActionCreator} from '../../redux-toolbelt/src'
 import {makeAsyncEpic} from '../src'
 
-import { Observable } from 'rxjs/Observable'
+import { from } from 'rxjs'
 import configureMockStore from 'redux-mock-store'
 import {createEpicMiddleware} from 'redux-observable'
 
@@ -9,9 +9,11 @@ const actionCreator = makeAsyncActionCreator('FETCH')
 
 const createStoreForTest = (asyncFunc) => {
   const epic = makeAsyncEpic(actionCreator, asyncFunc)
-  const epicMiddleware = createEpicMiddleware(epic)
+  const epicMiddleware = createEpicMiddleware()
   const createMockStore = configureMockStore([epicMiddleware])
-  return createMockStore()
+  const store = createMockStore()
+  epicMiddleware.run(epic)
+  return store
 }
 
 test('Dispatches success action for resolved promise', done => {
@@ -53,7 +55,7 @@ test('Dispatches failure action for exceptions', () => {
 })
 
 test('Dispatches success actions for observables', () => {
-  const store = createStoreForTest(() => Observable.from([3, 5, 7]))
+  const store = createStoreForTest(() => from([3, 5, 7]))
   store.dispatch(actionCreator())
 
   expect(store.getActions()).toEqual([
