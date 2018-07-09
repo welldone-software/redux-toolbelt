@@ -18,7 +18,7 @@ A set of helper functions that extends 'redux-toolbelt' for usage with `redux-ob
 <!-- tocstop -->
 
 ## Installation
-The tools are available in the `redux-toolbelt` npm package.
+The tools are available in the [`redux-toolbelt-observable`](https://www.npmjs.com/package/redux-toolbelt-observable) npm package.
 ```sh
 npm install --save redux-toolbelt redux-toolbelt-observable rxjs redux-observable
 
@@ -28,7 +28,7 @@ yarn add redux-toolbelt redux-toolbelt-observable rxjs redux-observable
 ```
 
 ## Usage
-import the functions you like to use using one of the two methods:
+You may import the functions you'd like to use using one of the two methods:
 ```js
 import {makeAsyncActionCreator} from 'redux-toolbelt'
 import {makeAsyncEpic} from 'redux-toolbelt-observable'
