@@ -3,13 +3,13 @@ import { ofType } from 'redux-observable'
 import { mergeMap, map, catchError } from 'rxjs/operators'
 
 export default function makeAsyncEpic(actionCreator, asyncFn) {
-  return (action$, {getState, dispatch}) =>
+  return (action$, state$) =>
     action$.pipe(
       ofType(actionCreator.TYPE),
       mergeMap(action => {
         let obs = undefined
         try{
-          obs = asyncFn(action.payload, action.type, action.meta, getState, dispatch)
+          obs = asyncFn(action.payload, action.type, action.meta, state$)
         }
         catch(e){
           obs = throwError(e)
