@@ -65,61 +65,25 @@ test('compose reducers made by makeReducers with only mapping', () => {
   })
 })
 
-//
-// test('default state is applied when state is undefined', t => {
-//
-//   t.is(r1r2(undefined, action), 3)
-//   t.is(r2r1(undefined, action), 4)
-//
-//
-//   // const expected3 = 3
-//   // const r4 = composeReducers(r2, r1)
-//   // const expected4 = 4
-//   //
-//   // Array.of(null, undefined).forEach(v => {
-//   //   t.is(r3(v, {type: 'A'}), expected3)
-//   //
-//   //   //t.is(r4(v, {type: 'A'}), expected4)
-//   // })
-//
-//
-// })
-//
-// test('default state not applied when state is 0', t => {
-//
-//   const r3 = composeReducers(r1, r2)
-//
-//   const result = r3(0, {type: 'A'})
-//
-//   t.is(result, 2)
-//
-// })
-// import 'mocha'
-// import assert from 'assert'
-// import composeReducers from './composeReducers'
-//
-// describe('my test', function(){
-//   function r1(s, {type}){
-//     switch(type){
-//       case 'A':
-//         return s + 1
-//       default:
-//         return s
-//     }
-//   }
-//
-//   function r2(s, {type}){
-//     switch(type){
-//       case 'A':
-//         return s + 1
-//       default:
-//         return s
-//     }
-//   }
-//
-//   const r3 = composeReducers(r1, r2)
-//
-//   const result = r3(0, {type: 'A'})
-//
-//   assert(result === 3)
-// })
+test('Composed reducer does not change if no child state changed', () => {
+  const setUserName = makeActionCreator('SET_USER_NAME')
+  const toggleShow = makeActionCreator('TOGGLE_SHOW')
+
+  const reducer = composeReducers({
+    user: {
+      name: makeReducer(setUserName, {defaultState: 'initialName'}),
+    },
+    show: makeReducer(toggleShow, state => !state, {defaultState: true}),
+  })
+
+  const initialState = reducer(undefined, {type: '@@redux/INIT'})
+  expect(initialState).toEqual({
+    user: {
+      name: 'initialName',
+    },
+    show: true,
+  })
+
+  const state1 = reducer(initialState, {type: 'something'})
+  expect(state1).toBe(initialState)
+})
