@@ -141,13 +141,13 @@ Creates a reducer that handles action creator[s] created with `makeActionCreator
 
 - The first argument is `actionCreator[s]` and it can be one of the following:
   - `actionCreator`
-    ```
+    ```js
     const toggleAction = makeActionCreator('TOGGLE')
     const toggleReducer = makeReducer(toggleAction, state => !state, { defaultState: false })
     ```
 
   - An array of `actionCreator`'s:
-    ```
+    ```js
     const countUpdatedReducer = makeReducer(
       [increaseBy, decreaseBy],
       (state, {payload}) => (state || (payload !== 0)),
@@ -159,7 +159,7 @@ Creates a reducer that handles action creator[s] created with `makeActionCreator
     *note: You can pass action creators as the keys of the action creator's object
     as well as action creator types, because they are converted to strings as part of
     [JS specification](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Working_with_Objects#Objects_and_properties):*
-    ```
+    ```js
     const reducer = makeReducer({
       [increaseBy]: (state, {payload}) => state + payload,
       [decreaseBy.TYPE]: (state, {payload}) => state - payload,
@@ -172,7 +172,7 @@ Creates a reducer that handles action creator[s] created with `makeActionCreator
 - The last argument is `options` and it is optional. It currently receives only parameter:
   - `defaultState`: Specifies the initial state. It is `null` by default.
  
-```
+```js
 const toggle = makeActionCreator('TOGGLE')
 
 const visibilityState = makeReducer(toggleActionCreatora, visible => !visible, {defaultState: true})
@@ -189,7 +189,7 @@ state = reducer(state, toggle())
 
 Passing multiple action creators as the first argument:
 
-```
+```js
 const increaseBy = makeActionCreator('INCREASE_BY')
 const decreaseBy = makeActionCreator('DECREASE_BY')
 
@@ -214,7 +214,7 @@ state = countUpdatedReducer(state, increaseBy(20))
 
 Using an actions object:
 
-```
+```js
 const increaseBy = makeActionCreator('INCREASE_BY')
 const decreaseBy = makeActionCreator('DECREASE_BY')
 
@@ -238,7 +238,7 @@ state = reducer(state, decreaseBy(20))
 
 It is very useful with `composeReducers`:
 
-```
+```js
 const setUserName = makeActionCreator('SET_USER_NAME')
 const toggleShow = makeActionCreator('TOGGLE_SHOW')
 
@@ -545,7 +545,7 @@ const reducer = composeReducers(
 ### `isActionCreator()`
 A utility to determine if an object is an action creator:
 
-```
+```js
 const a = makeActionCreator('A')
 //isActionCreator(a) === true
 
