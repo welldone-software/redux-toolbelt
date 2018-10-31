@@ -69,7 +69,7 @@ https://codesandbox.io/s/github/welldone-software/redux-toolbelt-demo
 
 ### `makeActionCreator()`
 Create an FSA complient action creator that exposes its `TYPE` as static member.  
-This can help force type-safty without adding alot of verbose code and constants.  
+This can help force type-safety without adding a lot of verbose code and constants.  
 
 All produced actions will have a `type`, `payload` and `meta` properties.
 ```js
@@ -118,7 +118,7 @@ myAction(5, true)
 ```
 
 #### Actions Defaults
-There are situations where you want to creates actions that has logical relations with each other with a prefix, or a common default metadata.
+There are situations where you want to creates actions that have logical relations with each other with a prefix, or a common default metadata.
 You can do it like so:
 ```js
 const makeCounterAction = makeActionCreator.withDefaults({
@@ -167,9 +167,8 @@ Creates a reducer that handles action creator[s] created with `makeActionCreator
     ```
 
 - The second argument is the `handler` for the specified action.
-  - If not specified, the reducer will update the state to
-  the payload of the action whenever it is fired.
-- The last argument is `options` and it is optional. It currently receives only parameter:
+  - If not specified, the reducer will update the state to the payload of the action whenever it is fired.
+- The last argument is `options` and it is optional. It currently receives the only parameter:
   - `defaultState`: Specifies the initial state. It is `null` by default.
  
 ```js
@@ -407,7 +406,7 @@ asyncReducer(state, {type: '@@INIT'})
 ```
 
 > Please note however that we do not recommend to use `shouldSpread`. We have gained a lot from using the `data` member. 
-The separation of the state to *maintainance* information and  *actual* `data`, as well as adhering to such naming convention proves invaluable in terms of readability and consistency and
+The separation of the state to *maintenance* information and  *actual* `data`, as well as adhering to such naming convention proves invaluable in terms of readability and consistency and
 highly increases the number of opportunities for logic reuse especially by making it clearer and easier to apply logic 
 on state generically.  
 
@@ -424,7 +423,7 @@ asyncReducer(state, asyncAction())
 // }
 ```
 
-You can also configure the reducer to destory the current results.
+You can also configure the reducer to destroy the current results.
 ```js
 const asyncReducer = makeAsyncReducer(asyncAction, {
   shouldDestroyData: true,
@@ -440,7 +439,7 @@ asyncReducer(state, asyncAction())
 ```
 
 ##### Progress
-When the reducer gets the `progress` action is updates the `progress` field with the action's payload.
+When the reducer gets the `progress` action it's updating the `progress` field with the action's payload.
 
 ```js
 const asyncReducer = makeAsyncReducer(asyncAction)
