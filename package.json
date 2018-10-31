@@ -8,8 +8,8 @@
     "test:watch": "npm test --watch",
     "test": "cross-env NODE_ENV=test jest --no-cache --runInBand",
     "lint": "eslint packages/*/src/**/*.js packages/*/test/**/*.js",
-    "lint:fix": "yarn lint --fix",
-    "prepublish": "yarn lint && yarn test && yarn build",
+    "lint:fix": "npm lint --fix",
+    "prepublish": "npm run lint && npm test && npm run build",
     "install": "lerna bootstrap",
     "clean": "lerna clean --yes && rimraf ./packages/*/lib node_modules",
     "generateToc": "node scripts/generateToc.js"
