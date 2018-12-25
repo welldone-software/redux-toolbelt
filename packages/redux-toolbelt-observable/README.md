@@ -92,7 +92,8 @@ fetchAddFive({number: 1}, {a: true})
 
  `cancelPreviousFunctionCalls`
 
-You may want to create a few requests, but somehow the previous request hasn't come back yet and the last request does. If you want to accept only the last request just send the option `cancelPreviousFunctionCalls` like this:
+If several requests are made before any of them returns,
+you can choose to only receive the last one by using the option `cancelPreviousFunctionCalls` like this:
  
  ```js
 const fetchTodos = makeAsyncActionCreator('FETCH_TODOS')
