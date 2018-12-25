@@ -53,3 +53,54 @@ const fetchTodosFromServer = () => {/*...*/}
 
 const epic = makeAsyncEpic(fetchTodos, fetchTodosFromServer)
 ```
+
+### `Payload and Meta`
+You can pass parameters within the ActionCreator like this: 
+
+```js
+const fetchTodos = makeAsyncActionCreator('FETCH_TODOS')
+
+const fetchTodosFromServer = payload => {/*...*/}
+
+const epic = makeAsyncEpic(fetchTodos, fetchTodosFromServer)
+
+fetchTodos(payload, meta)
+```
+After the request has returned successfully, the meta object contains the original meta and an object name `_toolbeltAsyncFnArgs` with the payload that was sent. For example:
+
+```js
+// actions.js
+const fetchAddFive = makeAsyncActionCreator('FETCH_ADD_FIVE')
+
+// api.js
+const fetchAddFiveFromServer = ({number}) => Promise.resolve(number + 5)
+
+// epics.js
+const epic = makeAsyncEpic(fetchAddFive, fetchAddFiveFromServer)
+
+// execute action
+fetchAddFive({number: 1}, {a: true})
+
+// on request
+{TYPE: 'FETCH_ADD_FIVE@ASYNC_REQUEST', payload: {number: 1}, meta: {a: true}}
+
+// on success
+{TYPE: 'FETCH_ADD_FIVE@ASYNC_SUCCESS', payload: 6, meta: {a: true, _toolbeltAsyncFnArgs: {number: 1}}}
+```
+
+### `Options`
+
+ `cancelPreviousFunctionCalls`
+
+You may want to create a few requests, but somehow the previous request hasn't come back yet and the last request does. If you want to accept only the last request just send the option `cancelPreviousFunctionCalls` like this:
+ 
+ ```js
+const fetchTodos = makeAsyncActionCreator('FETCH_TODOS')
+
+const fetchTodosFromServer = payload => {/*...*/}
+
+const epic = makeAsyncEpic(fetchTodos, fetchTodosFromServer, {cancelPreviousFunctionCalls: true})
+
+```
+
+This ability make sure you use the most updated response.
