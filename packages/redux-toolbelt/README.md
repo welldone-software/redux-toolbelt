@@ -327,9 +327,12 @@ const asyncAction = makeAsyncActionCreator('ASYNC_ACTION')
 const options = {
   dataProp: 'data',
   shouldDestroyData: true,
+  shouldDestroyDataOnError: true,
+  shouldSetError: true,
   defaultData: undefined,
   shouldSpread: false,
-  shouldSetData: true
+  shouldSetData: true,
+  dataGetter: undefined,
 }
 
 const asyncReducer = makeAsyncReducer(asyncAction, options)
