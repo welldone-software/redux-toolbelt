@@ -4,8 +4,7 @@
   "description": "Redux thunk helpers for redux-toolbelt",
   "main": "lib/index.js",
   "scripts": {
-    "build": "cross-env BABEL_ENV=build babel src --out-dir lib",
-    "prepublish": "npm run build"
+    "build": "cross-env BABEL_ENV=build babel src --out-dir lib"
   },
   "repository": "git+https://github.com/welldone-software/redux-toolbelt.git",
   "bugs": {
