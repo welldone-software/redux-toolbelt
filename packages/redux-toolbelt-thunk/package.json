@@ -1,6 +1,6 @@
 {
   "name": "redux-toolbelt-thunk",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "Redux thunk helpers for redux-toolbelt",
   "main": "lib/index.js",
   "scripts": {
@@ -20,6 +20,6 @@
     "redux-thunk": "^2.2.0"
   },
   "dependencies": {
-    "redux-toolbelt": "^2.1.6"
+    "redux-toolbelt": "^2.1.7"
   }
 }
