@@ -72,7 +72,7 @@ dispatch(fetchUser('user_01'))
 * `baseName` - The name of the action, and prefixes of sub-actions created.
 * `asyncFn` - The function to execute when the action is called. It should return a Promise. When it resolves, it will trigger the success sub-action and if it rejects it will trigger the failure action.
 
-  `asyncFn` will be called with the arguments passed to the action with the addition of the following arguments: `{getState, dispatch}`
+  `asyncFn` will be called with the arguments passed to the action with the addition of the following arguments: `{getState, dispatch, extraThunkArg}`. [extraThunkArg is explained here](https://github.com/reduxjs/redux-thunk#injecting-a-custom-argument).
 * `argsMapper` - Maps the arguments that are passed to the action to the `payload` that will be used on the action dispatched when action is called and the `meta` that will be used when both the action and it's sub-actions are called.
 * `options`
   * `prefix` - Defaults to `''`.

@@ -3,6 +3,9 @@ import { getOptions } from '../../redux-toolbelt/src/utils'
 import _trivialArgsMapper from '../../redux-toolbelt/src/_trivialArgsMapper'
 import defaultOptions from '../../redux-toolbelt/src/_defaultActionCreatorOptions'
 
+const EMPTY_ARRAY = []
+const EMPTY_OBJECT = {}
+
 /**
  * Create an async action creator that relies on redux-thunk
  *
@@ -24,20 +27,22 @@ export default function makeThunkAsyncActionCreator(baseName, asyncFn, argsMappe
 
   const actionCreator = makeAsyncActionCreator(baseName, _trivialArgsMapper, options)
 
-  const thunkActionCreator = (...asyncFnArgs) => store => {
-    const { payload, meta: origMeta = {} } = argsMapper(...asyncFnArgs)
+  const thunkActionCreator = (...asyncFnArgs) => (...thunkArgs) => {
+    const [dispatch, getState, extraThunkArg] = (thunkArgs || EMPTY_ARRAY)
+
+    const { payload, meta: origMeta = EMPTY_OBJECT } = argsMapper(...asyncFnArgs)
 
     const meta = { ...origMeta, _toolbeltAsyncFnArgs: asyncFnArgs }
 
-    store.dispatch(actionCreator(payload, meta))
+    dispatch(actionCreator(payload, meta))
     return Promise.resolve()
-      .then(() => asyncFn(...asyncFnArgs, store))
+      .then(() => asyncFn(...asyncFnArgs, {getState, dispatch, extraThunkArg}))
       .then(data => {
-        return Promise.resolve(store.dispatch(actionCreator.success(data, meta)))
+        return Promise.resolve(dispatch(actionCreator.success(data, meta)))
           .then(() => data)
       })
       .catch(err => {
-        return Promise.resolve(store.dispatch(actionCreator.failure(err, meta)))
+        return Promise.resolve(dispatch(actionCreator.failure(err, meta)))
           .then(() => Promise.reject(err))
       })
   }

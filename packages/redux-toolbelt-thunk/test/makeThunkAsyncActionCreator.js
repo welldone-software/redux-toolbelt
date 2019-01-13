@@ -6,8 +6,9 @@ import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 
 const noop = () => {}
+const EXTRA_THUNK_ARG = {}
 
-const mockStore = configureMockStore([thunk])
+const mockStore = configureMockStore([thunk.withExtraArgument(EXTRA_THUNK_ARG)])
 
 test('Creates actions with all expected type info and sub action', () => {
   const actionCreatorA = makeAsyncThunkActionCreator('A', noop)
@@ -38,9 +39,9 @@ test('Creates actions with all expected type info and sub action', () => {
 
 test('Creates actions that calls the async function and passes params', () => {
   const actionCreator = makeAsyncThunkActionCreator('test', v => v)
-  const action = actionCreator('b')
+  const store = mockStore()
 
-  return action(noop, noop)
+  return store.dispatch(actionCreator('b'))
     .then(result => expect(result).toBe('b'))
 })
 
@@ -220,5 +221,15 @@ describe('Custom args mapper (argsMapper in options)', () => {
       })
   })
 
+  test('with extra argument', done => {
+    const store = mockStore()
+    const customAction = makeAsyncThunkActionCreator('CUSTOM_ACTION', (...args) =>  {
+      expect(args).toEqual([
+        'arg1', 'arg2', {getState: args[2].getState, dispatch: args[2].dispatch, extraThunkArg: EXTRA_THUNK_ARG},
+      ])
+      done()
+    })
+    store.dispatch(customAction('arg1', 'arg2'))
+  })
 })
 
