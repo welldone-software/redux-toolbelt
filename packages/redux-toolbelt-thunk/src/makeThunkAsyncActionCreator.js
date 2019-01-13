@@ -24,20 +24,20 @@ export default function makeThunkAsyncActionCreator(baseName, asyncFn, argsMappe
 
   const actionCreator = makeAsyncActionCreator(baseName, _trivialArgsMapper, options)
 
-  const thunkActionCreator = (...asyncFnArgs) => (dispatch, getState) => {
+  const thunkActionCreator = (...asyncFnArgs) => store => {
     const { payload, meta: origMeta = {} } = argsMapper(...asyncFnArgs)
 
     const meta = { ...origMeta, _toolbeltAsyncFnArgs: asyncFnArgs }
 
-    dispatch(actionCreator(payload, meta))
+    store.dispatch(actionCreator(payload, meta))
     return Promise.resolve()
-      .then(() => asyncFn(...asyncFnArgs, {getState, dispatch}))
+      .then(() => asyncFn(...asyncFnArgs, store))
       .then(data => {
-        return Promise.resolve(dispatch(actionCreator.success(data, meta)))
+        return Promise.resolve(store.dispatch(actionCreator.success(data, meta)))
           .then(() => data)
       })
       .catch(err => {
-        return Promise.resolve(dispatch(actionCreator.failure(err, meta)))
+        return Promise.resolve(store.dispatch(actionCreator.failure(err, meta)))
           .then(() => Promise.reject(err))
       })
   }
