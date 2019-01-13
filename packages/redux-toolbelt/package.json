@@ -1,6 +1,6 @@
 {
   "name": "redux-toolbelt",
-  "version": "2.1.9",
+  "version": "2.1.10",
   "description": "Async Actions helpers for redux-toolbelt",
   "main": "lib/index.js",
   "scripts": {
