@@ -1,11 +1,10 @@
 {
   "name": "redux-toolbelt-saga",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "Saga helpers for redux-toolbelt",
   "main": "lib/index.js",
   "scripts": {
-    "build": "cross-env BABEL_ENV=build babel src --out-dir lib",
-    "prepublish": "npm run build"
+    "build": "cross-env BABEL_ENV=build babel src --out-dir lib"
   },
   "repository": "git+https://github.com/welldone-software/redux-toolbelt.git",
   "bugs": {
