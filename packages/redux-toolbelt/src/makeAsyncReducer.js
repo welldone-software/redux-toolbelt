@@ -14,28 +14,22 @@ export default function makeAsyncReducer(actionCreator, options) {
     shouldSpread: false,
     shouldSetData: true,
     dataGetter: undefined,
-    keepState: false,
-    withDataLoaded: false,
   }
   options = Object.assign(defaults, options)
 
   const defaultState = options.shouldSpread ?
-    { error: undefined, loading: false, ...(options.defaultData || {}) } :
-    { error: undefined, loading: false, [options.dataProp]: options.defaultData }
+    { error: undefined, loading: false, loaded: false, ...(options.defaultData || {}) } :
+    { error: undefined, loading: false, loaded: false, [options.dataProp]: options.defaultData }
 
   return function (state = defaultState, { type, payload, meta }) {
     switch (type) {
       case actionCreator.TYPE:
         return options.shouldSpread ?
-          { ...(options.keepState ? state : {}), loading: true, ...(options.defaultData || {}) } :
-          {
-            ...(options.keepState ? state : {}),
-            loading: true,
-            [options.dataProp]: options.shouldDestroyData ? options.defaultData : state[options.dataProp],
-          }
+          { loading: true, loaded: state.loaded, ...(options.defaultData || {}) } :
+          { loading: true, loaded: state.loaded, [options.dataProp]: options.shouldDestroyData ? options.defaultData : state[options.dataProp] }
       case actionCreator.success.TYPE: {
         if (!options.shouldSetData){
-          return {loading: false, ...(options.withDataLoaded ? {dataLoaded: true} : {})}
+          return {loading: false, loaded: true}
         }
         const progress = state && state.progress === undefined ? {} : {progress: 0}
         const data = typeof(options.dataGetter) === 'function' ?
