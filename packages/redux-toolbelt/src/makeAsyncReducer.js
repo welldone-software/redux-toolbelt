@@ -25,8 +25,16 @@ export default function makeAsyncReducer(actionCreator, options) {
     switch (type) {
       case actionCreator.TYPE:
         return options.shouldSpread ?
-          { loading: true, loaded: state.loaded, ...(options.defaultData || {}) } :
-          { loading: true, loaded: state.loaded, [options.dataProp]: options.shouldDestroyData ? options.defaultData : state[options.dataProp] }
+          {
+            loading: true,
+            loaded: options.shouldDestroyData ? false : state.loaded,
+            ...(options.defaultData || {})
+          } :
+          {
+            loading: true,
+            loaded: options.shouldDestroyData ? false : state.loaded,
+            [options.dataProp]: options.shouldDestroyData ? options.defaultData : state[options.dataProp]
+          }
       case actionCreator.success.TYPE: {
         if (!options.shouldSetData){
           return {loading: false, loaded: true}
@@ -42,7 +50,7 @@ export default function makeAsyncReducer(actionCreator, options) {
         return {...state, progress: payload}
       case actionCreator.failure.TYPE:
         return {
-          ...(options.shouldDestroyDataOnError ? {} : state),
+          ...(options.shouldDestroyDataOnError ? {loaded: false} : state),
           loading: false,
           error: options.shouldSetError ? payload : undefined,
         }
