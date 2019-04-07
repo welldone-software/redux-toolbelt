@@ -16,6 +16,7 @@ test('default store', () => {
   expect(state).toEqual({
     error: undefined,
     loading: false,
+    loaded: false,
     data: undefined,
   })
 })
@@ -32,6 +33,7 @@ test('store with dataProp', () => {
   expect(state).toEqual({
     error: undefined,
     loading: false,
+    loaded: false,
     someDataProp: undefined,
   })
 
@@ -39,6 +41,7 @@ test('store with dataProp', () => {
   state = store.getState()
   expect(state).toEqual({
     loading: true,
+    loaded: false,
     someDataProp: undefined,
   })
 
@@ -46,6 +49,7 @@ test('store with dataProp', () => {
   state = store.getState()
   expect(state).toEqual({
     loading: false,
+    loaded: true,
     someDataProp: ['some-data'],
   })
 })
@@ -63,6 +67,7 @@ test('reducer with dataGetter', () => {
   expect(state).toEqual({
     error: undefined,
     loading: false,
+    loaded: false,
     data: ['a'],
   })
 
@@ -70,6 +75,7 @@ test('reducer with dataGetter', () => {
   state = store.getState()
   expect(state).toEqual({
     loading: false,
+    loaded: true,
     data: ['a', 'b'],
   })
 

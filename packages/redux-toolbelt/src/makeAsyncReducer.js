@@ -28,12 +28,12 @@ export default function makeAsyncReducer(actionCreator, options) {
           {
             loading: true,
             loaded: options.shouldDestroyData ? false : state.loaded,
-            ...(options.defaultData || {})
+            ...(options.defaultData || {}),
           } :
           {
             loading: true,
             loaded: options.shouldDestroyData ? false : state.loaded,
-            [options.dataProp]: options.shouldDestroyData ? options.defaultData : state[options.dataProp]
+            [options.dataProp]: options.shouldDestroyData ? options.defaultData : state[options.dataProp],
           }
       case actionCreator.success.TYPE: {
         if (!options.shouldSetData){
@@ -43,8 +43,8 @@ export default function makeAsyncReducer(actionCreator, options) {
         const data = typeof(options.dataGetter) === 'function' ?
           options.dataGetter(state, {type, payload, meta}) : payload
         return options.shouldSpread ?
-          {loading: false, ...progress, ...data} :
-          {loading: false, ...progress, [options.dataProp]: data}
+          {loading: false, loaded: true, ...progress, ...data} :
+          {loading: false, loaded: true, ...progress, [options.dataProp]: data}
       }
       case actionCreator.progress.TYPE:
         return {...state, progress: payload}
