@@ -18,31 +18,39 @@ export default function makeAsyncReducer(actionCreator, options) {
   options = Object.assign(defaults, options)
 
   const defaultState = options.shouldSpread ?
-    { error: undefined, loading: false, ...(options.defaultData || {}) } :
-    { error: undefined, loading: false, [options.dataProp]: options.defaultData }
+    { error: undefined, loading: false, loaded: false, ...(options.defaultData || {}) } :
+    { error: undefined, loading: false, loaded: false, [options.dataProp]: options.defaultData }
 
   return function (state = defaultState, { type, payload, meta }) {
     switch (type) {
       case actionCreator.TYPE:
         return options.shouldSpread ?
-          { loading: true, ...(options.defaultData || {}) } :
-          { loading: true, [options.dataProp]: options.shouldDestroyData ? options.defaultData : state[options.dataProp] }
+          {
+            loading: true,
+            loaded: options.shouldDestroyData ? false : state.loaded,
+            ...(options.defaultData || {}),
+          } :
+          {
+            loading: true,
+            loaded: options.shouldDestroyData ? false : state.loaded,
+            [options.dataProp]: options.shouldDestroyData ? options.defaultData : state[options.dataProp],
+          }
       case actionCreator.success.TYPE: {
         if (!options.shouldSetData){
-          return {loading: false}
+          return {loading: false, loaded: true}
         }
         const progress = state && state.progress === undefined ? {} : {progress: 0}
         const data = typeof(options.dataGetter) === 'function' ?
           options.dataGetter(state, {type, payload, meta}) : payload
         return options.shouldSpread ?
-          {loading: false, ...progress, ...data} :
-          {loading: false, ...progress, [options.dataProp]: data}
+          {loading: false, loaded: true, ...progress, ...data} :
+          {loading: false, loaded: true, ...progress, [options.dataProp]: data}
       }
       case actionCreator.progress.TYPE:
         return {...state, progress: payload}
       case actionCreator.failure.TYPE:
         return {
-          ...(options.shouldDestroyDataOnError ? {} : state),
+          ...(options.shouldDestroyDataOnError ? {loaded: false} : state),
           loading: false,
           error: options.shouldSetError ? payload : undefined,
         }

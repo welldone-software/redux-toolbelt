@@ -351,6 +351,7 @@ const state = undefined
 asyncReducer(state, {type: '@@INIT'})
 // ==> {
 //   loading: false,
+//   loaded: false,
 //   data: undefined
 // }
 ```
@@ -366,6 +367,7 @@ const state = undefined
 asyncReducer(state, {type: '@@INIT'})
 // ==> {
 //   loading: false,
+//   loaded: false,
 //   results: []
 // }
 ```
@@ -381,6 +383,7 @@ const state = {data: ['a']}
 asyncReducer(state, asyncAction.success('b'))
 // ==> {
 //   loading: false,
+//   loaded: true,
 //   data: ['a', 'b']
 // }
 ```
@@ -403,6 +406,7 @@ const state = undefined
 asyncReducer(state, {type: '@@INIT'})
 // ==> {
 //   loading: false,
+//   loaded: false,
 //   counter: 0,
 //   status: 'offline'
 // }
@@ -415,6 +419,7 @@ on state generically.
 
 ##### Request
 When the reducer gets the `request` action it updates the `loading` field.
+The 'loaded' field keeps its value.
 ```js
 const asyncReducer = makeAsyncReducer(asyncAction)
 
@@ -422,6 +427,7 @@ const state = {loading: false, data: [1, 2, 3]}
 asyncReducer(state, asyncAction())
 // ==> {
 //   loading: true,
+//   loaded: state.loaded,
 //   data: [1, 2, 3]
 // }
 ```
@@ -437,12 +443,14 @@ const state = {loading: false, data: [1, 2, 3]}
 asyncReducer(state, asyncAction())
 // ==> {
 //   loading: true,
+//   loaded: false,
 //   data: []
 // }
 ```
 
 ##### Progress
 When the reducer gets the `progress` action it's updating the `progress` field with the action's payload.
+The 'loaded' field depends on the previous value - indicating if the data is already loaded
 
 ```js
 const asyncReducer = makeAsyncReducer(asyncAction)
@@ -451,12 +459,13 @@ const state = {loading: true}
 asyncReducer(state, asyncAction.progress(5))
 // ==> {
 //   loading: true,
+//   loaded: state.loaded,
 //   progress: 5
 // }
 ```
 
 ##### Success
-When the reducer gets the `success` action is updates the `loading` to `true` and sets the `dataProp` field with the action's payload.
+When the reducer gets the `success` action is updates the `loading` to `false`, the 'loaded' to 'true' and sets the `dataProp` field with the action's payload.
 
 ```js
 const asyncReducer = makeAsyncReducer(asyncAction)
@@ -464,6 +473,7 @@ const state = {loading: true}
 asyncReducer(state, asyncAction.success([1, 2, 3]))
 // ==> {
 //   loading: false,
+//   loaded: true,
 //   'data': [1, 2, 3]
 // }
 ```
@@ -478,7 +488,8 @@ const asyncReducer = makeAsyncReducer(asyncAction, {
 const state = {loading: true}
 asyncReducer(state, asyncAction.success([1, 2, 3]))
 // ==> {
-//   loading: false
+//   loading: false,
+//   loaded: true,
 // }
 ```
 
@@ -492,7 +503,8 @@ const state = {loading: true}
 asyncReducer(state, asyncAction.failure(`Server unreachable`))
 // ==> {
 //   loading: false,
-//   error: 'Server unreachable'
+//   error: 'Server unreachable',
+//   loaded: state.loaded,
 // }
 ```
 
