@@ -31,7 +31,7 @@ export default function upsertItemsById(arr, updatedItems, idSelector = defaultI
   })
 
   if (updatedItemsMap.size === 0) {
-    return arr
+    return result
   }
 
   updatedItemsMap.forEach(item => result.push(item))
