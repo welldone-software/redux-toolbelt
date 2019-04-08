@@ -1,6 +1,6 @@
 import { from, throwError, of } from 'rxjs'
 import { ofType } from 'redux-observable'
-import { mergeMap, switchMap, map, catchError } from 'rxjs/operators'
+import { mergeMap, switchMap, map, catchError, takeUntil } from 'rxjs/operators'
 
 export default function makeAsyncEpic(actionCreator, asyncFn, {cancelPreviousFunctionCalls = false} = {}) {
   const mapFunction = cancelPreviousFunctionCalls ? switchMap : mergeMap
@@ -23,6 +23,7 @@ export default function makeAsyncEpic(actionCreator, asyncFn, {cancelPreviousFun
         const meta = { ...origMeta, _toolbeltAsyncFnArgs: payload }
 
         return obs.pipe(
+          takeUntil(action$.ofType(actionCreator.cancel.TYPE)),
           map(payload => actionCreator.success(payload, meta)),
           catchError(error => of(actionCreator.failure(error, meta))),
         )

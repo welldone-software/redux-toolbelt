@@ -144,3 +144,26 @@ test('Dispatches few success actions for resolved promises and cancel previous r
     done()
   })
 })
+
+test('Dispatches actions for resolved promises and cancel requests', done => {
+  const store = createStoreForTest(() => Promise.resolve(5))
+  store.dispatch(actionCreator({a: true}))
+  store.dispatch(actionCreator({b: true}))
+  store.dispatch(actionCreator.cancel())
+  
+  const actions = store.getActions()
+
+  setImmediate(() => {
+    expect(actions[0].type).toBe(actionCreator.TYPE)
+    expect(actions[0].payload).toEqual({a: true})
+
+    expect(actions[1].type).toBe(actionCreator.TYPE)
+    expect(actions[1].payload).toEqual({b: true})
+
+    expect(actions[2].type).toBe(actionCreator.cancel.TYPE)
+
+    expect(actions).toHaveLength(3)
+
+    done()
+  })
+})
