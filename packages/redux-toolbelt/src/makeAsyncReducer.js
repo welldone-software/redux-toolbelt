@@ -27,12 +27,12 @@ export default function makeAsyncReducer(actionCreator, options) {
         return options.shouldSpread ?
           {
             loading: true,
-            loaded: state.loaded,
+            loaded: state && state.loaded || false,
             ...(options.defaultData || {}),
           } :
           {
             loading: true,
-            loaded: state.loaded,
+            loaded: state && state.loaded || false,
             [options.dataProp]: options.shouldDestroyData ? options.defaultData : state[options.dataProp],
           }
       case actionCreator.success.TYPE: {
