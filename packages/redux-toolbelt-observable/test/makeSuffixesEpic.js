@@ -13,7 +13,7 @@ describe('', () => {
   })
 
   test('Catches suffix and maps to correct action', done => {
-    const epic = makeSuffixesEpic(['@A', '#A', 'AA'], () => mappedAction) ///
+    const epic = makeSuffixesEpic(() => mappedAction, ['@A', '#A', 'AA']) ///
     const action$ = of(
       { type: '1@A' },
       { type: '33322@A' },
@@ -31,7 +31,7 @@ describe('', () => {
   })
 
   test('Does not cach wrong suffix', done => {
-    const epic = makeSuffixesEpic(['@A', '#A', 'AA'], () => mappedAction) ///
+    const epic = makeSuffixesEpic(() => mappedAction, ['@A', '#A', 'AA']) ///
     const action$ = of(
       { type: '1bb' },
       { type: '1AAb' },

@@ -1,7 +1,7 @@
 import escapeRegexp from 'escape-string-regexp'
 import { map, filter } from 'rxjs/operators'
 
-const makeSuffixesEpic = (suffixes, mapper, metaPredicate) => (
+const makeSuffixesEpic = (mapper, suffixes, metaPredicate) => (
   action$,
   state$,
   dependencies
