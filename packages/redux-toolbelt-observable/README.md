@@ -13,9 +13,9 @@ A set of helper functions that extends 'redux-toolbelt' for usage with `redux-ob
 - [Installation](#installation)
 - [Usage](#usage)
 - [API Reference](#api-reference)
-  - [`makeAsyncEpic(asyncActionCreator, asyncFn, options?)`](#makeasyncepic-asyncActionCreator-asyncFn-options)
-  - [`makeSuffixesEpic(mapper, suffixes, metaPredicate?)`](#makeSuffixesEpic-mapper, suffixes, metaPredicate?))
-  - [`makeGlobalErrorEpic(mapper)`](#makeGlobalErrorEpic-mapper)
+  - [`makeAsyncEpic(asyncActionCreator, asyncFn, options?)`](#makeasyncepic)
+  - [`makeSuffixesEpic(mapper, suffixes, metaPredicate?)`](#makeSuffixesEpic)
+  - [`makeGlobalErrorEpic(mapper)`](#makeGlobalErrorEpic)
 
 <!-- tocstop -->
 
@@ -47,7 +47,9 @@ import makeAsyncEpic from 'redux-toolbelt-observable/lib/makeAsyncEpic';
 
 ## API Reference
 
-### `makeAsyncEpic(asyncActionCreator, asyncFn, options?)`
+### `makeAsyncEpic`
+
+`makeAsyncEpic(asyncActionCreator, asyncFn, options?)`
 
 Creates an epic that handles actions created `makeAsyncActionCreator`.  
 The epic listens to the `request` action and dispatches `success` and `failure` actions.
@@ -171,7 +173,9 @@ fetchAddFive({number: 1}, {a: true})
 
 This ability makes sure you use the most updated response.
 
-### `makeSuffixesEpic(mapper, suffixes, metaPredicate?)`
+### `makeSuffixesEpic`
+
+`makeSuffixesEpic(mapper, suffixes, metaPredicate?)`
 
 ```js
 export const errorInAsyncRequests = makePrefixesEpic(
@@ -188,7 +192,9 @@ export const errorInAsyncRequests = makePrefixesEpic(
 );
 ```
 
-### `makeGlobalErrorEpic(mapper)`
+### `makeGlobalErrorEpic`
+
+`makeGlobalErrorEpic(mapper)`
 
 Creates an epic that handles `failure` actions created by calls to `makeAsyncActionCreator`.  
 The helper epic listens to the all `failure` actions dispatched in the application and allows you to handler them centrally, in one place.
