@@ -21,6 +21,7 @@
     "rxjs": "^6.2.1"
   },
   "dependencies": {
+    "escape-string-regexp": "^2.0.0",
     "redux-toolbelt": "^2.2.2"
   }
 }
