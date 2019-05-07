@@ -23,13 +23,15 @@ A set of helper functions that extends `redux-toolbelt` for usage with `redux-th
 <!-- tocstop -->
 
 ## Installation
-The tools are available in the [`redux-toolbelt-thunk`](https://www.npmjs.com/package/redux-toolbelt-thunk) npm package.
+First, you have to install [`redux-thunk`](https://www.npmjs.com/package/redux-thunk) npm package as specified in it'd docs.
+
+Then install the [`redux-toolbelt-thunk`](https://www.npmjs.com/package/redux-toolbelt-thunk) npm package.
 ```sh
-npm i -S redux-toolbelt redux-toolbelt-thunk redux-thunk
+npm i -S redux-toolbelt redux-toolbelt-thunk
 
 # or
 
-yarn add redux-toolbelt redux-toolbelt-thunk redux-thunk
+yarn add redux-toolbelt redux-toolbelt-thunk
 ```
 
 ## Import
