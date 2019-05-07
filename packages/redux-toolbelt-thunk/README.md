@@ -23,14 +23,22 @@ A set of helper functions that extends `redux-toolbelt` for usage with `redux-th
 <!-- tocstop -->
 
 ## Installation
-First, you have to install [`redux-thunk`](https://www.npmjs.com/package/redux-thunk) npm package as specified in it'd docs.
+First, you have to install the [`redux-thunk`](https://www.npmjs.com/package/redux-thunk) npm package:
+```sh
+npm i -S redux-thunk
+# or
+yarn add redux-thunk
+```
+And add it to `redux`'s `applyMiddleware`:
+```
+applyMiddleware(thunk)
+```
+More info on it's installation can be found in the [package's docs](https://www.npmjs.com/package/redux-thunk).
 
-Then install the [`redux-toolbelt-thunk`](https://www.npmjs.com/package/redux-toolbelt-thunk) npm package.
+Then install the [`redux-toolbelt-thunk`](https://www.npmjs.com/package/redux-toolbelt-thunk) npm package and the [`redux-toolbelt`](https://www.npmjs.com/package/redux-toolbelt ) npm package it depends on.
 ```sh
 npm i -S redux-toolbelt redux-toolbelt-thunk
-
 # or
-
 yarn add redux-toolbelt redux-toolbelt-thunk
 ```
 
@@ -38,9 +46,7 @@ yarn add redux-toolbelt redux-toolbelt-thunk
 You may import the functions you'd like to use using one of the two methods:
 ```js
 import {makeThunkAsyncActionCreator} from 'redux-toolbelt-thunk'
-
 // or
-
 import makeThunkAsyncActionCreator from 'redux-toolbelt/lib/makeThunkAsyncActionCreator'
 
 ```
