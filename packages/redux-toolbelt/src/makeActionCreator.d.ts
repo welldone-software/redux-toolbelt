@@ -1,8 +1,10 @@
-import { BaseAction } from './index';
+import { BaseAction, GenericAction } from './index';
 
-declare type ActionCreator<T extends BaseAction> = ((payload?: T["payload"], meta?: T["meta"]) => T) & ActionCreatorProps;
+export declare type ActionCreator<T extends BaseAction> = (
+  (payload?: any, meta?: any) => GenericAction<T["payload"],T["meta"]>
+  ) & ActionCreatorProps;
 
-declare interface ActionCreatorProps {
+export declare interface ActionCreatorProps {
   /**
    * Exposes TYPE as static member.
    */
@@ -16,26 +18,28 @@ declare interface ActionCreatorProps {
  * @param argsMapper - Arguments mapper function
  * @param options -
  */
-declare function makeActionCreator<T extends BaseAction>(
+export declare function makeActionCreator<T extends BaseAction>(
   name: string,
   /**
    * A mapper function that enables us to shape the payload and/or the meta
    */
-  argsMapper?: (arg?: any) => { payload?: T["payload"], meta?: T["meta"], [name: string]: any },
+  argsMapper?: makeActionCreator.ArgsMapperFN<T>,
   options?: any
 ): ActionCreator<T>;
 
-declare namespace makeActionCreator {
-  export interface ArgsMapperBody {
-    payload?: any;
-    meta?: any;
-    [name: string]: any;
-  }
-  export type argsMapperFn = (arg?: any) => ArgsMapperBody;
 
-  interface DefaultsArg {
+
+export declare namespace makeActionCreator {
+  export type ArgsMapperFN<T extends BaseAction> = (...arg: any) => { payload?: T["payload"], meta?: T["meta"], [name: string]: any }
+
+  export interface DefaultsArg {
     prefix?: string;
     defaultMeta?: any;
+  }
+
+  export interface Options<T extends BaseAction>{
+    argsMapper?:ArgsMapperFN<T>;
+    defaultMeta: T["meta"];
   }
 
   /**
@@ -47,7 +51,7 @@ declare namespace makeActionCreator {
      * A mapper function that enables us to shape the payload and/or the meta
      */
     argsMapper?: (arg?: any) => { payload?: T["payload"], meta?: T["meta"], [name: string]: any },
-    options?: any
+    options?: Options<T>
   ) => ActionCreator<T>;
 }
-export default makeActionCreator
+export default makeActionCreator;
