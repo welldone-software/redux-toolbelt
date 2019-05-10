@@ -14,5 +14,20 @@ export interface BaseAction {
   meta?: any;
 }
 
+/**
+ * Redux action with generic payload and metadata
+ *
+ * @export
+ * @interface GenericAction
+ * @extends {BaseAction}
+ * @template Payload
+ * @template Meta
+ */
+export interface GenericAction<Payload, Meta> extends BaseAction{
+  payload?: Payload;
+  meta?: Meta;
+}
+//import makeActionCreator from './makeActionCreator'
 export * from './makeActionCreator';
+
 
