@@ -8,6 +8,9 @@ interface Action1 {
   meta: {debug: boolean};
 }
 
+
+
+
 const a = makeActionCreator<Action1>('a',(payload: number, meta: boolean)=>(
   {payload, debug: meta }
   )

@@ -1,16 +1,15 @@
-import { BaseAction } from './index.d';
+import { Reducer } from 'redux';
 import { ActionCreator } from "./makeActionCreator";
+import { Action } from '.';
 
-export declare function makeReducer<S = any, A extends BaseAction = BaseAction>(
+export declare function makeReducer<S = any, A extends Action = Action>(
   actionCreators: makeReducer.ActionCreators<A>,
   actionHandlerOrOptions?: makeReducer.ActionHandlerOrOptions | makeReducer.Options,
   options?: makeReducer.Options
-): Reucer<S, A>;
-
-export declare type Reucer<S = any, A = BaseAction> = (state: S, action: A) => S;
+): Reducer<S, A>;
 
 export declare namespace makeReducer {
-  export type ActionCreators<A extends BaseAction> = ActionCreator<A>
+  export type ActionCreators<A extends Action> = ActionCreator<A>
     | ActionCreator<A>[]
     | { [name: string]: ActionCreator<A> };
   export type ActionHandlerOrOptions = () => void;

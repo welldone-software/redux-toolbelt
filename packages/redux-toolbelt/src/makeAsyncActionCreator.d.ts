@@ -1,16 +1,16 @@
 import makeActionCreator, { ActionCreator } from './makeActionCreator';
-import { BaseAction } from '.';
+import { AnyAction } from 'redux';
 
-export declare type AsyncActionCreator<A extends BaseAction> = ActionCreator<A> & AsyncActionCreatorProps<A>
+export declare type AsyncActionCreator<A extends AnyAction> = ActionCreator<A> & AsyncActionCreatorProps<A>
 
-export declare interface AsyncActionCreatorProps<A extends BaseAction> {
+export declare interface AsyncActionCreatorProps<A extends AnyAction> {
   success: ActionCreator<A>;
   failure: ActionCreator<A>;
   progress: ActionCreator<A>;
   cancel: ActionCreator<A>;
 }
 
-export declare function makeAsyncActionCreator<A extends BaseAction>(
+export declare function makeAsyncActionCreator<A extends AnyAction>(
   name: string,
   /**
    * A mapper function that enables us to shape the payload and/or the meta
@@ -23,7 +23,7 @@ export declare namespace makeAsyncActionCreator {
   /**
    * Create an action creator with default prefix or metadata
    */
-  export function withDefaults<A extends BaseAction>(args: makeActionCreator.DefaultsArg): (
+  export function withDefaults<A extends AnyAction>(args: makeActionCreator.DefaultsArg): (
     name: string,
     /**
      * A mapper function that enables us to shape the payload and/or the meta
