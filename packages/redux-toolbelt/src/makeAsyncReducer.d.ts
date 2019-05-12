@@ -23,14 +23,14 @@ export declare function makeAsyncReducer<S = any, A extends Action = Action>(
 
 export declare namespace makeAsyncReducer {
   export interface Options<S = any, A extends Action = Action> {
-    dataProp: string;
-    shouldDestroyData: boolean;
-    shouldDestroyDataOnError: boolean;
-    shouldSetError: boolean;
-    defaultData: any;
-    shouldSpread: boolean;
-    shouldSetData: boolean;
-    dataGetter: (state: S, action: A) => any;
+    dataProp?: string;
+    shouldDestroyData?: boolean;
+    shouldDestroyDataOnError?: boolean;
+    shouldSetError?: boolean;
+    defaultData?: any;
+    shouldSpread?: boolean;
+    shouldSetData?: boolean;
+    dataGetter?: (state: S, action: A) => any;
   }
 
   export type makeAsyncReducerFactoryFN<S = any, A extends Action = Action> = (
