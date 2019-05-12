@@ -1,3 +1,6 @@
-import makeActionCreator from './../src/makeactioncreator'
+import {makeActionCreator, makeReducer } from './../src/'
 
-makeActionCreator('a', ()=>({payload:1}))
+const a = makeActionCreator('a', ()=>({payload:1}))
+const action = a('a');
+
+makeReducer(a)
