@@ -1,7 +1,7 @@
 // Type definitions for redux-toolbelt v2.2.2
 // Project: https://github.com/welldone-software/redux-toolbelt
 // Definitions by: Idan Baraness <https://github.com/ibaraness/>
-import {Action as BaseAction} from 'redux';
+import { Action as BaseAction } from 'redux';
 /**
  * Basic FSA (Flux Standard Action)
  *
@@ -31,5 +31,6 @@ export interface GenericAction<Payload, Meta> extends BaseAction {
 export { default as makeActionCreator } from './makeActionCreator';
 export { default as makeAsyncActionCreator } from './makeAsyncActionCreator';
 export { default as makeReducer } from './makeReducer';
-export { default as makeAsyncReducer} from './makeAsyncReducer';
+export { default as makeAsyncReducer } from './makeAsyncReducer';
+export { default as composeReducers } from './composeReducers';
 
