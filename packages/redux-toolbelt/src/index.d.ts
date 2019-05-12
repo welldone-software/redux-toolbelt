@@ -23,11 +23,13 @@ export interface BaseAction {
  * @template Payload
  * @template Meta
  */
-export interface GenericAction<Payload, Meta> extends BaseAction{
+export interface GenericAction<Payload, Meta> extends BaseAction {
   payload?: Payload;
   meta?: Meta;
 }
-//import makeActionCreator from './makeActionCreator'
-export * from './makeActionCreator';
 
+export { default as makeActionCreator } from './makeActionCreator';
+export { default as makeAsyncActionCreator } from './makeAsyncActionCreator';
+export { default as makeReducer } from './makeReducer';
+export { default as makeAsyncReducer} from './makeAsyncReducer';
 
