@@ -64,5 +64,8 @@
   "jest": {
     "verbose": true,
     "testRegex": "/.*/test/.*\\.js$"
+  },
+  "dependencies": {
+    "copyfiles": "^2.1.0"
   }
 }
