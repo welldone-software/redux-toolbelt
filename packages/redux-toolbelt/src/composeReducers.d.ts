@@ -21,3 +21,5 @@ export declare function composeReducers<S = any, A extends Action = Action>(
 export declare namespace composeReducers {
   export type reducerOrMap<S = any, A extends Action = Action> = Reducer<S, A> | {[name: string]: Reducer<S, A>};
 }
+
+export default composeReducers;
