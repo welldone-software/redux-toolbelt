@@ -22,7 +22,14 @@ import { Action, GenericAction } from ".";
  * Optional data to pass to the function
  * - prefix - Defaults to ''
  * - defaultMeta - Defaults to undefined
+ *
  * @returns {ThunkAsyncActionCreator<A>}
+ * An action creator that when called and dispatched, it will:
+ * - Dispatch an action with the type of baseName and payload and meta
+ * that are based on the arguments of the call, possibly mapped via argsMapper, if present.
+ * - Call the asyncFn and wait on the Promise it should return.
+ * - If it resolves, the success sub-action is dispatched with the result of the Promise.
+ * - If it rejects, the failure sub-action is dispatched with the error of the Promise.
  */
 export declare function makeThunkAsyncActionCreator<A extends Action, P = any>(
   baseName: string,
@@ -31,7 +38,7 @@ export declare function makeThunkAsyncActionCreator<A extends Action, P = any>(
   options: makeThunkAsyncActionCreator.Options<A>
 ): ThunkAsyncActionCreator<A>
 
-export declare interface ActionCreatorProps {
+export interface ActionCreatorProps {
   /**
    * Exposes TYPE as static member.
    */
@@ -39,20 +46,20 @@ export declare interface ActionCreatorProps {
   toString: () => string;
 }
 
-export declare type ActionCreator<A extends Action> = (
+export type ActionCreator<A extends Action> = (
   (payload?: any, meta?: any) => GenericAction<A['payload'], A['meta']>
 ) & ActionCreatorProps;
 
-export declare type ThunkAsyncActionCreator<A extends Action> = ActionCreator<A> & ThunkAsyncActionCreatorProps<A>
+export type ThunkAsyncActionCreator<A extends Action> = ActionCreator<A> & ThunkAsyncActionCreatorProps<A>
 
-export declare interface ThunkAsyncActionCreatorProps<A extends Action> {
+export interface ThunkAsyncActionCreatorProps<A extends Action> {
   success: ActionCreator<A>;
   failure: ActionCreator<A>;
   progress: ActionCreator<A>;
   cancel: ActionCreator<A>;
 }
 
-export declare namespace makeThunkAsyncActionCreator {
+export namespace makeThunkAsyncActionCreator {
   export interface Options<A extends Action> {
     prefix?: string;
     defaultMeta?: A['meta'];
@@ -62,8 +69,12 @@ export declare namespace makeThunkAsyncActionCreator {
     meta?: A['meta'], [name: string]: any
   }
 
+  interface DefaultOptions<A extends Action> extends Options<A> {
+    argsMapper: ArgsMapperFN<A>
+  }
+
   /**
-   * Creates an instance of makeThunkAsyncActionCreator with the specified options
+   * Creates an instance of makeThunkAsyncActionCreator with the predefined options
    *
    * @template A The type of action the function can responde to
    *
@@ -77,7 +88,7 @@ export declare namespace makeThunkAsyncActionCreator {
    * @returns
    * an instance of makeThunkAsyncActionCreator with the specified options
    */
-  export function withDefaults<A extends Action, P = any>(args: DefaultsArg): (
+  export function withDefaults<A extends Action, P = any>(args: DefaultOptions<A>): (
     baseName: string,
     asyncFn: (...args: any) => Promise<P> | P,
     options: Options<A>
