@@ -27,3 +27,4 @@ export interface GenericAction<Payload, Meta> extends BaseAction {
   payload?: Payload;
   meta?: Meta;
 }
+export { default as makeThunkAsyncActionCreator } from './makeThunkAsyncActionCreator';
