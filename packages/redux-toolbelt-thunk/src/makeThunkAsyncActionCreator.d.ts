@@ -1,4 +1,5 @@
-import { Action, GenericAction } from ".";
+import { Action, GenericAction } from "redux-toolbelt";
+
 
 /**
  * makeAsyncActionCreator can be very useful to create an action creator

@@ -34,3 +34,8 @@ export { default as makeReducer } from './makeReducer';
 export { default as makeAsyncReducer } from './makeAsyncReducer';
 export { default as composeReducers } from './composeReducers';
 
+export * from './makeActionCreator';
+export * from './makeAsyncActionCreator';
+export * from './makeReducer';
+export * from './makeAsyncReducer';
+export * from './composeReducers';

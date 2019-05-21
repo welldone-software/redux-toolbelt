@@ -1,7 +1,9 @@
+import { PlainObject } from ".";
+
 /**
  * Moves an item in an array from one index to another
  *
- * @template T An optional specicifc type
+ * @template T An optional specific type
  *
  * @param {T[]} arr An array of specific type T
  *
@@ -11,11 +13,11 @@
  *
  * @param {(item:T) => any} [idSelector] When working with an array of objects we can set a mapper function
  * that will point to the correct property to filter the array by. for example
- * (item) => item.id
+ * (item) => item.id. If no idSelector was set, 'id' property will be selected by default
  *
  * @returns {T[]} A new array
  */
-export declare function repositionItemById<T = any>(
+export declare function repositionItemById<T extends PlainObject = {}>(
   arr: T[],
   itemId: any,
   newIndex: number | 'start' | 'end',

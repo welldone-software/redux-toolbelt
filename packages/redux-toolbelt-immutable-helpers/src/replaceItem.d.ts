@@ -1,7 +1,7 @@
 /**
  * Replaces an item at the specified index of an array.
  *
- * @template T An optional specicifc type
+ * @template T An optional specific type
  *
  * @param {T[]} arr An array of specific type T
  *

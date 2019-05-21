@@ -1,9 +1,20 @@
 import makeActionCreator, { ActionCreator } from './makeActionCreator';
 import { Action } from '.';
 
-export declare type AsyncActionCreator<A extends Action> = ActionCreator<A> & AsyncActionCreatorProps<A>
+export declare const ACTION_ASYNC_REQUEST_SUFFIX: string;
+export declare const ACTION_ASYNC_SUCCESS_SUFFIX: string;
+export declare const ACTION_ASYNC_FAILURE_SUFFIX: string;
+export declare const ACTION_ASYNC_PROGRESS_SUFFIX: string;
+export declare const ACTION_ASYNC_CANCEL_SUFFIX: string;
 
-export declare interface AsyncActionCreatorProps<A extends Action> {
+export declare const ACTION_ASYNC_SUCCESS_METHOD: string;
+export declare const ACTION_ASYNC_FAILURE_METHOD: string;
+export declare const ACTION_ASYNC_PROGRESS_METHOD: string;
+export declare const ACTION_ASYNC_CANCEL_METHOD: string;
+
+export type AsyncActionCreator<A extends Action> = ActionCreator<A> & AsyncActionCreatorProps<A>
+
+export interface AsyncActionCreatorProps<A extends Action> {
   success: ActionCreator<A>;
   failure: ActionCreator<A>;
   progress: ActionCreator<A>;
@@ -43,7 +54,7 @@ export declare namespace makeAsyncActionCreator {
   /**
    * Create an action creator with default prefix or metadata
    */
-  export function withDefaults<A extends Action>(args: makeActionCreator.DefaultsArg): (
+  export declare function withDefaults<A extends Action>(args: makeActionCreator.DefaultsArg): (
     name: string,
     /**
      * A mapper function that enables us to shape the payload and/or the meta

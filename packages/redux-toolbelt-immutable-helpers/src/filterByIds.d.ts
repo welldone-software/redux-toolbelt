@@ -1,3 +1,5 @@
+import { PlainObject } from ".";
+
 /**
  * Filters array items by id field or other calculated primitive value.
  *
@@ -14,7 +16,7 @@
  *
  * @returns {T[]} A new array
  */
-export declare function filterByIds<T = any>(
+export declare function filterByIds<T extends PlainObject = {}>(
   arr: T[],
   itemsIds: any[],
   idSelector?:(item:T) => any
