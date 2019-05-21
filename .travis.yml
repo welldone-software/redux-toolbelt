@@ -6,7 +6,8 @@ sudo: required
 branches:
   only:
   - master
-before_script:
+before_install:
   - npm install --ignore-scripts
+  - npm run build
 script:
-- npm run build
+
