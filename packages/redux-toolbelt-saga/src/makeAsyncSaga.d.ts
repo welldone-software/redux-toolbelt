@@ -14,8 +14,9 @@ import { AsyncActionCreator, Action } from "redux-toolbelt";
  * A function that returns a promise
  *
  * @param {makeAsyncSaga.Options<A>} options
- * - mapArgs Mapper function for the function to be called
- * - args Custom argument to pass for the called function
+ * There are currenctly two options:
+ * - mapArgs Mapper function for the `fn` function
+ * - args Custom argument to pass for the `fn` function
  *
  * @returns {Iterator<S>} A Saga
  */
