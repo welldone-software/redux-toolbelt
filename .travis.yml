@@ -8,5 +8,4 @@ branches:
   - master
 
 script:
-- npm run test
 - npm run build
