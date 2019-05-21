@@ -7,6 +7,6 @@ branches:
   only:
   - master
 before_script:
-  - npm install -g yarn
+  - npm install --ignore-scripts
 script:
 - npm run build
