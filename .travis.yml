@@ -6,6 +6,7 @@ sudo: required
 branches:
   only:
   - master
-
+before_script:
+  - npm install -g yarn
 script:
 - npm run build
