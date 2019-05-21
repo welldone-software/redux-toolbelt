@@ -1,0 +1,12 @@
+language: node_js
+node_js:
+  - "9"
+dist: trusty
+sudo: required
+branches:
+  only:
+  - master
+
+script:
+- npm run test
+- npm run build
