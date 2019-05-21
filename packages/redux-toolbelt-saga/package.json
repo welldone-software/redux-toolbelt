@@ -17,12 +17,10 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "redux-saga": "^0.15.6"
+    "redux-saga": "^0.15.6",
+    "redux-toolbelt": ">= 2.2.2"
   },
   "devDependencies": {
     "babel-plugin-transform-runtime": "^6.23.0"
-  },
-  "dependencies": {
-    "redux-toolbelt": "^2.2.2"
   }
 }
