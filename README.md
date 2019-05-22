@@ -19,15 +19,16 @@
 
 This repository is a monorepo that we manage using [Lerna](https://github.com/lerna/lerna). That means that we actually publish several packages to npm from the same codebase, including:
 
-| Package | Description |
-|---------|---------|
-| [`redux-toolbelt`](/packages/redux-toolbelt) | Core utillities for creating action creators and reducers |
-| [`redux-toolbelt-immutable-helpers`](/packages/redux-toolbelt-immutable-helpers) | Helper functions to "update" immutable objects |
-| [`redux-toolbelt-observable`](/packages/redux-toolbelt-observable) | Utilities for using `redux-toolbelt` with `redux-observable` |
-| [`redux-toolbelt-saga`](/packages/redux-toolbelt-saga) | Utilities for using `redux-toolbelt` with `redux-saga` |
-| [`redux-toolbelt-thunk`](/packages/redux-toolbelt-thunk) | Utilities for using `redux-toolbelt` with `redux-thunk` |
+| Package                                                                          | Description                                                  |
+| -------------------------------------------------------------------------------- | ------------------------------------------------------------ |
+| [`redux-toolbelt`](/packages/redux-toolbelt)                                     | Core utillities for creating action creators and reducers    |
+| [`redux-toolbelt-immutable-helpers`](/packages/redux-toolbelt-immutable-helpers) | Helper functions to "update" immutable objects               |
+| [`redux-toolbelt-observable`](/packages/redux-toolbelt-observable)               | Utilities for using `redux-toolbelt` with `redux-observable` |
+| [`redux-toolbelt-saga`](/packages/redux-toolbelt-saga)                           | Utilities for using `redux-toolbelt` with `redux-saga`       |
+| [`redux-toolbelt-thunk`](/packages/redux-toolbelt-thunk)                         | Utilities for using `redux-toolbelt` with `redux-thunk`      |
 
 ## Demo
+
 A demo project can be found here:
 
 https://github.com/welldone-software/redux-toolbelt-demo
@@ -35,3 +36,7 @@ https://github.com/welldone-software/redux-toolbelt-demo
 The demo can be run in a live sandbox environment here:
 
 https://codesandbox.io/s/github/welldone-software/redux-toolbelt-demo
+
+## Typing
+
+Package now supports typescript.
