@@ -8,6 +8,7 @@ branches:
   - master
 before_install:
   - yarn install --ignore-scripts
+  - yarn add --dev babel-plugin-transform-runtime
   - yarn run build
 script:
 
