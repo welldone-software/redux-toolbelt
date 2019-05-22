@@ -1,6 +1,6 @@
 {
   "name": "redux-toolbelt-observable",
-  "version": "2.3.2",
+  "version": "2.3.3",
   "description": "Epic helpers for redux-toolbelt",
   "main": "lib/index.js",
   "scripts": {
@@ -18,8 +18,8 @@
   "homepage": "https://github.com/welldone-software/redux-toolbelt#readme",
   "peerDependencies": {
     "redux-observable": "^1.0.0",
-    "rxjs": "^6.2.1",
-    "redux-toolbelt": ">= 2.2.2"
+    "redux-toolbelt": ">= 2.2.2",
+    "rxjs": "^6.2.1"
   },
   "dependencies": {
     "escape-string-regexp": "^2.0.0"
