@@ -7,9 +7,7 @@ branches:
   only:
   - master
 before_install:
-  - npm install --ignore-scripts
-  - npm install --save-dev babel-plugin-transform-runtime
-  - npm install --save-dev babel-preset-stage-2
+  - yarn install --ignore-scripts
   - npm run build
 script:
 
