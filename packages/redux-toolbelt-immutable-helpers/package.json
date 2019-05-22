@@ -4,7 +4,7 @@
   "description": "Immutable helpers for redux-toolbelt",
   "main": "lib/index.js",
   "scripts": {
-    "build": "cross-env BABEL_ENV=build babel src --out-dir lib"
+    "build": "cross-env BABEL_ENV=build babel src --out-dir lib && copyfiles -f 'src/*.d.ts' lib"
   },
   "repository": "git+https://github.com/welldone-software/redux-toolbelt.git",
   "authors": [
