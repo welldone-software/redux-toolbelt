@@ -8,6 +8,6 @@ branches:
   - master
 before_install:
   - yarn install --ignore-scripts
-  - npm run build
+  - yarn run build
 script:
 
