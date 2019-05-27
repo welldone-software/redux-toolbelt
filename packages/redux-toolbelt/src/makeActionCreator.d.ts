@@ -8,7 +8,7 @@ export declare interface ActionCreatorProps {
   /**
    * Exposes TYPE as static member.
    */
-  Type: string;
+  TYPE: string;
   toString: () => string;
 }
 

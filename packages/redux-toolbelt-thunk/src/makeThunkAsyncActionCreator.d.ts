@@ -1,4 +1,4 @@
-import { Action, GenericAction } from "redux-toolbelt";
+import { Action, GenericAction, ActionCreatorProps } from "redux-toolbelt";
 
 
 /**
@@ -38,14 +38,6 @@ export declare function makeThunkAsyncActionCreator<A extends Action, P = any>(
   argsMapper: makeThunkAsyncActionCreator.ArgsMapperFN<A>,
   options: makeThunkAsyncActionCreator.Options<A>
 ): ThunkAsyncActionCreator<A>
-
-export interface ActionCreatorProps {
-  /**
-   * Exposes TYPE as static member.
-   */
-  Type: string;
-  toString: () => string;
-}
 
 export type ActionCreator<A extends Action> = (
   (payload?: any, meta?: any) => GenericAction<A['payload'], A['meta']>
