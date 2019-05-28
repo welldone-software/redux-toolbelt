@@ -9,8 +9,8 @@
     "test": "cross-env NODE_ENV=test jest --no-cache --runInBand",
     "lint": "eslint packages/*/src/**/*.js packages/*/test/**/*.js",
     "lint:fix": "yarn lint --fix",
-    "prepublish": "yarn lint && yarn test && yarn build",
-    "install": "lerna bootstrap",
+    "prepublish": "lerna bootstrap",
+    "prepublishOnly": "yarn lint && yarn test && yarn build",
     "clean": "lerna clean --yes && rimraf ./packages/*/lib node_modules",
     "generateToc": "node scripts/generateToc.js"
   },
@@ -41,6 +41,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "concurrently": "^3.5.1",
+    "copyfiles": "^2.1.0",
     "cross-env": "^5.1.3",
     "eslint": "^4.17.0",
     "eslint-loader": "^2.0.0",
@@ -59,8 +60,7 @@
     "rxjs": "^6.2.1",
     "sinon": "^4.2.2",
     "webpack": "^4.1.1",
-    "webpack-merge": "^4.1.1",
-    "copyfiles": "^2.1.0"
+    "webpack-merge": "^4.1.1"
   },
   "jest": {
     "verbose": true,
