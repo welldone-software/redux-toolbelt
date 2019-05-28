@@ -54,7 +54,7 @@ export declare namespace makeAsyncActionCreator {
   /**
    * Create an action creator with default prefix or metadata
    */
-  export declare function withDefaults<A extends Action>(args: makeActionCreator.DefaultsArg): (
+  export function withDefaults<A extends Action>(args: makeActionCreator.DefaultsArg): (
     name: string,
     /**
      * A mapper function that enables us to shape the payload and/or the meta
