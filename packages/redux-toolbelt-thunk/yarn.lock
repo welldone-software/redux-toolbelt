@@ -2,26 +2,26 @@
 # yarn lockfile v1
 
 
-lodash.isfunction@^3.0.8:
-  version "3.0.8"
-  resolved "https://registry.yarnpkg.com/lodash.isfunction/-/lodash.isfunction-3.0.8.tgz#4db709fc81bc4a8fd7127a458a5346c5cdce2c6b"
+lodash.isfunction@^3.0.9:
+  version "3.0.9"
+  resolved "https://registry.yarnpkg.com/lodash.isfunction/-/lodash.isfunction-3.0.9.tgz#06de25df4db327ac931981d1bdb067e5af68d051"
+  integrity sha512-AirXNj15uRIMMPihnkInB4i3NHeb4iBtNg9WRWuK2o31S+ePwwNmDPaTL3o7dTJ+VXNZim7rFs4rxN4YU1oUJw==
 
 lodash.isplainobject@^4.0.6:
   version "4.0.6"
   resolved "https://registry.yarnpkg.com/lodash.isplainobject/-/lodash.isplainobject-4.0.6.tgz#7c526a52d89b45c45cc690b88163be0497f550cb"
-
-lodash.isundefined@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/lodash.isundefined/-/lodash.isundefined-3.0.1.tgz#23ef3d9535565203a66cefd5b830f848911afb48"
+  integrity sha1-fFJqUtibRcRcxpC4gWO+BJf1UMs=
 
 lodash.transform@^4.6.0:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/lodash.transform/-/lodash.transform-4.6.0.tgz#12306422f63324aed8483d3f38332b5f670547a0"
+  integrity sha1-EjBkIvYzJK7YSD0/ODMrX2cFR6A=
 
-redux-toolbelt@^2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/redux-toolbelt/-/redux-toolbelt-2.1.1.tgz#1a0e721a4d8037536232350011937c54afba6c6f"
+redux-toolbelt@^2.2.4:
+  version "2.2.4"
+  resolved "https://registry.yarnpkg.com/redux-toolbelt/-/redux-toolbelt-2.2.4.tgz#ab8733e3daf9a28b109d328aacadacb5e28cd690"
+  integrity sha512-wRRzbscih6EKLzMFISA7oOOJ63pzB5dhF+3MuQm7QQw8hdIrcHI7sVG3+dhAjUdwETlXjouc5lx1my6xJw5SDg==
   dependencies:
-    lodash.isfunction "^3.0.8"
+    lodash.isfunction "^3.0.9"
     lodash.isplainobject "^4.0.6"
     lodash.transform "^4.6.0"
