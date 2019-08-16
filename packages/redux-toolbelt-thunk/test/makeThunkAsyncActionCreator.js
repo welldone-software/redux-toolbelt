@@ -231,5 +231,22 @@ describe('Custom args mapper (argsMapper in options)', () => {
     })
     store.dispatch(customAction('arg1', 'arg2'))
   })
+
+  test('cancel previous requests', () => {
+    const store = mockStore()
+    const customAction = makeAsyncThunkActionCreator('ACTION',  id => Promise.resolve(id), null, {cancelPreviousRequests: true})
+    store.dispatch(customAction(1))
+    store.dispatch(customAction(2))
+
+    return store.dispatch(customAction(3)).then(() => {
+      expect(store.getActions()).toEqual([
+        {type: customAction.TYPE, payload: 1, meta: {_toolbeltAsyncFnArgs: [1]}},
+        {type: customAction.TYPE, payload: 2, meta: {_toolbeltAsyncFnArgs: [2]}},
+        {type: customAction.TYPE, payload: 3, meta: {_toolbeltAsyncFnArgs: [3]}},
+        {type: customAction.success.TYPE, payload: 3, meta: {_toolbeltAsyncFnArgs: [3]}},
+      ])
+    })
+    
+  })
 })
 

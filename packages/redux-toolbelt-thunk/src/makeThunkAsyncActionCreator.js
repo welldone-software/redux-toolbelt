@@ -5,6 +5,7 @@ import defaultOptions from '../../redux-toolbelt/src/_defaultActionCreatorOption
 
 const EMPTY_ARRAY = []
 const EMPTY_OBJECT = {}
+const actionCounter = {}
 
 /**
  * Create an async action creator that relies on redux-thunk
@@ -18,6 +19,7 @@ const EMPTY_OBJECT = {}
  * @param {object} [options]
  * @param {string} [options.prefix] prefix all action names
  * @param {object} [options.defaultMeta] default metadata for all actions
+ * @param {object} [options.cancelPreviousRequests] cancel previous requests
  *
  * @returns {thunkAsyncActionCreator}
  */
@@ -34,16 +36,28 @@ export default function makeThunkAsyncActionCreator(baseName, asyncFn, argsMappe
 
     const meta = { ...origMeta, _toolbeltAsyncFnArgs: asyncFnArgs }
 
+    const currentCounter = actionCounter[baseName] ? actionCounter[baseName] + 1 : 1
+    actionCounter[baseName] = currentCounter
+
     dispatch(actionCreator(payload, meta))
     return Promise.resolve()
       .then(() => asyncFn(...asyncFnArgs, {getState, dispatch, extraThunkArg}))
       .then(data => {
+        if(options.cancelPreviousRequests && actionCounter[baseName] !== currentCounter){
+          return
+        }
         return Promise.resolve(dispatch(actionCreator.success(data, meta)))
-          .then(() => data)
+          .then(() => {
+            actionCounter[baseName] = 0
+            return data
+          })
       })
       .catch(err => {
         return Promise.resolve(dispatch(actionCreator.failure(err, meta)))
-          .then(() => Promise.reject(err))
+          .then(() => {
+            actionCounter[baseName] = 0
+            return Promise.reject(err)
+          })
       })
   }
 
