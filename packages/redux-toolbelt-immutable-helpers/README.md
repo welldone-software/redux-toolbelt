@@ -171,13 +171,13 @@ const a = [
   {id: 4, name: 'Donna'}
 ]
 
-const b = removeItemsById(a, [2, 3])
+const b = removeItemsById(a, [{id: 2}, {id: 3}])
 // b ==> [
 //    {id: 1, name: 'Alex'},
 //    {id: 4, name: 'Donna'}
 //  ]
 
-const c = removeItemsById(a, ['Alex', 'Donna'], item => item.name)
+const c = removeItemsById(a, [{name: 'Alex'}, {name: 'Donna'}], item => item.name)
 // c ==> [
 //    {id: 2, name: 'Bob'},
 //    {id: 3, name: 'Charlie'}
