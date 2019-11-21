@@ -65,5 +65,8 @@
   "jest": {
     "verbose": true,
     "testRegex": "/.*/test/.*\\.js$"
+  },
+  "dependencies": {
+    "uuid": "^3.3.3"
   }
 }
