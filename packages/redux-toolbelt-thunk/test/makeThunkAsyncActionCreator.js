@@ -234,7 +234,7 @@ describe('Custom args mapper (argsMapper in options)', () => {
 
   test('cancel previous requests', () => {
     const store = mockStore()
-    const customAction = makeAsyncThunkActionCreator('ACTION',  id => Promise.resolve(id), null, {cancelPreviousRequests: true})
+    const customAction = makeAsyncThunkActionCreator('ACTION',  id => Promise.resolve(id), null, {ignoreOlderParallelResolves: true})
     store.dispatch(customAction(1))
     store.dispatch(customAction(2))
 

@@ -116,10 +116,10 @@ const callMultipleApisAsyncFn = async () => {
 
 #### `options`
 
-`cancelPreviousFunctionCalls`
+`ignoreOlderParallelResolves (deprecating: cancelPreviousFunctionCalls)`
 
-If several requests are made before any of them returns,
-you can choose to only receive the last one by using the option `cancelPreviousFunctionCalls` like this:
+If several promises are made before any of them resolves,
+you can choose to ignore older resolves and only receive the last one by passing true to this option
 
 ```js
 const fetchTodos = makeAsyncActionCreator('FETCH_TODOS');
@@ -129,7 +129,7 @@ const fetchTodosFromServer = payload => {
 };
 
 const epic = makeAsyncEpic(fetchTodos, fetchTodosFromServer, {
-  cancelPreviousFunctionCalls: true
+  ignoreOlderParallelResolves: true
 });
 ```
 

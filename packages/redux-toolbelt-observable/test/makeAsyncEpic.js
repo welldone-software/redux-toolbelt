@@ -120,7 +120,7 @@ test('Dispatches few success actions for resolved promises', done => {
 })
 
 test('Dispatches few success actions for resolved promises and cancel previous requests', done => {
-  const store = createStoreForTest(() => Promise.resolve(5), {cancelPreviousFunctionCalls: true})
+  const store = createStoreForTest(() => Promise.resolve(5), {ignoreOlderParallelResolves: true})
   store.dispatch(actionCreator({a: true}))
   store.dispatch(actionCreator({b: true}))
 

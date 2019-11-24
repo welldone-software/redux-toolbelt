@@ -114,6 +114,23 @@ dispatch(fetchUser('user_01'))
 
     Same as the `argsMapper` argument described above. The argument takes priority over the option.
 
+  * `ignoreOlderParallelResolves` - Defaults to `false`
+
+    If several promises are made before any of them resolves, you can choose to ignore older resolves and only receive the last one by passing true to this option
+
+
+
+```js
+const fetchTodos = makeAsyncActionCreator('FETCH_TODOS');
+
+const fetchTodosFromServer = payload => {
+  /*...*/
+};
+
+const epic = makeAsyncEpic(fetchTodos, fetchTodosFromServer, {
+  ignoreOlderParallelResolves: true
+});
+```
 ### Returns
 An action creator that when called and dispatched, it will:
 

@@ -20,7 +20,7 @@ const actionsMap = {}
  * @param {object} [options]
  * @param {string} [options.prefix] prefix all action names
  * @param {object} [options.defaultMeta] default metadata for all actions
- * @param {object} [options.cancelPreviousRequests] cancel previous requests
+ * @param {object} [options.handleOlderParallelSuccesses] handle previous requests
  *
  * @returns {thunkAsyncActionCreator}
  */
@@ -44,7 +44,7 @@ export default function makeThunkAsyncActionCreator(baseName, asyncFn, argsMappe
     return Promise.resolve()
       .then(() => asyncFn(...asyncFnArgs, {getState, dispatch, extraThunkArg}))
       .then(data => {
-        if(options.cancelPreviousRequests && actionsMap[baseName] !== currentUuid){
+        if(options.ignoreOlderParallelResolves && actionsMap[baseName] !== currentUuid){
           return
         }
         return Promise.resolve(dispatch(actionCreator.success(data, meta)))

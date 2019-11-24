@@ -25,8 +25,8 @@ import { Observable } from "rxjs";
  *
  * @param {makeAsyncEpic.Options} [options]
  * An object with options:
- * - `cancelPreviousFunctionCalls`. If several requests are made before any
- * of them returns, you can choose to only receive the last one by passing true to
+ * - `ignoreOlderParallelResolves`. If several promises are made before any
+ * of them resolves, you can choose to ignore older resolves and only receive the last one by passing true to
  * this option.
  *
  * @returns {Epic<A,A,S>} Async Epic
@@ -39,6 +39,7 @@ export declare function makeAsyncEpic<A extends Action = Action, S = any, P = an
 
 export namespace makeAsyncEpic {
   export interface Options {
+    ignoreOlderParallelResolves?: boolean;
     cancelPreviousFunctionCalls?: boolean;
   }
 
