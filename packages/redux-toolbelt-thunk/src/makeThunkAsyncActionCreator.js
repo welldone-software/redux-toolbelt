@@ -20,7 +20,7 @@ const actionsMap = {}
  * @param {object} [options]
  * @param {string} [options.prefix] prefix all action names
  * @param {object} [options.defaultMeta] default metadata for all actions
- * @param {object} [options.handleOlderParallelSuccesses] handle previous requests
+ * @param {object} [options.ignoreOlderParallelResolves] ignore older resolves
  *
  * @returns {thunkAsyncActionCreator}
  */
