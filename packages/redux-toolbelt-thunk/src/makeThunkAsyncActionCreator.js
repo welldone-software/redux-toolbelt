@@ -1,3 +1,4 @@
+import uuid from 'uuid'
 import makeAsyncActionCreator from '../../redux-toolbelt/src/makeAsyncActionCreator'
 import { getOptions } from '../../redux-toolbelt/src/utils'
 import _trivialArgsMapper from '../../redux-toolbelt/src/_trivialArgsMapper'
@@ -5,6 +6,7 @@ import defaultOptions from '../../redux-toolbelt/src/_defaultActionCreatorOption
 
 const EMPTY_ARRAY = []
 const EMPTY_OBJECT = {}
+const actionsMap = {}
 
 /**
  * Create an async action creator that relies on redux-thunk
@@ -18,6 +20,7 @@ const EMPTY_OBJECT = {}
  * @param {object} [options]
  * @param {string} [options.prefix] prefix all action names
  * @param {object} [options.defaultMeta] default metadata for all actions
+ * @param {object} [options.ignoreOlderParallelResolves] ignore older resolves
  *
  * @returns {thunkAsyncActionCreator}
  */
@@ -34,10 +37,16 @@ export default function makeThunkAsyncActionCreator(baseName, asyncFn, argsMappe
 
     const meta = { ...origMeta, _toolbeltAsyncFnArgs: asyncFnArgs }
 
+    const currentUuid = uuid.v4()
+    actionsMap[baseName] = currentUuid
+
     dispatch(actionCreator(payload, meta))
     return Promise.resolve()
       .then(() => asyncFn(...asyncFnArgs, {getState, dispatch, extraThunkArg}))
       .then(data => {
+        if(options.ignoreOlderParallelResolves && actionsMap[baseName] !== currentUuid){
+          return
+        }
         return Promise.resolve(dispatch(actionCreator.success(data, meta)))
           .then(() => data)
       })
