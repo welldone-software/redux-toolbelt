@@ -120,17 +120,37 @@ dispatch(fetchUser('user_01'))
 
 
 
-```js
-const fetchTodos = makeAsyncActionCreator('FETCH_TODOS');
+    ```js
+    const getUserFromServer = userId => Promise.resolve({id: userId})
 
-const fetchTodosFromServer = payload => {
-  /*...*/
-};
+    const fetchUserAction = makeAsyncThunkActionCreator(
+      'FETCH_USER',
+      getUserFromServer,
+      {ignoreOlderParallelResolves: true}
+    )
 
-const epic = makeAsyncEpic(fetchTodos, fetchTodosFromServer, {
-  ignoreOlderParallelResolves: true
-});
-```
+    fetchUserAction('01') //<-- ignore this promise
+    fetchUserAction('02') //<-- ignore this promise
+    fetchUserAction('03')
+    ```
+
+    Promises can be ignored not only by the action name but also by meta id (helpful when sending multiple requests using the same action)
+
+     ```js
+    const getUserFromServer = userId => Promise.resolve({id: userId})
+
+    const fetchUserAction = makeAsyncThunkActionCreator(
+      'FETCH_USER',
+      getUserFromServer,
+      {ignoreOlderParallelResolves: true}
+    )
+
+    fetchUserAction('01', {id: 'user 01'}) //<-- ignore this promise
+    fetchUserAction('01', {id: 'user 01'})
+    fetchUserAction('02', {id: 'user 02'}) //<-- ignore this promise
+    fetchUserAction('02', {id: 'user 02'})
+    ```
+
 ### Returns
 An action creator that when called and dispatched, it will:
 

@@ -38,13 +38,13 @@ export default function makeThunkAsyncActionCreator(baseName, asyncFn, argsMappe
     const meta = { ...origMeta, _toolbeltAsyncFnArgs: asyncFnArgs }
 
     const currentUuid = uuid.v4()
-    actionsMap[baseName] = currentUuid
+    actionsMap[meta.id || baseName] = currentUuid
 
     dispatch(actionCreator(payload, meta))
     return Promise.resolve()
       .then(() => asyncFn(...asyncFnArgs, {getState, dispatch, extraThunkArg}))
       .then(data => {
-        if(options.ignoreOlderParallelResolves && actionsMap[baseName] !== currentUuid){
+        if(options.ignoreOlderParallelResolves && actionsMap[meta.id || baseName] !== currentUuid){
           return
         }
         return Promise.resolve(dispatch(actionCreator.success(data, meta)))
