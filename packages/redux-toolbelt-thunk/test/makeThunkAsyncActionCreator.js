@@ -232,7 +232,7 @@ describe('Custom args mapper (argsMapper in options)', () => {
     store.dispatch(customAction('arg1', 'arg2'))
   })
 
-  test('cancel previous requests', () => {
+  test('ignore older parallel resolves by action name', () => {
     const store = mockStore()
     const customAction = makeAsyncThunkActionCreator('ACTION',  id => Promise.resolve(id), null, {ignoreOlderParallelResolves: true})
     store.dispatch(customAction(1))
@@ -244,6 +244,26 @@ describe('Custom args mapper (argsMapper in options)', () => {
         {type: customAction.TYPE, payload: 2, meta: {_toolbeltAsyncFnArgs: [2]}},
         {type: customAction.TYPE, payload: 3, meta: {_toolbeltAsyncFnArgs: [3]}},
         {type: customAction.success.TYPE, payload: 3, meta: {_toolbeltAsyncFnArgs: [3]}},
+      ])
+    })
+    
+  })
+
+  test('ignore older parallel resolves by meta id', () => {
+    const store = mockStore()
+    const customAction = makeAsyncThunkActionCreator('ACTION',  id => Promise.resolve(id), null, {ignoreOlderParallelResolves: true})
+    store.dispatch(customAction(1, {id: 'a'})) // should ignore resolve
+    store.dispatch(customAction(2, {id: 'a'})) // should ignore resolve
+    store.dispatch(customAction(3, {id: 'a'}))
+
+    return store.dispatch(customAction(4, {id: 'b'})).then(() => {
+      expect(store.getActions()).toEqual([
+        {type: customAction.TYPE, payload: 1, meta: {_toolbeltAsyncFnArgs: [1, {id: 'a'}], id: 'a'}},
+        {type: customAction.TYPE, payload: 2, meta: {_toolbeltAsyncFnArgs: [2, {id: 'a'}], id: 'a'}},
+        {type: customAction.TYPE, payload: 3, meta: {_toolbeltAsyncFnArgs: [3, {id: 'a'}], id: 'a'}},
+        {type: customAction.TYPE, payload: 4, meta: {_toolbeltAsyncFnArgs: [4, {id: 'b'}], id: 'b'}},
+        {type: customAction.success.TYPE, payload: 3, meta:  {_toolbeltAsyncFnArgs: [3, {id: 'a'}], id: 'a'}},
+        {type: customAction.success.TYPE, payload: 4, meta:  {_toolbeltAsyncFnArgs: [4, {id: 'b'}], id: 'b'}},
       ])
     })
     
