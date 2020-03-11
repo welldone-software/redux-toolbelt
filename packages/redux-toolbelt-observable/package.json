@@ -1,6 +1,6 @@
 {
   "name": "redux-toolbelt-observable",
-  "version": "3.0.0-alpha.2",
+  "version": "3.0.0-alpha.3",
   "description": "Epic helpers for redux-toolbelt",
   "main": "lib/index.js",
   "module": "esm/index.js",
@@ -15,9 +15,9 @@
   },
   "homepage": "https://github.com/welldone-software/redux-toolbelt#readme",
   "peerDependencies": {
-    "rxjs": "*",
     "redux-observable": "*",
-    "redux-toolbelt": "^3.0.0-alpha.2"
+    "redux-toolbelt": "^3.0.0-alpha.2",
+    "rxjs": "*"
   },
   "dependencies": {
     "lodash-es": "^4.17.15"
