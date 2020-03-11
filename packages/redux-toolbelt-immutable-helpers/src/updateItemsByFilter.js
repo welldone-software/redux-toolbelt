@@ -1,4 +1,4 @@
-import isMatch from 'lodash.ismatch'
+import {isMatch} from 'lodash'
 import _makeGetUpdatedPropsFunc from './_makeGetUpdatedPropsFunc'
 
 // updateItemsByFilter(arr, item => item.flag, {prop1: 'new value', prop2: 'new value'}) {

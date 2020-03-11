@@ -1,6 +1,6 @@
 import EMPTY_ARRAY from 'empty/array'
 import defaultIdSelector from './defaultIdSelector'
-import isMatch from 'lodash.ismatch'
+import {isMatch} from 'lodash'
 
 // updateItemsById(arr, [{id: 'id_1', prop: 3, prop2: 'val'}])
 // updateItemsById(arr, [{id: 'id_1', prop: 3, prop2: 'val'}], item => item.id)

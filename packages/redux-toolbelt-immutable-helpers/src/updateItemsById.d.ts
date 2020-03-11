@@ -20,4 +20,5 @@ export declare function updateItemsById<T extends PlainObject = {}>(
   arr: T[],
   updatedItems:T[],
   idSelector?: (item:T) => any
-  ): T[];
+): T[];
+export default updateItemsById

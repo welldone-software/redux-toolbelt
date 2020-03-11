@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { Action } from "redux-toolbelt";
+import { Action } from 'redux-toolbelt';
 import { Epic } from 'redux-observable';
 
 /**

@@ -1,4 +1,4 @@
-import escapeRegexp from 'escape-string-regexp'
+import { escapeRegExp } from 'lodash'
 import { map, filter } from 'rxjs/operators'
 
 const makeSuffixesEpic = (mapper, suffixes, metaPredicate) => (
@@ -8,7 +8,7 @@ const makeSuffixesEpic = (mapper, suffixes, metaPredicate) => (
 ) => {
   const suffixesArray = Array.isArray(suffixes) ? suffixes : [suffixes]
   const regex = new RegExp(
-    suffixesArray.map(e => `(${escapeRegexp(e)}$)`).join('|')
+    suffixesArray.map(e => `(${escapeRegExp(e)}$)`).join('|')
   )
   return action$.pipe(
     filter(({ meta }) => !metaPredicate || metaPredicate(meta)),

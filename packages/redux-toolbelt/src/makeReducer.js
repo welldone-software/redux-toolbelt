@@ -1,6 +1,6 @@
-import isFunction from 'lodash.isfunction'
-import isPlainObject from 'lodash.isplainobject'
-import transform from 'lodash.transform'
+import {isFunction} from 'lodash'
+import {isPlainObject} from 'lodash'
+import {transform} from 'lodash'
 import { isActionCreator } from './utils'
 
 const defaultOptions = {

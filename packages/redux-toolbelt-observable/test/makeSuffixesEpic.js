@@ -1,5 +1,5 @@
 import { of } from 'rxjs'
-import { makeActionCreator } from '../../redux-toolbelt/src'
+import { makeActionCreator } from 'redux-toolbelt'
 import { makeSuffixesEpic } from '../src'
 
 const mappedAction = makeActionCreator('mappedAction')()

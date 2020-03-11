@@ -1,5 +1,5 @@
 import EMPTY_ARRAY from 'empty/array'
-import without from 'lodash.without'
+import {without} from 'lodash'
 
 // repositionItem(arr, 2, 4)
 // repositionItem(arr, 2, 'start')

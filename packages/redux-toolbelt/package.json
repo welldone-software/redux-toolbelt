@@ -3,8 +3,9 @@
   "version": "2.2.6",
   "description": "Async Actions helpers for redux-toolbelt",
   "main": "lib/index.js",
+  "module": "src/index.js",
   "scripts": {
-    "build": "cross-env BABEL_ENV=build babel src --out-dir lib && copyfiles -f \"src/*.d.ts\" lib"
+    "build": "cross-env babel src --root-mode=upward --out-dir lib && copyfiles -f \"src/*.d.ts\" lib"
   },
   "repository": "git+https://github.com/welldone-software/redux-toolbelt.git",
   "authors": [
@@ -16,10 +17,5 @@
   "bugs": {
     "url": "https://github.com/welldone-software/redux-toolbelt/issues"
   },
-  "homepage": "https://github.com/welldone-software/redux-toolbelt#readme",
-  "dependencies": {
-    "lodash.isfunction": "^3.0.9",
-    "lodash.isplainobject": "^4.0.6",
-    "lodash.transform": "^4.6.0"
-  }
+  "homepage": "https://github.com/welldone-software/redux-toolbelt#readme"
 }

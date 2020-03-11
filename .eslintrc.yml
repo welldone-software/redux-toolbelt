@@ -36,3 +36,5 @@ rules:
   eol-last:
     - error
     - always
+  jest/no-test-callback:
+    - off

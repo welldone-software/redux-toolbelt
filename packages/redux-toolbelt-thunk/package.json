@@ -3,8 +3,9 @@
   "version": "2.2.0",
   "description": "Redux thunk helpers for redux-toolbelt",
   "main": "lib/index.js",
+  "module": "src/index.js",
   "scripts": {
-    "build": "cross-env BABEL_ENV=build babel src --out-dir lib && copyfiles -f \"src/*.d.ts\" lib"
+    "build": "cross-env babel src --root-mode=upward --out-dir lib && copyfiles -f \"src/*.d.ts\" lib"
   },
   "repository": "git+https://github.com/welldone-software/redux-toolbelt.git",
   "bugs": {
@@ -16,7 +17,7 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.3.0"
   },
   "dependencies": {
     "redux-toolbelt": "^2.2.6"

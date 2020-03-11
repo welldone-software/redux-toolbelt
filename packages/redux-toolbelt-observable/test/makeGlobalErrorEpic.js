@@ -3,7 +3,7 @@ import { makeGlobalErrorEpic } from '../src'
 import {
   makeAsyncActionCreator,
   makeActionCreator,
-} from '../../redux-toolbelt/src'
+} from 'redux-toolbelt'
 
 const actionCreator = makeAsyncActionCreator('NameOfAction')
 const mappedAction = makeActionCreator('mappedAction')()

@@ -3,8 +3,9 @@
   "version": "2.1.5",
   "description": "Saga helpers for redux-toolbelt",
   "main": "lib/index.js",
+  "module": "src/index.js",
   "scripts": {
-    "build": "cross-env BABEL_ENV=build babel src --out-dir lib && copyfiles -f \"src/*.d.ts\" lib"
+    "build": "cross-env babel src --root-mode=upward --out-dir lib && copyfiles -f \"src/*.d.ts\" lib"
   },
   "repository": "git+https://github.com/welldone-software/redux-toolbelt.git",
   "bugs": {
@@ -17,10 +18,7 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "redux-saga": "^0.15.6",
-    "redux-toolbelt": ">= 2.2.2"
-  },
-  "devDependencies": {
-    "babel-plugin-transform-runtime": "^6.23.0"
+    "redux-saga": "^1.1.3",
+    "redux-toolbelt": ">=2.2.6"
   }
 }

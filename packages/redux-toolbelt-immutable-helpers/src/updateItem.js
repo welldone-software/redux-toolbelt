@@ -1,5 +1,5 @@
-import inRange from 'lodash.inrange'
-import isMatch from 'lodash.ismatch'
+import {inRange} from 'lodash'
+import {isMatch} from 'lodash'
 import EMPTY_ARRAY from 'empty/array'
 import _makeGetUpdatedPropsFunc from './_makeGetUpdatedPropsFunc'
 

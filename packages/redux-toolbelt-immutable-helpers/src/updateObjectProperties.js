@@ -1,7 +1,7 @@
 import updateObjectProperty from './updateObjectProperty'
 
-import isFunction from 'lodash.isfunction'
-import isPlainObject from 'lodash.isplainobject'
+import {isFunction} from 'lodash'
+import {isPlainObject} from 'lodash'
 
 // V1: updateObjectProperties(obj, {prop1: newVal, prop2: updateFunc})
 // V2: updateObjectProperties(obj, [prop1, prop2], 'newVal')

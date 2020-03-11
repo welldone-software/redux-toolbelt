@@ -1,5 +1,5 @@
 import EMPTY_ARRAY from 'empty/array'
-import isMatch from 'lodash.ismatch'
+import {isMatch} from 'lodash'
 import defaultIdSelector from './defaultIdSelector'
 
 // upsertItemsById(arr, [{id: 'id_1', prop: 3, prop2: 'val'}])

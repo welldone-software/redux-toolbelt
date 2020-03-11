@@ -3,8 +3,9 @@
   "version": "1.1.10",
   "description": "Immutable helpers for redux-toolbelt",
   "main": "lib/index.js",
+  "module": "src/index.js",
   "scripts": {
-    "build": "cross-env BABEL_ENV=build babel src --out-dir lib && copyfiles -f \"src/*.d.ts\" lib"
+    "build": "cross-env babel src --root-mode=upward --out-dir lib && copyfiles -f \"src/*.d.ts\" lib"
   },
   "repository": "git+https://github.com/welldone-software/redux-toolbelt.git",
   "authors": [
@@ -17,14 +18,6 @@
   },
   "homepage": "https://github.com/welldone-software/redux-toolbelt#readme",
   "dependencies": {
-    "empty": "^0.10.1",
-    "lodash.concat": "^4.5.0",
-    "lodash.constant": "^3.0.0",
-    "lodash.inrange": "^3.3.6",
-    "lodash.isarray": "^4.0.0",
-    "lodash.isfunction": "^3.0.9",
-    "lodash.ismatch": "^4.4.0",
-    "lodash.isplainobject": "^4.0.6",
-    "lodash.without": "^4.4.0"
+    "empty": "^0.10.1"
   }
 }

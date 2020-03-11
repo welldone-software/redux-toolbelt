@@ -1,4 +1,4 @@
-import { makeAsyncActionCreator } from '../../redux-toolbelt/src'
+import { makeAsyncActionCreator } from 'redux-toolbelt'
 import { makeAsyncSaga } from '../src'
 
 import { select } from 'redux-saga/effects'

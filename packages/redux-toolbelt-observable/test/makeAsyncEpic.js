@@ -1,4 +1,4 @@
-import {makeAsyncActionCreator} from '../../redux-toolbelt/src'
+import {makeAsyncActionCreator} from 'redux-toolbelt'
 import {makeAsyncEpic} from '../src'
 
 import { from } from 'rxjs'
@@ -150,7 +150,7 @@ test('Dispatches actions for resolved promises and cancel requests', done => {
   store.dispatch(actionCreator({a: true}))
   store.dispatch(actionCreator({b: true}))
   store.dispatch(actionCreator.cancel())
-  
+
   const actions = store.getActions()
 
   setImmediate(() => {

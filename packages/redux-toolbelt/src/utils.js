@@ -1,4 +1,4 @@
-import isPlainObject from 'lodash.isplainobject'
+import {isPlainObject} from 'lodash'
 
 export const isActionCreator = obj => !!(
   typeof(obj) === 'function' &&

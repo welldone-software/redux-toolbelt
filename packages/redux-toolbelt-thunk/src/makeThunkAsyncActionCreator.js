@@ -1,8 +1,5 @@
-import uuid from 'uuid'
-import makeAsyncActionCreator from '../../redux-toolbelt/src/makeAsyncActionCreator'
-import { getOptions } from '../../redux-toolbelt/src/utils'
-import _trivialArgsMapper from '../../redux-toolbelt/src/_trivialArgsMapper'
-import defaultOptions from '../../redux-toolbelt/src/_defaultActionCreatorOptions'
+import { v4 as uuidv4 } from 'uuid'
+import {makeAsyncActionCreator, getOptions, _trivialArgsMapper, defaultOptions} from 'redux-toolbelt'
 
 const EMPTY_ARRAY = []
 const EMPTY_OBJECT = {}
@@ -37,7 +34,7 @@ export default function makeThunkAsyncActionCreator(baseName, asyncFn, argsMappe
 
     const meta = { ...origMeta, _toolbeltAsyncFnArgs: asyncFnArgs }
 
-    const currentUuid = uuid.v4()
+    const currentUuid = uuidv4()
     actionsMap[meta.id || baseName] = currentUuid
 
     dispatch(actionCreator(payload, meta))

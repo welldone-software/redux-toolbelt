@@ -1,5 +1,5 @@
-import isFunction from 'lodash.isfunction'
-import constant from 'lodash.constant'
+import {isFunction} from 'lodash'
+import {constant} from 'lodash'
 
 // updateObjectProperty(obj, prop, newVal)
 // updateObjectProperty(obj, prop, updateFunc)

@@ -1,5 +1,5 @@
 import makeAsyncThunkActionCreator from '../src/makeThunkAsyncActionCreator'
-import { isActionCreator } from '../../redux-toolbelt/src/utils'
+import { isActionCreator } from 'redux-toolbelt'
 
 import configureMockStore from 'redux-mock-store'
 // import { applyMiddleware } from 'redux'
@@ -246,7 +246,7 @@ describe('Custom args mapper (argsMapper in options)', () => {
         {type: customAction.success.TYPE, payload: 3, meta: {_toolbeltAsyncFnArgs: [3]}},
       ])
     })
-    
+
   })
 
   test('ignore older parallel resolves by meta id', () => {
@@ -266,7 +266,7 @@ describe('Custom args mapper (argsMapper in options)', () => {
         {type: customAction.success.TYPE, payload: 4, meta:  {_toolbeltAsyncFnArgs: [4, {id: 'b'}], id: 'b'}},
       ])
     })
-    
+
   })
 })
 

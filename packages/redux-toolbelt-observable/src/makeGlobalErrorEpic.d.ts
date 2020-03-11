@@ -30,4 +30,4 @@ export declare function makeGlobalErrorEpic<I extends Action, O extends I, S = a
   mapper: makeSuffixesEpic.mapper<I, O, S>,
   suffixes: string[] | string,
   metaprops?: string
-  ):Epic<I, O, S>;
+):Epic<I, O, S>;

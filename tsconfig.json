@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    // base url is monorepo root.
+    "baseUrl": ".",
+
+    // modules are resolved using the es static resolution with node strategy
+    "module": "ESNext",
+    "moduleResolution": "node",
+
+    "lib": ["es2015"],
+
+    // resolution paths
+    "paths": {
+      "redux-toolbelt": [
+        "packages/redux-toolbelt/src"
+      ]
+    }
+  },
+  "include": [
+    "packages/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
