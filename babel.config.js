@@ -3,7 +3,7 @@ module.exports = function(api) {
     presets: [
       ['@babel/preset-env', {
         targets: api.env('test') ? {node: 'current'} : {},
-        modules: api.env('cjs') ? 'cjs' : false
+        modules: api.env('cjs') || api.env('test') ? 'cjs' : false,
       }],
     ],
     plugins: [
