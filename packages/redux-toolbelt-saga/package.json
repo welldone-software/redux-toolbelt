@@ -1,6 +1,6 @@
 {
   "name": "redux-toolbelt-saga",
-  "version": "2.1.5",
+  "version": "3.0.0-alpha.0",
   "description": "Saga helpers for redux-toolbelt",
   "main": "lib/index.js",
   "module": "src/index.js",
