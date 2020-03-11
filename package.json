@@ -3,7 +3,9 @@
   "private": true,
   "scripts": {
     "not-avail-start": "concurrently --kill-others --prefix \"[{name}]\" --names \"WEBPACK,SERVER\" \"yarn build --watch\" \"live-server --no-browser --mount=/dist:./dist lib/examples\"",
-    "build": "yarn workspaces run build",
+    "build:esm": "lerna exec -- babel src --root-mode=upward --out-dir esm && copyfiles -f \"src/*.d.ts\" esm",
+    "build:lib": "lerna exec -- babel src --root-mode=upward --out-dir lib --env-name cjs && copyfiles -f \"src/*.d.ts\" lib",
+    "build": "yarn build:esm && yarn build:lib",
     "test:watch": "yarn test -- --watch",
     "test": "jest --no-cache --runInBand",
     "lint": "eslint packages/*/src/**/*.js packages/*/test/**/*.js",
@@ -41,10 +43,6 @@
     }
   },
   "dependencies": {
-    "lodash-es": "^4.17.15",
-    "uuid": "^7.0.2"
-  },
-  "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.8.7",
     "@babel/plugin-proposal-export-default-from": "^7.8.3",
@@ -56,13 +54,11 @@
     "copyfiles": "^2.2.0",
     "cross-env": "^7.0.2",
     "eslint": "^6.8.0",
-    "eslint-loader": "^3.0.3",
     "eslint-plugin-jest": "^23.8.2",
     "jest": "^25.1.0",
     "jest-cli": "^25.1.0",
     "lerna": "^3.20.2",
     "live-server": "^1.2.1",
-    "lodash": "^4.17.15",
     "markdown-toc": "^1.2.0",
     "redux": "^4.0.5",
     "redux-mock-store": "^1.5.4",
@@ -71,6 +67,7 @@
     "redux-thunk": "^2.3.0",
     "rimraf": "^3.0.2",
     "rxjs": "^6.5.4",
-    "sinon": "^9.0.1"
+    "sinon": "^9.0.1",
+    "typescript": "^3.8.3"
   }
 }

@@ -4,3 +4,4 @@ commonjs
 *.log
 .idea
 lib
+esm

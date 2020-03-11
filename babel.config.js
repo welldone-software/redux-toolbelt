@@ -1,10 +1,10 @@
 module.exports = function(api) {
-  const targets = api.env('test') ?
-    {node: 'current'} : {}
-
   return {
     presets: [
-      ['@babel/preset-env', {targets}],
+      ['@babel/preset-env', {
+        targets: api.env('test') ? {node: 'current'} : {},
+        modules: api.env('cjs') ? 'cjs' : false
+      }],
     ],
     plugins: [
       ['transform-imports', {

@@ -3,10 +3,7 @@
   "version": "3.0.0-alpha.2",
   "description": "Async Actions helpers for redux-toolbelt",
   "main": "lib/index.js",
-  "module": "src/index.js",
-  "scripts": {
-    "build": "cross-env babel src --root-mode=upward --out-dir lib && copyfiles -f \"src/*.d.ts\" lib"
-  },
+  "module": "esm/index.js",
   "repository": "git+https://github.com/welldone-software/redux-toolbelt.git",
   "authors": [
     "Dani Kenan (dani@welldone-software.com)",
@@ -17,5 +14,11 @@
   "bugs": {
     "url": "https://github.com/welldone-software/redux-toolbelt/issues"
   },
-  "homepage": "https://github.com/welldone-software/redux-toolbelt#readme"
+  "homepage": "https://github.com/welldone-software/redux-toolbelt#readme",
+  "dependencies": {
+    "lodash-es": "^4.17.15"
+  },
+  "peerDependencies": {
+    "redux": "*"
+  }
 }
