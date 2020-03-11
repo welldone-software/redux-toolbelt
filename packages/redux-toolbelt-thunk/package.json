@@ -1,6 +1,6 @@
 {
   "name": "redux-toolbelt-thunk",
-  "version": "3.0.0-alpha.0",
+  "version": "3.0.0-alpha.1",
   "description": "Redux thunk helpers for redux-toolbelt",
   "main": "lib/index.js",
   "module": "src/index.js",
@@ -17,9 +17,7 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "redux-thunk": "^2.3.0"
-  },
-  "dependencies": {
-    "redux-toolbelt": "^3.0.0-alpha.0"
+    "redux-thunk": "^2.3.0",
+    "redux-toolbelt": "^3.0.0-alpha.1"
   }
 }
