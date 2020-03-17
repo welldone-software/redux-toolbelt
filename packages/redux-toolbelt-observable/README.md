@@ -19,6 +19,10 @@ A set of helper functions that extends 'redux-toolbelt' for usage with `redux-ob
 
 <!-- tocstop -->
 
+## Article
+
+[Read about `redux-toolbelt` here](https://medium.com/welldone-software/redux-toolbelt-supercharge-your-redux-ec16e704fe93)
+
 ## Installation
 
 The tools are available in the [`redux-toolbelt-observable`](https://www.npmjs.com/package/redux-toolbelt-observable) npm package.

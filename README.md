@@ -27,6 +27,10 @@ This repository is a monorepo that we manage using [Lerna](https://github.com/le
 | [`redux-toolbelt-saga`](/packages/redux-toolbelt-saga)                           | Utilities for using `redux-toolbelt` with `redux-saga`       |
 | [`redux-toolbelt-thunk`](/packages/redux-toolbelt-thunk)                         | Utilities for using `redux-toolbelt` with `redux-thunk`      |
 
+## Article
+
+[Read about `redux-toolbelt` here](https://medium.com/welldone-software/redux-toolbelt-supercharge-your-redux-ec16e704fe93)
+
 ## Demo
 
 A demo project can be found here:

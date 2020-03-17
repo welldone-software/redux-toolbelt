@@ -22,6 +22,10 @@ A set of helper functions that extends `redux-toolbelt` for usage with `redux-th
 
 <!-- tocstop -->
 
+## Article
+
+[Read about `redux-toolbelt` and `redux-toolbelt-thunk`here](https://medium.com/welldone-software/redux-toolbelt-supercharge-your-redux-ec16e704fe93)
+
 ## Installation
 First, you have to install the [`redux-thunk`](https://www.npmjs.com/package/redux-thunk) npm package:
 ```sh

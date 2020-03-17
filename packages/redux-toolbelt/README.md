@@ -30,7 +30,11 @@ Written in ES6.
   - [`composeReducers()`](#composereducers)
     - [Default State](#default-state)
   - [`isActionCreator()`](#isactioncreator)
-    <!-- tocstop -->
+<!-- tocstop -->
+
+## Article
+
+[Read about `redux-toolbelt` here](https://medium.com/welldone-software/redux-toolbelt-supercharge-your-redux-ec16e704fe93)
 
 ## Installation
 

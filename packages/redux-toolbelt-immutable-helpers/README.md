@@ -34,6 +34,10 @@ Written in ES6.
 
 <!-- tocstop -->
 
+## Article
+
+[Read about `redux-toolbelt` here](https://medium.com/welldone-software/redux-toolbelt-supercharge-your-redux-ec16e704fe93)
+
 ## Installation
 The helpers are available in the [`redux-toolbelt-immutable-helpers`](https://www.npmjs.com/package/redux-toolbelt-immutable-helpers) npm package.
 ```sh
