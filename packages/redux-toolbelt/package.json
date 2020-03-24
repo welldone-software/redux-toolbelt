@@ -1,6 +1,6 @@
 {
   "name": "redux-toolbelt",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Async Actions helpers for redux-toolbelt",
   "main": "lib/index.js",
   "module": "esm/index.js",
@@ -16,8 +16,8 @@
   },
   "homepage": "https://github.com/welldone-software/redux-toolbelt#readme",
   "dependencies": {
-    "lodash-es": "^4.17.15",
-    "lodash": "^4.17.15"
+    "lodash": "^4.17.15",
+    "lodash-es": "^4.17.15"
   },
   "peerDependencies": {
     "redux": "*"
