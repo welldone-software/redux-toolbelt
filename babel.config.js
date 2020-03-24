@@ -10,7 +10,7 @@ module.exports = function(api) {
       ['transform-imports', {
         lodash: {
           // eslint-disable-next-line no-template-curly-in-string
-          transform: 'lodash-es/${member}',
+          transform: api.env('cjs') ? 'lodash/${member}' : 'lodash-es/${member}',
           preventFullImport: true,
         },
       }],

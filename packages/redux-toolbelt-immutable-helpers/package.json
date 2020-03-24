@@ -16,6 +16,7 @@
   "homepage": "https://github.com/welldone-software/redux-toolbelt#readme",
   "dependencies": {
     "empty": "^0.10.1",
-    "lodash-es": "^4.17.15"
+    "lodash-es": "^4.17.15",
+    "lodash": "^4.17.15"
   }
 }
