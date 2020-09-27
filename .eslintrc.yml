@@ -38,3 +38,7 @@ rules:
     - always
   jest/no-test-callback:
     - off
+  jest/no-done-callback:
+    - off
+  jest/valid-title:
+    - off
