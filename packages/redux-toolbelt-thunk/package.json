@@ -1,6 +1,6 @@
 {
   "name": "redux-toolbelt-thunk",
-  "version": "3.1.0-alpha.1",
+  "version": "3.1.0",
   "description": "Redux thunk helpers for redux-toolbelt",
   "main": "lib/index.js",
   "module": "esm/index.js",
@@ -16,7 +16,7 @@
   "peerDependencies": {
     "redux": "*",
     "redux-thunk": "*",
-    "redux-toolbelt": "^3.1.0-alpha.1"
+    "redux-toolbelt": "^3.1.0"
   },
   "dependencies": {
     "uuid": "^7.0.2"

@@ -1,6 +1,6 @@
 {
   "name": "redux-toolbelt-saga",
-  "version": "3.1.0-alpha.1",
+  "version": "3.1.0",
   "description": "Saga helpers for redux-toolbelt",
   "main": "lib/index.js",
   "module": "esm/index.js",
@@ -16,6 +16,6 @@
   "license": "MIT",
   "peerDependencies": {
     "redux-saga": "*",
-    "redux-toolbelt": "^3.1.0-alpha.1"
+    "redux-toolbelt": "^3.1.0"
   }
 }
