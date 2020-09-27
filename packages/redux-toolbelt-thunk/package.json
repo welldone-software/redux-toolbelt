@@ -16,7 +16,7 @@
   "peerDependencies": {
     "redux": "*",
     "redux-thunk": "*",
-    "redux-toolbelt": "^3.0.0-alpha.2"
+    "redux-toolbelt": "^3.1.0-alpha.1"
   },
   "dependencies": {
     "uuid": "^7.0.2"

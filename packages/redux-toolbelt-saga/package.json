@@ -16,6 +16,6 @@
   "license": "MIT",
   "peerDependencies": {
     "redux-saga": "*",
-    "redux-toolbelt": "^3.0.0-alpha.2"
+    "redux-toolbelt": "^3.1.0-alpha.1"
   }
 }
