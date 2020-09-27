@@ -15,11 +15,10 @@
     "url": "https://github.com/welldone-software/redux-toolbelt/issues"
   },
   "homepage": "https://github.com/welldone-software/redux-toolbelt#readme",
-  "dependencies": {
-    "lodash": "^4.17.15",
-    "lodash-es": "^4.17.15"
-  },
   "peerDependencies": {
     "redux": "*"
+  },
+  "dependencies": {
+    "lodash": "^4"
   }
 }

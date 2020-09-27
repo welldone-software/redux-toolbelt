@@ -7,13 +7,6 @@ module.exports = function(api) {
       }],
     ],
     plugins: [
-      ['transform-imports', {
-        lodash: {
-          // eslint-disable-next-line no-template-curly-in-string
-          transform: api.env('cjs') ? 'lodash/${member}' : 'lodash-es/${member}',
-          preventFullImport: true,
-        },
-      }],
       '@babel/plugin-proposal-export-default-from',
       '@babel/plugin-proposal-export-namespace-from',
     ],
