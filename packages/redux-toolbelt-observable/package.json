@@ -16,7 +16,7 @@
   "homepage": "https://github.com/welldone-software/redux-toolbelt#readme",
   "peerDependencies": {
     "redux-observable": "*",
-    "redux-toolbelt": "3.1.0",
+    "redux-toolbelt": "^3.1.0",
     "rxjs": "*"
   },
   "dependencies": {
