@@ -5,3 +5,4 @@ commonjs
 .idea
 lib
 esm
+.npmrc
