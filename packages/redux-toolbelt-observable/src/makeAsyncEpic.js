@@ -23,9 +23,9 @@ export default function makeAsyncEpic(actionCreator, asyncFn, {ignoreOlderParall
         const meta = { ...origMeta, _toolbeltAsyncFnArgs: payload }
 
         return obs.pipe(
-          takeUntil(action$.pipe(ofType(actionCreator.cancel.TYPE))),
           map(payload => actionCreator.success(payload, meta)),
           catchError(error => of(actionCreator.failure(error, meta))),
+          takeUntil(action$.pipe(ofType(actionCreator.cancel.TYPE))),
         )
       }),
     )
