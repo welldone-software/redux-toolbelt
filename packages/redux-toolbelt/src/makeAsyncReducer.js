@@ -28,11 +28,13 @@ export default function makeAsyncReducer(actionCreator, options) {
           {
             loading: true,
             loaded: state && state.loaded || false,
+            ...(options.shouldDestroyDataOnError ? {} : {error: state.error}),
             ...(options.defaultData || {}),
           } :
           {
             loading: true,
             loaded: state && state.loaded || false,
+            ...(options.shouldDestroyDataOnError ? {} : {error: state.error}),
             [options.dataProp]: options.shouldDestroyData ? options.defaultData : state[options.dataProp],
           }
       case actionCreator.success.TYPE: {
