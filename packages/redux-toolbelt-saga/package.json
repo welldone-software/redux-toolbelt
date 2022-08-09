@@ -1,6 +1,6 @@
 {
   "name": "redux-toolbelt-saga",
-  "version": "3.1.4",
+  "version": "3.1.5",
   "description": "Saga helpers for redux-toolbelt",
   "main": "lib/index.js",
   "module": "esm/index.js",
@@ -18,5 +18,5 @@
     "redux-saga": "*",
     "redux-toolbelt": "^3.1.0"
   },
-  "gitHead": "dd5166fff9a441a84e1fb3e0bdc598810957ed66"
+  "gitHead": "e8c96513a784df808145d6b670f92185f4edb49c"
 }

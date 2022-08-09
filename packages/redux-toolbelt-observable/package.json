@@ -1,6 +1,6 @@
 {
   "name": "redux-toolbelt-observable",
-  "version": "3.1.8",
+  "version": "3.1.9",
   "description": "Epic helpers for redux-toolbelt",
   "main": "lib/index.js",
   "module": "esm/index.js",
@@ -22,5 +22,5 @@
   "dependencies": {
     "lodash": "^4"
   },
-  "gitHead": "dd5166fff9a441a84e1fb3e0bdc598810957ed66"
+  "gitHead": "e8c96513a784df808145d6b670f92185f4edb49c"
 }
