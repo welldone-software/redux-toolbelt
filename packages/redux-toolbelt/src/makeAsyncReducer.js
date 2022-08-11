@@ -14,7 +14,7 @@ export default function makeAsyncReducer(actionCreator, options) {
     shouldSpread: false,
     shouldSetData: true,
     dataGetter: undefined,
-    saveAsyncFnArgs: false
+    saveAsyncFnArgs: false,
   }
   options = Object.assign(defaults, options)
 
@@ -51,16 +51,14 @@ export default function makeAsyncReducer(actionCreator, options) {
               loaded: true,
               ...progress,
               ...data,
-              ...(options.saveAsyncFnArgs ? {asyncFnArgs: meta?._toolbeltAsyncFnArgs} : {})
+              ...(options.saveAsyncFnArgs ? {asyncFnArgs: meta?._toolbeltAsyncFnArgs} : {}),
           } :
           {
-              loading: false,
-              loaded: true,
-              ...progress,
-              [options.dataProp]: {
-                  ...data,
-                  ...(options.saveAsyncFnArgs ? {asyncFnArgs: meta?._toolbeltAsyncFnArgs} : {})
-              }
+            loading: false,
+            loaded: true,
+            ...progress, 
+            [options.dataProp]: data,
+            ...(options.saveAsyncFnArgs ? {asyncFnArgs: meta?._toolbeltAsyncFnArgs} : {}),
           }
       }
       case actionCreator.progress.TYPE:
