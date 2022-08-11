@@ -14,6 +14,7 @@ export default function makeAsyncReducer(actionCreator, options) {
     shouldSpread: false,
     shouldSetData: true,
     dataGetter: undefined,
+    saveAsyncFnArgs: false
   }
   options = Object.assign(defaults, options)
 
@@ -45,8 +46,22 @@ export default function makeAsyncReducer(actionCreator, options) {
         const data = typeof(options.dataGetter) === 'function' ?
           options.dataGetter(state, {type, payload, meta}) : payload
         return options.shouldSpread ?
-          {loading: false, loaded: true, ...progress, ...data} :
-          {loading: false, loaded: true, ...progress, [options.dataProp]: data}
+          {
+              loading: false,
+              loaded: true,
+              ...progress,
+              ...data,
+              ...(options.saveAsyncFnArgs ? {asyncFnArgs: meta?._toolbeltAsyncFnArgs} : {})
+          } :
+          {
+              loading: false,
+              loaded: true,
+              ...progress,
+              [options.dataProp]: {
+                  ...data,
+                  ...(options.saveAsyncFnArgs ? {asyncFnArgs: meta?._toolbeltAsyncFnArgs} : {})
+              }
+          }
       }
       case actionCreator.progress.TYPE:
         return {...state, progress: payload}
