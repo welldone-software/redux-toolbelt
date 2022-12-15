@@ -1,6 +1,6 @@
 {
   "name": "redux-toolbelt-immutable-helpers",
-  "version": "3.1.9",
+  "version": "3.1.10",
   "description": "Immutable helpers for redux-toolbelt",
   "main": "lib/index.js",
   "module": "esm/index.js",
@@ -18,5 +18,5 @@
     "empty": "^0.10.1",
     "lodash": "^4"
   },
-  "gitHead": "1e3f485b605ce0f01c02fd11b2d06225c8a01b71"
+  "gitHead": "42c9bba0e2d69a1040e6eabebe777c516224223d"
 }
