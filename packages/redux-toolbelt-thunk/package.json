@@ -1,6 +1,6 @@
 {
   "name": "redux-toolbelt-thunk",
-  "version": "3.1.10",
+  "version": "3.1.11",
   "description": "Redux thunk helpers for redux-toolbelt",
   "main": "lib/index.js",
   "module": "esm/index.js",
