@@ -56,7 +56,7 @@ export default function makeAsyncReducer(actionCreator, options) {
           {
             loading: false,
             loaded: true,
-            ...progress, 
+            ...progress,
             [options.dataProp]: data,
             ...(options.saveAsyncFnArgs ? {asyncFnArgs: meta?._toolbeltAsyncFnArgs} : {}),
           }
@@ -68,6 +68,7 @@ export default function makeAsyncReducer(actionCreator, options) {
           ...(options.shouldDestroyDataOnError ? {} : state),
           loading: false,
           error: options.shouldSetError ? payload : undefined,
+          ...(options.saveAsyncFnArgs ? {asyncFnArgs: meta?._toolbeltAsyncFnArgs} : {}),
         }
       default:
         return state
